@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    hotel-classic — LimeSurvey child theme manifest (Milestone 2).
+    Extends the stock vanilla theme. All customisation lives in this directory;
+    no LimeSurvey core file is modified.
+
+    NOTE (LimeSurvey 6 manifest rules, see research R-01):
+      * "add" with a name that exists in the parent theme REPLACES that file.
+        This manifest therefore only adds new file names
+        (css/tokens.css, css/fonts.css, css/hotel.css, scripts/custom.js)
+        and never css/theme.css, which would drop vanilla's base stylesheet.
+      * After every change to this file the theme must be Reset in
+        Admin -> Configuration -> Themes (the manifest is cached in the DB).
+-->
+<config>
+    <metadata>
+        <name>hotel-classic</name>
+        <title>Hotel Classic (development placeholder brand)</title>
+        <type>theme</type>
+        <creationDate>04/11/2026</creationDate>
+        <author>Hotel Guest Survey (development)</author>
+        <authorEmail>management@hotel.example</authorEmail>
+        <authorUrl></authorUrl>
+        <copyright>Copyright (c) Hotel Guest Survey development. Placeholder brand.</copyright>
+        <license>GNU General Public License version 2 or later</license>
+        <version>2.0.0</version>
+        <apiVersion>3</apiVersion>
+        <description><![CDATA[Child theme of vanilla for the hotel guest survey (English and Persian).
+        The Paradise Garden Hotel / Bagh-e Pardis brand used here is a DEVELOPMENT PLACEHOLDER
+        and is not cleared for production; replace it before launch (see docs/brand.md).]]></description>
+        <lastUpdate>2026-11-04 12:00:00</lastUpdate>
+        <extends>vanilla</extends>
+    </metadata>
+
+    <compatibility>
+        <version>6.0</version>
+    </compatibility>
+
+    <files>
+        <css>
+            <!-- Order matters: tokens first, then @font-face rules, then all hotel styling. -->
+            <add>css/tokens.css</add>
+            <add>css/fonts.css</add>
+            <add>css/hotel.css</add>
+        </css>
+        <js>
+            <add>scripts/custom.js</add>
+        </js>
+    </files>
+
+    <options>
+        <!-- FR-037: the single switch for the guest-page placeholder notice. -->
+        <placeholdernotice type="buttons" category="Placeholder brand" width="8" title="Show the placeholder-brand notice on guest pages" options="on|off" optionlabels="On|Off">on</placeholdernotice>
+        <!-- FR-014: validation messages are shown on the page, next to the question. -->
+        <showpopups type="buttons" category="Simple options" width="4" title="Show popups" options="1|0|-1" optionlabels="Popup|On page|No">0</showpopups>
+        <showclearall type="buttons" category="Simple options" width="4" title="Show 'Clear all' button" options="on|off" optionlabels="Yes|No">off</showclearall>
+        <questionhelptextposition type="buttons" category="Simple options" width="4" title="Question help text position" options="top|bottom" optionlabels="Top|Bottom">top</questionhelptextposition>
+        <!-- A-11: no logo image, the wordmark is text. -->
+        <brandlogo type="buttons" category="Images" width="4" title="Logo" options="on|off" optionlabels="Yes|No">off</brandlogo>
+    </options>
+
+    <engine>
+        <optionspage>core</optionspage>
+        <!-- Required: without this, getDependsPackages() does not register the
+             bootstrap package (nor bootstrap-rtl on Persian screens), see
+             TemplateConfig.php. Same value as vanilla's manifest. -->
+        <cssframework>
+            <name>bootstrap</name>
+        </cssframework>
+    </engine>
+
+    <updaters disabled="disabled">
+    </updaters>
+</config>

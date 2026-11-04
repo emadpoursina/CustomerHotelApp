@@ -1,0 +1,538 @@
+/*
+ * hotel-classic — all hotel styling (FR-026, FR-031).
+ *
+ * Rules of this file:
+ *   - Every colour, font, size, radius and spacing value is a var(--token)
+ *     defined in css/tokens.css. Hex values live only in tokens.css.
+ *   - Layout uses CSS logical properties (margin-inline-*, padding-inline-*,
+ *     inset-inline-start, text-align: start) so one sheet serves both LTR
+ *     and RTL screens (FR-031).
+ *   - Mobile-first. Interactive controls are at least var(--touch-min) high.
+ */
+
+/* ==========================================================================
+   Base (cross-cutting)
+   ========================================================================== */
+
+/* Persian typefaces for Persian text (FR-028). Setting font-family explicitly
+   under :lang(fa) also catches Persian text embedded in English screens —
+   for example the Persian hotel name inside a <bdi lang="fa"> on an English
+   page — which inherits no Persian font otherwise. */
+:lang(fa) {
+  --font-heading: var(--font-heading-fa);
+  --font-body: var(--font-body-fa);
+  font-family: var(--font-body-fa);
+}
+
+/* Body and interface text. */
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  text-align: start;
+  overflow-wrap: break-word;
+}
+
+/* Headings use the heading face — the Persian stacks win on Persian screens
+   because this selector (0,1,1) beats :lang(fa) (0,1,0). */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+:lang(fa) h1,
+:lang(fa) h2,
+:lang(fa) h3,
+:lang(fa) h4,
+:lang(fa) h5,
+:lang(fa) h6 {
+  font-family: var(--font-heading-fa);
+}
+
+/* The wordmark is decorative brand text: it always uses the Latin heading
+   stack, on both English and Persian screens (FR-030, fix: Latin heading
+   token). Declared after :lang(fa) so it wins ties on Persian screens. */
+.hotel-wordmark {
+  font-family: var(--font-heading-latin);
+}
+
+/* Embedded brand names (brand.twig): each keeps its own brand face, which
+   also guarantees the Persian name renders in a Persian-capable face on
+   English screens (fix: Persian brand name). */
+.hotel-bdi-en {
+  font-family: var(--font-heading-latin);
+}
+
+.hotel-bdi-fa,
+:lang(fa) .hotel-bdi-fa {
+  font-family: var(--font-heading-fa);
+}
+
+/* Dual-language hide rule (research R-08): views that cannot read the page
+   language (core views rendered by the Expression Manager) output both
+   language variants; exactly one is visible, and display:none also removes
+   the other one from the accessibility tree. */
+html:not(:lang(fa)) [lang="fa"].hotel-i18n,
+html:lang(fa) [lang="en"].hotel-i18n {
+  display: none;
+}
+
+/* Overflow guards (FR-031, US3-AS4): nothing wider than the screen. */
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Layout and cards (US1, US3)
+   ========================================================================== */
+
+#limesurvey,
+.hotel-header {
+  max-width: var(--width-survey);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  box-sizing: border-box;
+}
+
+.question-container.row,
+.hotel-welcome,
+.hotel-done {
+  margin-inline: 0;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-5);
+  margin-block-end: var(--space-4);
+  box-sizing: border-box;
+}
+
+/* Help and validation lines use the muted text colour, not Bootstrap's
+   info blue (contract §4). The engine's default validation text is English
+   core copy, so it is hidden: the theme's own required message (mandatory_tip)
+   and the Required marker carry the guidance in both languages (FR-007). */
+.question-help-container,
+.question-valid-container,
+.ls-questionhelp {
+  color: var(--color-text-muted) !important;
+  font-size: var(--size-body-sm);
+  text-align: start;
+}
+
+.question-help-container .ls-questionhelp::before,
+.question-help-container .ls-questionhelp::after,
+.question-valid-container .ls-questionhelp::before,
+.question-valid-container .ls-questionhelp::after {
+  content: none;
+  display: none;
+}
+
+.question-valid-container .em_default,
+.question-help-container [class^="ri-"],
+.question-help-container [class*=" ri-"] {
+  display: none;
+}
+
+/* ==========================================================================
+   Brand header and placeholder notice (FR-021, FR-030, FR-037; US3)
+   ========================================================================== */
+
+.hotel-header {
+  padding-block: var(--space-6) var(--space-4);
+  text-align: center;
+}
+
+.hotel-wordmark {
+  display: inline-block;
+  font-size: var(--size-h2);
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+.hotel-notice {
+  margin-block: var(--space-2) 0;
+  font-size: var(--size-label);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Welcome screen (FR-001 to FR-003)
+   ========================================================================== */
+
+.hotel-title {
+  font-size: var(--size-h1);
+  line-height: 1.2;
+  color: var(--color-text);
+  margin-block: 0 var(--space-2);
+}
+
+.hotel-tagline {
+  font-size: var(--size-h3);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-block: 0 var(--space-4);
+}
+
+.hotel-welcome-text p {
+  font-size: var(--size-body);
+  color: var(--color-text);
+  margin-block: 0 var(--space-3);
+}
+
+.hotel-welcome-text .hotel-welcome-time {
+  font-size: var(--size-body-sm);
+  color: var(--color-text-muted);
+}
+
+.hotel-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block: var(--space-4);
+}
+
+.hotel-lang-link {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--size-body-sm);
+  text-decoration: none;
+}
+
+.hotel-lang-link[aria-current="true"] {
+  border-color: var(--color-accent);
+  border-width: var(--border-width-selected);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Question headings and markers (FR-013, FR-014; US2)
+   ========================================================================== */
+
+.hotel-marker {
+  display: inline-block;
+  font-size: var(--size-label);
+  color: var(--color-text-muted);
+  margin-inline-end: var(--space-2);
+}
+
+.hotel-marker-required {
+  font-weight: 600;
+}
+
+.ls-label-question,
+.question-text {
+  font-size: var(--size-h3);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-block: var(--space-1) var(--space-3);
+}
+
+/* Validation message: error colour plus an icon as the non-colour cue,
+   placed with logical properties so it mirrors on RTL pages (FR-014, FR-031). */
+.hotel-required-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-block: var(--space-3) 0;
+  color: var(--color-error);
+  font-size: var(--size-body-sm);
+}
+
+.hotel-required-icon {
+  flex: none;
+  display: inline-flex;
+  padding-block-start: 1px;
+}
+
+/* ==========================================================================
+   Rating tiles (FR-011, FR-012; research R-03, R-04; US3)
+   ========================================================================== */
+
+.hotel-scale .list-radio,
+.hotel-scale li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hotel-scale ul,
+.hotel-scale .answer-container ul {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+/* 0-10: four columns on phones so each tile stays at or above the 48px touch
+   target at 360px (FR-012, no horizontal scrolling); six columns from 540px. */
+.hotel-scale-11 ul,
+.hotel-scale-11 .answer-container ul {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (min-width: 540px) {
+  .hotel-scale-11 ul,
+  .hotel-scale-11 .answer-container ul {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Bootstrap draws its own radio circle on labels; the tile is the control. */
+.hotel-scale label::before {
+  display: none;
+}
+
+/* Real radio inputs stay in the accessibility tree and keyboard order, but
+   are visually hidden (not display:none). */
+.hotel-scale input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.hotel-scale label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-1);
+  padding-block-start: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--size-body);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Selected: gold border (accent) plus a thicker border and a check glyph, so
+   the state does not rely on colour alone (contract §5, US3-AS3). */
+.hotel-scale input[type="radio"]:checked + label {
+  border-color: var(--color-accent);
+  border-width: var(--border-width-selected);
+  font-weight: 600;
+}
+
+.hotel-scale label::after {
+  content: none;
+  display: none;
+}
+
+/* Check mark drawn with borders (no glyph font needed), in the text colour. */
+.hotel-scale input[type="radio"]:checked + label::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline: 0;
+  margin-inline: auto;
+  width: 6px;
+  height: 11px;
+  border: solid var(--color-text);
+  border-width: 0 var(--border-width-selected) var(--border-width-selected) 0;
+  transform: rotate(45deg);
+}
+
+/* Focus ring is the text colour, distinct from the gold selected state. */
+.hotel-scale input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Reading direction: the grid follows the page direction by default
+   (research R-04). The single-rule switch below is pending operator review
+   and stays off:
+   [dir="rtl"] .hotel-scale { direction: ltr; } */
+
+/* ==========================================================================
+   Comment fields (FR-013, edge case "Mixed-direction comments"; research R-14)
+   ========================================================================== */
+
+/* Q8 and Q9 carry the help text "Optional", which repeats the Optional marker
+   from question_text_content.twig, so the duplicate line is hidden here. The
+   help text stays in the survey data (both languages). */
+.hotel-comment .question-help-container {
+  display: none;
+}
+
+.hotel-comment textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  unicode-bidi: plaintext;
+  text-align: start;
+  box-sizing: border-box;
+}
+
+.hotel-comment textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Progress bar (FR-016; US1, US3)
+   ========================================================================== */
+
+.hotel-progress {
+  max-width: var(--width-survey);
+  margin-block: var(--space-4) var(--space-2);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  box-sizing: border-box;
+}
+
+.hotel-progress-track {
+  position: relative;
+  height: var(--progress-height);
+  border-radius: var(--progress-height);
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+/* Fill starts at the inline start, so it runs right to left on Persian pages. */
+.hotel-progress-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--color-accent);
+  border-radius: var(--progress-height);
+}
+
+.hotel-progress-step {
+  margin: var(--space-2) 0 0;
+  font-size: var(--size-support);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Navigation buttons (FR-010, FR-029; US3)
+   ========================================================================== */
+
+.hotel-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+}
+
+.hotel-nav > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Continue alone on Q1 spans the full width. */
+.hotel-nav > *:only-child {
+  flex-basis: 100%;
+}
+
+.hotel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-control);
+  border: var(--border-width) solid var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.hotel-btn-primary {
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.hotel-btn-primary:hover,
+.hotel-btn-primary:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.hotel-btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+  font-weight: 500;
+}
+
+.hotel-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Thank-you screen and error page (FR-019, FR-021; US3)
+   ========================================================================== */
+
+.hotel-done {
+  text-align: center;
+}
+
+.hotel-done-icon {
+  display: flex;
+  justify-content: center;
+  color: var(--color-success);
+  margin-block-end: var(--space-3);
+}
+
+.hotel-done-heading {
+  font-size: var(--size-h2);
+  color: var(--color-text);
+  margin-block: 0 var(--space-2);
+}
+
+.hotel-done-message {
+  font-size: var(--size-body);
+  color: var(--color-text);
+  margin-block: 0 var(--space-4);
+}
+
+.hotel-done-names {
+  margin-block-start: var(--space-4);
+  font-size: var(--size-support);
+  color: var(--color-text-muted);
+}
+
+.hotel-names {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.hotel-names-sep {
+  color: var(--color-text-muted);
+}

@@ -5,6 +5,10 @@
 backups/
 scratch/
 
+# Worker run logs (Pi, Antigravity, Claude harnesses)
+.agent/
+.pi/
+
 # OS / editor
 .DS_Store
 .idea/

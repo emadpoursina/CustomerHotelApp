@@ -1,0 +1,95 @@
+{
+ "detect-fa": {
+  "url": "?lang=fa",
+  "lang": "fa",
+  "dir": "rtl",
+  "nav": "fa-IR",
+  "navs": "fa-IR,fa;q=0.9,en;q=0.8",
+  "notice": true,
+  "heading": "نظرسنجی مهمانان – باغ پردیس",
+  "start": "شروع نظرسنجی"
+ },
+ "detect-en": {
+  "url": "",
+  "lang": "en",
+  "dir": "ltr",
+  "nav": "en-US",
+  "navs": "en-US,en;q=0.9",
+  "notice": true,
+  "heading": "Paradise Garden Hotel – Guest survey",
+  "start": "Start survey"
+ },
+ "detect-de": {
+  "url": "",
+  "lang": "en",
+  "dir": "ltr",
+  "nav": "de-DE",
+  "navs": "de-DE,de;q=0.9",
+  "notice": true,
+  "heading": "Paradise Garden Hotel – Guest survey",
+  "start": "Start survey"
+ },
+ "detect-fr": {
+  "url": "",
+  "lang": "en",
+  "dir": "ltr",
+  "nav": "fr-FR",
+  "navs": "fr-FR,fr;q=0.9",
+  "notice": true,
+  "heading": "Paradise Garden Hotel – Guest survey",
+  "start": "Start survey"
+ },
+ "w4": {
+  "beforeSwitch": {
+   "url": "?lang=en",
+   "lang": "en",
+   "dir": "ltr",
+   "nav": "en-US",
+   "navs": "en-US,en;q=0.9",
+   "notice": true,
+   "heading": "Paradise Garden Hotel – Guest survey",
+   "start": "Start survey"
+  },
+  "afterFa": {
+   "url": "?lang=fa",
+   "lang": "fa",
+   "dir": "rtl",
+   "nav": "en-US",
+   "navs": "en-US,en;q=0.9",
+   "notice": true,
+   "heading": "نظرسنجی مهمانان – باغ پردیس",
+   "start": "شروع نظرسنجی"
+  },
+  "afterEn": {
+   "url": "?lang=en",
+   "lang": "en",
+   "dir": "ltr",
+   "nav": "en-US",
+   "navs": "en-US,en;q=0.9",
+   "notice": true,
+   "heading": "Paradise Garden Hotel – Guest survey",
+   "start": "Start survey"
+  },
+  "responsesAdded": 0
+ },
+ "preview-en": {
+  "url": "?newtest=Y&lang=en",
+  "lang": "en",
+  "dir": "ltr",
+  "nav": "en-US",
+  "navs": "en-US",
+  "notice": true,
+  "heading": "Paradise Garden Hotel – Guest survey",
+  "start": "Start survey"
+ },
+ "preview-fa": {
+  "url": "?newtest=Y&lang=fa",
+  "lang": "fa",
+  "dir": "rtl",
+  "nav": "en-US",
+  "navs": "en-US",
+  "notice": true,
+  "heading": "نظرسنجی مهمانان – باغ پردیس",
+  "start": "شروع نظرسنجی"
+ }
+}

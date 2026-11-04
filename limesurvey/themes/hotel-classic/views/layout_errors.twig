@@ -1,0 +1,68 @@
+{#
+    hotel-classic — engine error page override (T060, FR-007, research R-11).
+
+    Replaces vanilla's layout_errors.twig (theme-level override, no core edit). It keeps the
+    vanilla structure (css/errors.css, #error-card, footer) but replaces the English core strings
+    (title, message, contact line, page title) with fa/en strings from subviews/hotel/i18n.twig.
+
+    Language: aSurveyInfo.languagecode is 'fa' or 'en' when the engine could determine the
+    guest's language. If it is anything else, both languages are shown (Persian block rtl,
+    English block ltr). The raw engine message (aError.message) and trace are deliberately not
+    printed: they are core English text and can expose internals.
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{{ registerTemplateCssFile('css/errors.css') }}
+{% set aError = aSurveyInfo.aError %}
+{% set code = aSurveyInfo.languagecode %}
+{% if code == 'fa' or code == 'en' %}
+    {% set langs = [code] %}
+{% else %}
+    {% set langs = ['fa', 'en'] %}
+{% endif %}
+{% set pageLang = langs|length == 1 ? code : 'fa' %}
+{% set pageDir = pageLang == 'fa' ? 'rtl' : 'ltr' %}
+
+<!DOCTYPE html>
+<html lang="{{ pageLang }}" dir="{{ pageDir }}"
+      class="{{ pageLang }} dir-{{ pageDir }} {{ aSurveyInfo.class.html }}" {{ aSurveyInfo.attr.html }}>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>{% for l in langs %}{{ i18n.t('error.page_title', l) }}{% if not loop.last %} / {% endif %}{% endfor %}</title>
+
+    <meta name="generator" content="LimeSurvey http://www.limesurvey.org"/>
+    {% if(imageSrc('./files/favicon.ico')) %}
+        <link rel="shortcut icon" href="{{ imageSrc('./files/favicon.ico') }}"/>
+    {% endif %}
+</head>
+
+<body class="{{ aSurveyInfo.class.body }} lang-{{ pageLang }} {{ surveyformat }}" {{ aSurveyInfo.attr.body }}>
+<div class="container">
+    <div id="error-card" class="card w-75 mt-6 mb-0 mx-auto">
+        <div class="card-body">
+            {% for l in langs %}
+                <section class="hotel-error-block" lang="{{ l }}" dir="{{ l == 'fa' ? 'rtl' : 'ltr' }}">
+                    <h2 class="card-title">{{ i18n.t('error.title', l) }}</h2>
+                    <hr>
+                    <div class="card-text">{{ i18n.t('error.message', l) }}</div>
+                    <div class="card-text">
+                        {{ i18n.t('error.contact', l) }}
+                        {% if aSurveyInfo.adminemail %}
+                            <br>
+                            <a class="card-link" href="mailto:{{ aSurveyInfo.adminemail }}" dir="ltr">{{ aSurveyInfo.adminemail }}</a>
+                        {% endif %}
+                    </div>
+                </section>
+                {% if not loop.last %}<hr>{% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% block footer %}
+    {{ include('./subviews/footer/footer.twig') }}
+{% endblock %}
+</body>
+</html>

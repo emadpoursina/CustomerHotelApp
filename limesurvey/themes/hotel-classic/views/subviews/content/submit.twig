@@ -1,0 +1,41 @@
+{#
+  hotel-classic — thank-you screen (FR-019, FR-020, FR-021, US1-AS8, A-11).
+  Shows a neutral check icon (currentColor, no hex), the thank-you heading and
+  appreciation message from the admin end text, and both hotel names through
+  brand.names(). No progress, navigation or language control (theme contract §4).
+#}
+{% import './subviews/hotel/brand.twig' as brand %}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% set lang = aSurveyInfo.languagecode %}
+
+{# include the form opening tag #}
+<!-- main form -->
+{{ include('./subviews/header/start_form.twig') }}
+    {# Script and hidden inputs needed by the ExpressionScript engine #}
+    {{ aSurveyInfo.EM.ScriptsAndHiddenInputs }}
+    <div class="hotel-done {{ aSurveyInfo.class.submitwrapper }}" {{ aSurveyInfo.attr.submitwrapper }}>
+        <div class="hotel-done-icon" role="img" aria-label="{{ i18n.t('done.icon_label', lang) }}">
+            <svg viewBox="0 0 24 24" width="48" height="48" focusable="false" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="hotel-done-text {{ aSurveyInfo.class.submitwrappertext }}" {{ aSurveyInfo.attr.submitwrappertext }}>
+            {% block endtext %}
+            {% if (aSurveyInfo.aCompleted.showDefault == true) %}
+                <h2 class="hotel-done-heading">{{ gT("Thank you!") }}</h2>
+                <p class="hotel-done-message">{{ gT("Your survey responses have been recorded.") }}</p>
+            {% else %}
+                {{ aSurveyInfo.aCompleted.sEndText }}
+            {% endif %}
+            {% endblock %}
+
+            {# Before LS3 Master, this should be replace by a Twig block logic #}
+            {{ aSurveyInfo.aCompleted.sPluginHTML }}
+
+            {% block endurl %}
+            {% if (aSurveyInfo.aCompleted.sSurveylsUrl) %}
+                <a href="{{ str_replace('"', '%22', aSurveyInfo.aCompleted.sSurveylsUrl) }}">{{ aSurveyInfo.aCompleted.sSurveylsUrlDescription }}</a>
+            {% endif %}
+            {% endblock %}
+        </div>
+        <div class="hotel-done-names">{{ brand.names() }}</div>
+    </div>
+</form> <!-- main form -->

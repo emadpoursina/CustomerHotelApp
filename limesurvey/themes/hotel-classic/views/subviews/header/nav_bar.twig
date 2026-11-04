@@ -1,0 +1,18 @@
+{#
+  hotel-classic — brand header and placeholder notice (FR-021, FR-030, FR-037,
+  research R-15, theme contract §4). Replaces vanilla's Bootstrap navbar.
+
+  * No language menu here: the language is fixed once the survey starts (FR-006).
+    The welcome-screen selector lives in language_changer_first_page.twig.
+  * The notice is shown only when the placeholdernotice option is 'on' (one switch).
+#}
+{% import './subviews/hotel/brand.twig' as brand %}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% if not aSurveyInfo.popupPreview %}
+    <header class="hotel-header" id="survey-nav">
+        <div class="hotel-brand">{{ brand.wordmark() }}</div>
+        {% if aSurveyInfo.options.placeholdernotice == 'on' %}
+            <p class="hotel-notice" role="note" lang="{{ aSurveyInfo.languagecode }}" dir="{{ aSurveyInfo.dir }}">{{ i18n.t('notice.placeholder', aSurveyInfo.languagecode) }}</p>
+        {% endif %}
+    </header>
+{% endif %}

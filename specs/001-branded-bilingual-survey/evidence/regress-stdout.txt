@@ -1,0 +1,21 @@
+done rg-en-320 14773 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+FAIL rg-fa-320 Execution context was destroyed, most likely because of a navigation.
+done rg-en-360 15343 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done rg-fa-360 14147 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done rg-en-390 14050 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done rg-fa-390 14750 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done rg-en-1280 13615 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done rg-fa-1280 14229 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done tm-en-360 9546 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done tm-fa-360 9206 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done tm-en-390 8866 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done tm-fa-390 8617 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done z2-en-180 10068 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done z2-fa-180 10282 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done f4g-en-360 11500 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done f4g-fa-360 11195 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done dbl-en-360 14427 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done dbl-fa-360 14395 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+done long-en-360 9653 ms; added {"addedTotal":1,"addedCompleted":1} longCheck yes
+done nofont-fa-360 9655 ms; added {"addedTotal":1,"addedCompleted":1} longCheck -
+ALL DONE

@@ -1,0 +1,45 @@
+{#
+  hotel-classic — navigation buttons (FR-010, FR-017, research R-02, contract §4).
+
+  The buttons keep vanilla's attributes (name, value, type, id) through
+  aSurveyInfo.attr.* and aSurveyInfo.class.*, so the engine still handles
+  moveprev / movenext / movesubmit. Only the labels and the visibility change.
+  * Start survey on the welcome screen (include_content 'firstpage').
+  * Back only from question 2 onward: progress.currentstep is 0 on Q1.
+  * Submit on the last question, Continue elsewhere.
+  Flex order mirrors on RTL pages, so no left/right is hard-coded.
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% set aNavigator = aSurveyInfo.aNavigator %}
+{% set lang = aSurveyInfo.languagecode %}
+{% set isWelcome = aSurveyInfo.include_content == 'firstpage' %}
+{% set showBack = (not aSurveyInfo.popupPreview) and aNavigator.aMovePrev.show and (not isWelcome) and aSurveyInfo.progress.currentstep > 0 %}
+
+<!-- PRESENT THE NAVIGATOR -->
+<div class="{{ aSurveyInfo.class.navigatorcontainer }} hotel-nav" id="{{ aSurveyInfo.id.navigatorcontainer }}" {{ aSurveyInfo.attr.navigatorcontainer }}>
+
+    {% if showBack %}
+        <div class="{{ aSurveyInfo.class.navigatorbuttonl }} hotel-nav-back" {{ aSurveyInfo.attr.navigatorbuttonl }}>
+            <button {{ aSurveyInfo.attr.navigatorbuttonprev }} accesskey="p" class="{{ aNavigator.disabled }} {{ aSurveyInfo.class.navigatorbuttonprev }} hotel-btn hotel-btn-secondary">{{ i18n.t('nav.back', lang) }}</button>
+        </div>
+    {% endif %}
+
+    {% if (not aSurveyInfo.popupPreview) and aNavigator.aMoveNext.show %}
+        <div class="{{ aSurveyInfo.class.navigatorbuttonr }} hotel-nav-next">
+            {% if isWelcome %}
+                {% set nextLabel = i18n.t('nav.start', lang) %}
+            {% elseif aNavigator.aMoveNext.value == 'movesubmit' %}
+                {% set nextLabel = i18n.t('nav.submit', lang) %}
+            {% else %}
+                {% set nextLabel = i18n.t('nav.continue', lang) %}
+            {% endif %}
+            {% if aNavigator.aMoveNext.value == 'movesubmit' %}
+                <button {{ aSurveyInfo.attr.navigatorbuttonsubmit }} accesskey="n" class="{{ aNavigator.disabled }} {{ aSurveyInfo.class.navigatorbuttonsubmit }} hotel-btn hotel-btn-primary">{{ nextLabel }}</button>
+            {% else %}
+                <button {{ aSurveyInfo.attr.navigatorbuttonnext }} accesskey="n" class="{{ aNavigator.disabled }} {{ aSurveyInfo.class.navigatorbuttonnext }} hotel-btn hotel-btn-primary">{{ nextLabel }}</button>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+<!-- Extra navigator part -->
+{{ include('./subviews/navigation/navigator_complement.twig') }}

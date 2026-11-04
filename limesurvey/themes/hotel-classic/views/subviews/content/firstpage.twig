@@ -1,0 +1,41 @@
+{#
+  hotel-classic — welcome screen (FR-001 to FR-003, theme contract §4).
+  Order: survey title (h1), tagline (h2, from brand.tagline in i18n.twig, not
+  from admin copy), then the admin welcome text (message, intro, time), the
+  language selector and the Start button. The survey description is not shown.
+  Screen-reader order: title, tagline, welcome text, selector, start.
+#}
+{% import './subviews/hotel/brand.twig' as brand %}
+
+{# Include the alert for no JavaScript #}
+{{ include('./subviews/messages/no_js_alert.twig') }}
+
+{# Include the language selector (welcome screen only) #}
+{{ include('./subviews/navigation/language_changer_first_page.twig') }}
+
+{# Include the form opening tag #}
+{{ include('./subviews/header/start_form.twig') }} <!-- main form -->
+
+    {# Script and hidden inputs needed by the ExpressionScript engine #}
+    {{ aSurveyInfo.EM.ScriptsAndHiddenInputs }}
+
+    <!-- Welcome Message -->
+    <div id="{{ aSurveyInfo.id.welcomecontainer }}" class="hotel-welcome {{ aSurveyInfo.class.welcomecontainer }}" {{ aSurveyInfo.attr.welcomecontainer }}>
+        <h1 class="hotel-title {{ aSurveyInfo.class.surveyname }}" {{ aSurveyInfo.attr.surveyname }}>{{ processString(aSurveyInfo.name, 1) }}</h1>
+        <h2 class="hotel-tagline" lang="{{ aSurveyInfo.languagecode }}" dir="{{ aSurveyInfo.dir }}">{{ brand.tagline(aSurveyInfo.languagecode) }}</h2>
+        <div class="hotel-welcome-text {{ aSurveyInfo.class.welcome }}" {{ aSurveyInfo.attr.welcome }}>
+            {{ processString(aSurveyInfo.welcome, 1) }}
+        </div>
+    </div>
+
+    {{ include('./subviews/privacy/privacy.twig') }}
+
+    {# Presents the navigator (Start survey) #}
+    {{ include('./subviews/navigation/navigator.twig') }}
+</form> <!-- main form -->
+
+{{ registerScript("BasicFirstPageThemeScripts", "
+    if(window.basicThemeScripts === undefined){
+        window.basicThemeScripts = new ThemeScripts();
+    }
+", 'POS_POSTSCRIPT') }}

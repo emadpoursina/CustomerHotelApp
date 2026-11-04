@@ -1,0 +1,653 @@
+{
+ "tag": "rg-en-360",
+ "lang": "en",
+ "width": 360,
+ "totalMs": 12985,
+ "loadMs": 758,
+ "stepMs": [
+  [
+   "welcome->Q1",
+   511
+  ],
+  [
+   "Q1->next",
+   380
+  ],
+  [
+   "Q2->next",
+   422
+  ],
+  [
+   "Q3->next",
+   411
+  ],
+  [
+   "Q4->next",
+   494
+  ],
+  [
+   "Q5->next",
+   374
+  ],
+  [
+   "Q6->next",
+   377
+  ],
+  [
+   "Q7->next",
+   483
+  ],
+  [
+   "Q8->next",
+   539
+  ],
+  [
+   "Q9->thank-you",
+   504
+  ]
+ ],
+ "screens": [
+  {
+   "idx": 0,
+   "label": "welcome",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "Start survey",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "Paradise Garden Hotel – Guest survey",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": true,
+   "loadMs": 758,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 1,
+   "label": "Q1",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "1",
+    "label": "Question 1 of 9",
+    "name": "Question 1 of 9"
+   },
+   "hasBack": false,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How would you rate your overall stay?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 2,
+   "label": "Q2",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "2",
+    "label": "Question 2 of 9",
+    "name": "Question 2 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How clean was your room?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 3,
+   "label": "Q3",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "3",
+    "label": "Question 3 of 9",
+    "name": "Question 3 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How comfortable was your room?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": "back-check",
+   "label": "Back from Q3 to Q2",
+   "checked": 1
+  },
+  {
+   "idx": 4,
+   "label": "Q4",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "4",
+    "label": "Question 4 of 9",
+    "name": "Question 4 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How friendly was our staff?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 5,
+   "label": "Q5",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "5",
+    "label": "Question 5 of 9",
+    "name": "Question 5 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How would you rate breakfast?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 6,
+   "label": "Q6",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "6",
+    "label": "Question 6 of 9",
+    "name": "Question 6 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How satisfied were you with our facilities?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 7,
+   "label": "Q7",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "7",
+    "label": "Question 7 of 9",
+    "name": "Question 7 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "Would you recommend our hotel?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": true,
+   "langSwitchOnScreen": false,
+   "w7": {
+    "msg": true,
+    "role": "alert",
+    "text": "Please choose an answer to continue. لطفاً برای ادامه یک گزینه را انتخاب کنید.",
+    "iconSvg": true,
+    "colour": "rgb(163, 78, 69)"
+   },
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 8,
+   "label": "Q8",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "8",
+    "label": "Question 8 of 9",
+    "name": "Question 8 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "What did you particularly like?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 9,
+   "label": "Q9",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "9",
+    "label": "Question 9 of 9",
+    "name": "Question 9 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Submit",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "What could we improve?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 10,
+   "label": "thank-you",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "Thank you",
+   "nameBdi": [
+    "en:ltr",
+    "fa:rtl"
+   ],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  }
+ ],
+ "w7log": [
+  {
+   "q": 1,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 2,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 3,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 4,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 5,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 6,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  },
+  {
+   "q": 7,
+   "stayed": true,
+   "msgVisible": true,
+   "role": "alert",
+   "icon": true,
+   "colour": "rgb(163, 78, 69)",
+   "msgBeforeContinue": true
+  }
+ ],
+ "thirdParty": [
+  "data:image"
+ ],
+ "requestFailed": [],
+ "before": {
+  "total": 8,
+  "completed": 2
+ },
+ "after": {
+  "total": 9,
+  "completed": 3
+ },
+ "endCheck": {
+  "svg": true,
+  "body": 214
+ },
+ "longCheck": null,
+ "dbSum": {
+  "addedTotal": 1,
+  "addedCompleted": 1
+ }
+}

@@ -1,0 +1,14 @@
+{#
+  hotel-classic — welcome-screen language selector (FR-005, research R-07).
+  Two plain links, shown only on the welcome screen (FR-006). Each link reloads
+  the same survey URL with lang=en or lang=fa, so no form or JavaScript is needed.
+  The current language is marked with aria-current. data-pjax="false" keeps the
+  link a full page load, so <html lang dir> always updates (research R-19).
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% set lang = aSurveyInfo.languagecode %}
+{% set sep = ('?' in aSurveyInfo.surveyUrl) ? '&' : '?' %}
+<nav class="hotel-lang" role="group" aria-label="{{ i18n.t('lang.label', lang) }}">
+    <a class="hotel-lang-link{% if lang == 'en' %} is-current{% endif %}" href="{{ aSurveyInfo.surveyUrl }}{{ sep }}lang=en" lang="en" dir="ltr" hreflang="en" data-pjax="false"{% if lang == 'en' %} aria-current="true"{% endif %}>English</a>
+    <a class="hotel-lang-link{% if lang == 'fa' %} is-current{% endif %}" href="{{ aSurveyInfo.surveyUrl }}{{ sep }}lang=fa" lang="fa" dir="rtl" hreflang="fa" data-pjax="false"{% if lang == 'fa' %} aria-current="true"{% endif %}>فارسی</a>
+</nav>

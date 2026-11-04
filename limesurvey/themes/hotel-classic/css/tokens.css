@@ -1,7 +1,11 @@
 /* Hotel Classic design tokens (PRD §5.2–5.4). Single source for colours, type and spacing. */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap");
-/* TODO (Milestone 2): self-host both fonts instead of loading from Google (PRD §5.3). */
+/*
+ * Self-hosted fonts are declared in css/fonts.css (@font-face, WOFF2 files in
+ * fonts/<family>/). This file must not reference any remote font service
+ * (FR-033): the Google Fonts @import that used to live here was removed in
+ * Milestone 2.
+ */
 
 :root {
   /* Colour */
@@ -16,12 +20,18 @@
   --color-error: #A34E45;
 
   /* Typography */
+  /* Latin heading stack — the English wordmark always uses this (FR-030). */
+  --font-heading-latin: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-heading: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Persian (fa) stacks — applied by :lang(fa) in css/hotel.css (FR-028). */
+  --font-heading-fa: "Noto Naskh Arabic", Tahoma, "Noto Sans Arabic", "Segoe UI", serif;
+  --font-body-fa: "Vazirmatn", Tahoma, "Noto Sans Arabic", "Segoe UI", sans-serif;
   --size-h1: 32px;
   --size-h2: 24px;
   --size-h3: 18px;
   --size-body: 16px;
+  --size-body-sm: 15px;
   --size-support: 13px;
   --size-label: 12px;
 
@@ -30,11 +40,21 @@
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
   --radius-card: 12px;
   --radius-control: 8px;
   --touch-min: 48px;
   --width-survey: 680px;
   --width-dashboard: 1440px;
+
+  /* Controls and chrome (added in Milestone 2, used by css/hotel.css) */
+  --border-width: 1px;
+  --border-width-selected: 2px;
+  --progress-height: 4px;
+  /* Focus ring points at an existing colour token (never a hard-coded value). */
+  --focus-ring: var(--color-text);
 }

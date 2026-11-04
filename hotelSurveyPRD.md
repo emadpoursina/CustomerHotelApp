@@ -144,7 +144,7 @@ Suggested welcome message:
 
 The initial release must support:
 
-- German.
+- Persian.
 - English.
 
 Requirements:
@@ -567,7 +567,7 @@ Tasks:
 - Configure typography.
 - Customize survey screens.
 - Create guest questionnaire.
-- Configure German and English translations.
+- Configure Persian and English translations.
 - Test mobile responsiveness.
 
 Deliverable: Branded guest survey.
@@ -600,7 +600,7 @@ Deliverable: Functional management reporting.
 
 Tasks:
 - Test guest workflows.
-- Test German and English.
+- Test Persian and English.
 - Test QR-code behavior.
 - Test anonymous submissions.
 - Test data integrity.
@@ -620,7 +620,7 @@ The MVP is considered complete when:
 - [ ] Guests can scan a room QR code.
 - [ ] The correct room is identified.
 - [ ] Guests can complete the survey without registration.
-- [ ] German and English are supported.
+- [ ] Persian and English are supported.
 - [ ] The survey works on mobile browsers.
 - [ ] Required questions are validated.
 - [ ] Optional questions can be skipped.
@@ -689,4 +689,4 @@ The objective is to deliver a maintainable, functional application that a single
 
 **Final MVP definition:**
 
-A hotel guest scans a QR code in their room, completes a short survey in German or English, and submits anonymous feedback. The hotel management can review the results, analyze guest satisfaction, identify problems, and export responses through a secure administration interface.
+A hotel guest scans a QR code in their room, completes a short survey in Persian or English, and submits anonymous feedback. The hotel management can review the results, analyze guest satisfaction, identify problems, and export responses through a secure administration interface.

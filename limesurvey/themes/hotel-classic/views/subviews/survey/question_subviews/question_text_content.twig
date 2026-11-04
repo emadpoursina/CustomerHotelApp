@@ -1,0 +1,36 @@
+{#
+  hotel-classic — question heading (FR-013, FR-014, US2-AS4, research R-09).
+  * Required questions (Q1-Q7): a translated "Required" marker replaces vanilla's
+    asterisk, whose text is English-only core copy.
+  * Optional questions (Q8-Q9): a translated "Optional" marker.
+  The question text itself is rendered exactly as vanilla does.
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% set lang = aSurveyInfo.languagecode %}
+
+{% if (aQuestion.mandatory == 'Y') %}
+    <span class="hotel-marker hotel-marker-required">{{ i18n.t('question.required', lang) }}</span>
+{% else %}
+    <span class="hotel-marker hotel-marker-optional">{{ i18n.t('question.optional', lang) }}</span>
+{% endif %}
+
+{# If the question number is to be shown (set in survey settings) #}
+{% if (aShow.question_number) %}
+    <span class='{{ aSurveyInfo.class.questionnumber }}' {{ aSurveyInfo.attr.questionnumber }} >
+        {{ aQuestion.number }}
+    </span>
+{% endif %}
+
+{# If the question code is to be shown (set in survey settings) #}
+{% if (aShow.question_code) %}
+    <span class='{{ aSurveyInfo.class.questioncode }}' {{ aSurveyInfo.attr.questioncode }}>
+        {{ aQuestion.code }}
+    </span>
+{% endif %}
+
+{# The question text as entered by the survey creator in question editing #}
+<div class="{{ aSurveyInfo.class.questiontext }}" {{ aSurveyInfo.attr.questiontext }}>
+    <div id="ls-question-text-{{ aQuestion.SGQ }}" class="{{ aSurveyInfo.class.lsquestiontext }}" {{ aSurveyInfo.attr.lsquestiontext }}>
+        {{ aQuestion.text | raw }}
+    </div>
+</div>

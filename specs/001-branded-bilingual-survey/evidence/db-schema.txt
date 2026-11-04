@@ -1,0 +1,24 @@
+Field	Type	Null	Key	Default	Extra
+id	int(11)	NO	PRI	NULL	auto_increment
+submitdate	datetime	YES		NULL	
+lastpage	int(11)	YES		NULL	
+startlanguage	varchar(20)	NO		NULL	
+seed	varchar(31)	YES		NULL	
+startdate	datetime	NO		NULL	
+datestamp	datetime	NO		NULL	
+420001X1X1	varchar(5)	YES		NULL	
+420001X1X2	varchar(5)	YES		NULL	
+420001X1X3	varchar(5)	YES		NULL	
+420001X1X4	varchar(5)	YES		NULL	
+420001X1X5	varchar(5)	YES		NULL	
+420001X1X6	varchar(5)	YES		NULL	
+420001X1X7	varchar(5)	YES		NULL	
+420001X1X8	text	YES		NULL	
+420001X1X9	text	YES		NULL	
+sid	active
+420001	Y
+surveyls_language
+en
+fa
+n
+9

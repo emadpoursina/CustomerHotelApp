@@ -1,0 +1,15 @@
+{#
+  hotel-classic — required-answer message (FR-014, FR-007, research R-09).
+  Core view overridden by the theme. The Expression Manager toggles the
+  ls-question-mandatory class and the role="alert" element, so both are kept.
+  Both language variants are output; hotel.css hides the one that does not
+  match the page language (html:not(:lang(fa)) / html:lang(fa) rule).
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+<div class='ls-question-mandatory ls-question-mandatory-{{part}} hotel-required-msg' role='alert'>
+    <span class="hotel-required-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><rect x="11" y="6" width="2" height="8" fill="currentColor"/><rect x="11" y="16" width="2" height="2" fill="currentColor"/></svg>
+    </span>
+    <span class="hotel-i18n hotel-msg-en" lang="en" dir="ltr">{{ i18n.t('question.required_msg', 'en') }}</span>
+    <span class="hotel-i18n hotel-msg-fa" lang="fa" dir="rtl">{{ i18n.t('question.required_msg', 'fa') }}</span>
+</div>

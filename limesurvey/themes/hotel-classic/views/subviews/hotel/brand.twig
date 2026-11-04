@@ -1,0 +1,31 @@
+{#
+  hotel-classic — brand macros (FR-021, FR-030, FR-032, research R-16,
+  theme contract §7).
+
+  The placeholder brand is defined in ONE place: the brand.* keys in
+  ./subviews/hotel/i18n.twig. This file only decides how the names are
+  marked up. Replacing the brand later means editing those keys (and, if a
+  logo ever arrives, this file) — no layout file changes.
+
+  Note (Twig 3): a macro cannot see an {% import %} that sits at the top level
+  of this file, because importing this template for its macros never runs its
+  top-level code. Each macro therefore imports i18n.twig itself.
+#}
+
+{#
+  wordmark() — the English hotel name as decorative text.
+  Always lang="en" dir="ltr", even on Persian screens (fix: wordmark output).
+#}
+{% macro wordmark() %}{% import './subviews/hotel/i18n.twig' as i18n %}<span class="hotel-wordmark" lang="en" dir="ltr">{{ i18n.t('brand.name_en', 'en') }}</span>{% endmacro %}
+
+{#
+  names() — both hotel names, each isolated in a bdi with its own language
+  and direction so embedded text reads correctly in either layout.
+#}
+{% macro names() %}{% import './subviews/hotel/i18n.twig' as i18n %}<span class="hotel-names"><bdi class="hotel-bdi hotel-bdi-en" lang="en" dir="ltr">{{ i18n.t('brand.name_en', 'en') }}</bdi><span class="hotel-names-sep" aria-hidden="true">·</span><bdi class="hotel-bdi hotel-bdi-fa" lang="fa" dir="rtl">{{ i18n.t('brand.name_fa', 'fa') }}</bdi></span>{% endmacro %}
+
+{#
+  tagline(lang) — the tagline in the guest's language (FR-002 heading, A-06).
+  Defined once in i18n.twig; never typed into survey copy (fix: single source).
+#}
+{% macro tagline(lang) %}{% import './subviews/hotel/i18n.twig' as i18n %}{{ i18n.t('brand.tagline', lang) }}{% endmacro %}

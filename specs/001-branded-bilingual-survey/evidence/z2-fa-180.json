@@ -1,0 +1,538 @@
+{
+ "tag": "z2-fa-180",
+ "lang": "fa",
+ "width": 180,
+ "totalMs": 9371,
+ "loadMs": 823,
+ "stepMs": [
+  [
+   "welcome->Q1",
+   686
+  ],
+  [
+   "Q1->next",
+   484
+  ],
+  [
+   "Q2->next",
+   423
+  ],
+  [
+   "Q3->next",
+   407
+  ],
+  [
+   "Q4->next",
+   380
+  ],
+  [
+   "Q5->next",
+   381
+  ],
+  [
+   "Q6->next",
+   507
+  ],
+  [
+   "Q7->next",
+   497
+  ],
+  [
+   "Q8->next",
+   381
+  ],
+  [
+   "Q9->thank-you",
+   367
+  ]
+ ],
+ "screens": [
+  {
+   "idx": 0,
+   "label": "welcome",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "شروع نظرسنجی",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "نظرسنجی مهمانان – باغ پردیس",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": true,
+   "loadMs": 823,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 1,
+   "label": "Q1",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "1",
+    "label": "پرسش ۱ از ۹",
+    "name": "پرسش ۱ از ۹"
+   },
+   "hasBack": false,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "اقامت خود را در مجموع چگونه ارزیابی می‌کنید؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 2,
+   "label": "Q2",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "2",
+    "label": "پرسش ۲ از ۹",
+    "name": "پرسش ۲ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "اتاق شما چقدر تمیز بود؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 3,
+   "label": "Q3",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "3",
+    "label": "پرسش ۳ از ۹",
+    "name": "پرسش ۳ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "اتاق شما چقدر راحت بود؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": "back-check",
+   "label": "Back from Q3 to Q2",
+   "checked": 1
+  },
+  {
+   "idx": 4,
+   "label": "Q4",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "4",
+    "label": "پرسش ۴ از ۹",
+    "name": "پرسش ۴ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "کارکنان ما چقدر خوش‌برخورد بودند؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 5,
+   "label": "Q5",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "5",
+    "label": "پرسش ۵ از ۹",
+    "name": "پرسش ۵ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "صبحانه را چگونه ارزیابی می‌کنید؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 6,
+   "label": "Q6",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "6",
+    "label": "پرسش ۶ از ۹",
+    "name": "پرسش ۶ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "از امکانات ما چقدر راضی بودید؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 7,
+   "label": "Q7",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "7",
+    "label": "پرسش ۷ از ۹",
+    "name": "پرسش ۷ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "آیا هتل ما را به دیگران توصیه می‌کنید؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 8,
+   "label": "Q8",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "8",
+    "label": "پرسش ۸ از ۹",
+    "name": "پرسش ۸ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ادامه",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "چه چیزی را به‌ویژه پسندیدید؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 9,
+   "label": "Q9",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": {
+    "now": "9",
+    "label": "پرسش ۹ از ۹",
+    "name": "پرسش ۹ از ۹"
+   },
+   "hasBack": true,
+   "nextLabel": "ارسال",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "چه چیزی را می‌توانیم بهتر کنیم؟",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  },
+  {
+   "idx": 10,
+   "label": "thank-you",
+   "htmlLang": "fa",
+   "dir": "rtl",
+   "title": "نظرسنجی مهمانان – باغ پردیس",
+   "scrollOK": true,
+   "scrollWidth": 180,
+   "innerWidth": 180,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "سپاسگزاریم",
+   "nameBdi": [
+    "en:ltr",
+    "fa:rtl"
+   ],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false,
+   "axe": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "n": 1,
+     "targets": [
+      ".hotel-wordmark"
+     ]
+    }
+   ]
+  }
+ ],
+ "w7log": [],
+ "thirdParty": [],
+ "requestFailed": [],
+ "before": {
+  "total": 19,
+  "completed": 13
+ },
+ "after": {
+  "total": 20,
+  "completed": 14
+ },
+ "endCheck": {
+  "svg": true,
+  "body": 221
+ },
+ "longCheck": null,
+ "dbSum": {
+  "addedTotal": 1,
+  "addedCompleted": 1
+ }
+}

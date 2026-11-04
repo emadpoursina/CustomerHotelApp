@@ -1,0 +1,24 @@
+{#
+  hotel-classic — progress bar and step text (FR-016, research R-02).
+  currentstep is 0-based: -1 on the welcome screen, 0 on Q1, 8 on Q9
+  (values recorded in scratch/m2-notes.txt). Nothing is rendered when
+  currentstep < 0 (welcome) or when the survey is completed (thank-you).
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% set lang = aSurveyInfo.languagecode %}
+{# currentstep may be null on the welcome screen, and null >= 0 is true, so the welcome screen is excluded by name and total must be positive. #}
+{% if aSurveyInfo.showprogress == 'Y' and aSurveyInfo.format != 'A' and not aSurveyInfo.aCompleted and aSurveyInfo.include_content != 'firstpage' and aSurveyInfo.progress.total > 0 and aSurveyInfo.progress.currentstep is not null %}
+    {% set stepNo = aSurveyInfo.progress.currentstep + 1 %}
+    {% set stepTotal = aSurveyInfo.progress.total %}
+    {% set pct = ((stepNo / stepTotal) * 100)|round %}
+    {% set stepText = i18n.t('progress.step', lang)|replace({
+        '%1': i18n.digits(stepNo, lang),
+        '%2': i18n.digits(stepTotal, lang)
+    }) %}
+    <div class="hotel-progress">
+        <div class="hotel-progress-track" role="progressbar" aria-label="{{ stepText }}" aria-valuemin="0" aria-valuemax="{{ stepTotal }}" aria-valuenow="{{ stepNo }}" aria-valuetext="{{ stepText }}">
+            <div class="hotel-progress-fill" style="width: {{ pct }}%;"></div>
+        </div>
+        <p class="hotel-progress-step" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ stepText }}</p>
+    </div>
+{% endif %}

@@ -1,0 +1,9 @@
+{#
+  hotel-classic — no-JavaScript notice (FR-007, FR-034). Replaces vanilla's
+  English-only caution text with the translated string from i18n.twig. The
+  classes are kept so the engine's JavaScript still hides it when JS runs.
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+<div class='{{ aSurveyInfo.class.nojs }} alert alert-danger ' {{ aSurveyInfo.attr.nojs }} data-type='checkjavascript'>
+    {{ i18n.t('nojs.alert', aSurveyInfo.languagecode) }}
+</div>

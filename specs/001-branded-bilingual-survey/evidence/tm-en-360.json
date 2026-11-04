@@ -1,0 +1,428 @@
+{
+ "tag": "tm-en-360",
+ "lang": "en",
+ "width": 360,
+ "totalMs": 7822,
+ "loadMs": 809,
+ "stepMs": [
+  [
+   "welcome->Q1",
+   405
+  ],
+  [
+   "Q1->next",
+   507
+  ],
+  [
+   "Q2->next",
+   378
+  ],
+  [
+   "Q3->next",
+   505
+  ],
+  [
+   "Q4->next",
+   523
+  ],
+  [
+   "Q5->next",
+   488
+  ],
+  [
+   "Q6->next",
+   373
+  ],
+  [
+   "Q7->next",
+   386
+  ],
+  [
+   "Q8->next",
+   375
+  ],
+  [
+   "Q9->thank-you",
+   367
+  ]
+ ],
+ "screens": [
+  {
+   "idx": 0,
+   "label": "welcome",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "Start survey",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "Paradise Garden Hotel – Guest survey",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": true,
+   "loadMs": 809
+  },
+  {
+   "idx": 1,
+   "label": "Q1",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "1",
+    "label": "Question 1 of 9",
+    "name": "Question 1 of 9"
+   },
+   "hasBack": false,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How would you rate your overall stay?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 2,
+   "label": "Q2",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "2",
+    "label": "Question 2 of 9",
+    "name": "Question 2 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How clean was your room?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 3,
+   "label": "Q3",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "3",
+    "label": "Question 3 of 9",
+    "name": "Question 3 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How comfortable was your room?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": "back-check",
+   "label": "Back from Q3 to Q2",
+   "checked": 1
+  },
+  {
+   "idx": 4,
+   "label": "Q4",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "4",
+    "label": "Question 4 of 9",
+    "name": "Question 4 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How friendly was our staff?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 5,
+   "label": "Q5",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "5",
+    "label": "Question 5 of 9",
+    "name": "Question 5 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How would you rate breakfast?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 6,
+   "label": "Q6",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "6",
+    "label": "Question 6 of 9",
+    "name": "Question 6 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "How satisfied were you with our facilities?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 7,
+   "label": "Q7",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "7",
+    "label": "Question 7 of 9",
+    "name": "Question 7 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48,
+    48
+   ],
+   "heading": "Would you recommend our hotel?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 8,
+   "label": "Q8",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "8",
+    "label": "Question 8 of 9",
+    "name": "Question 8 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Continue",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "What did you particularly like?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 9,
+   "label": "Q9",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": {
+    "now": "9",
+    "label": "Question 9 of 9",
+    "name": "Question 9 of 9"
+   },
+   "hasBack": true,
+   "nextLabel": "Submit",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "What could we improve?",
+   "nameBdi": [],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  },
+  {
+   "idx": 10,
+   "label": "thank-you",
+   "htmlLang": "en",
+   "dir": "ltr",
+   "title": "Paradise Garden Hotel – Guest survey",
+   "scrollOK": true,
+   "scrollWidth": 360,
+   "innerWidth": 360,
+   "progress": null,
+   "hasBack": false,
+   "nextLabel": "",
+   "notice": [
+    true
+   ],
+   "smallTargets": 0,
+   "smallSample": [],
+   "radioLabelHeights": [],
+   "heading": "Thank you",
+   "nameBdi": [
+    "en:ltr",
+    "fa:rtl"
+   ],
+   "checked": 0,
+   "requiredMsgVisible": false,
+   "langSwitchOnScreen": false
+  }
+ ],
+ "w7log": [],
+ "thirdParty": [],
+ "requestFailed": [],
+ "before": {
+  "total": 14,
+  "completed": 8
+ },
+ "after": {
+  "total": 15,
+  "completed": 9
+ },
+ "endCheck": {
+  "svg": true,
+  "body": 214
+ },
+ "longCheck": null,
+ "dbSum": {
+  "addedTotal": 1,
+  "addedCompleted": 1
+ }
+}

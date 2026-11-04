@@ -14,7 +14,7 @@ Placeholder identity for development and testing. Replace before production (see
 
 ## Usage rules
 
-- The survey is German and English only. The Persian name appears as a brand mark, so the page does not need right-to-left layout.
+- The survey is Persian and English only (operator decision, Milestone 2). Persian screens use a right-to-left layout.
 - Use the English name in running text and both names in the thank-you screen header, with the Persian name set in a Persian-capable font.
 - Champagne Gold is for accents only. The wordmark is the only place it's used at large size.
 
