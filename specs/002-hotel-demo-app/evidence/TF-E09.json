@@ -1,0 +1,30 @@
+{
+  "flow": "TF-E09",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "disabled": [
+        true,
+        true
+      ],
+      "note": true,
+      "urlSame": true,
+      "storageSame": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "disabled": [
+        true,
+        true
+      ],
+      "note": true,
+      "urlSame": true,
+      "storageSame": true,
+      "pass": true
+    }
+  ]
+}

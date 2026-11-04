@@ -1,0 +1,3 @@
+TF-E26: FAIL (0/2)
+  FAIL {"lang":"en","cafeRows":2,"before":105,"after":105,"secondsToShow":null,"consoleErrors":[],"pass":false}
+  FAIL {"lang":"fa","cafeRows":2,"before":105,"after":105,"secondsToShow":null,"consoleErrors":[],"pass":false}

@@ -1,0 +1,608 @@
+{
+  "flow": "TF-E20",
+  "pass": true,
+  "checks": 60,
+  "failed": [],
+  "details": [
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 320,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 360,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 390,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 430,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 1280,
+      "noHScroll": true,
+      "shell": true,
+      "targetsUnder48": 0,
+      "examples": [],
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "flow": "TF-E01",
+  "pass": true,
+  "checks": 10,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "width": 320,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "width": 360,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "width": 430,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "width": 1280,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "columnW": 430,
+      "centred": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "width": 320,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "width": 360,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "width": 390,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "width": 430,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "width": 1280,
+      "appbarH": 56,
+      "tabbarH": 64,
+      "homeCurrent": true,
+      "noHScroll": true,
+      "columnW": 430,
+      "centred": true,
+      "pass": true
+    }
+  ]
+}

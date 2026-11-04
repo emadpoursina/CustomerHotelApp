@@ -1,0 +1,2 @@
+grep -c 'synthetic comment' app/data/dashboard.json -> 0
+longest array -> 6

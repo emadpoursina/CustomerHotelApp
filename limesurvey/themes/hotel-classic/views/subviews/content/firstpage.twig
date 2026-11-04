@@ -1,17 +1,16 @@
 {#
-  hotel-classic — welcome screen (FR-001 to FR-003, theme contract §4).
-  Order: survey title (h1), tagline (h2, from brand.tagline in i18n.twig, not
-  from admin copy), then the admin welcome text (message, intro, time), the
-  language selector and the Start button. The survey description is not shown.
-  Screen-reader order: title, tagline, welcome text, selector, start.
+  hotel-classic — welcome screen (FR-001 to FR-003, demo PRD D-03, theme contract §2).
+  Welcome card: star icon, tagline heading, admin welcome message, facts row (time, anonymous,
+  9 questions), Start button (navigator.twig) and the language note. The survey name stays in the
+  DOM as a visually hidden h1. The language is chosen in the app drawer (shell), not on this card.
 #}
 {% import './subviews/hotel/brand.twig' as brand %}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% import './subviews/hotel/icons.twig' as ic %}
+{% set lang = aSurveyInfo.languagecode %}
 
 {# Include the alert for no JavaScript #}
 {{ include('./subviews/messages/no_js_alert.twig') }}
-
-{# Include the language selector (welcome screen only) #}
-{{ include('./subviews/navigation/language_changer_first_page.twig') }}
 
 {# Include the form opening tag #}
 {{ include('./subviews/header/start_form.twig') }} <!-- main form -->
@@ -20,11 +19,17 @@
     {{ aSurveyInfo.EM.ScriptsAndHiddenInputs }}
 
     <!-- Welcome Message -->
-    <div id="{{ aSurveyInfo.id.welcomecontainer }}" class="hotel-welcome {{ aSurveyInfo.class.welcomecontainer }}" {{ aSurveyInfo.attr.welcomecontainer }}>
-        <h1 class="hotel-title {{ aSurveyInfo.class.surveyname }}" {{ aSurveyInfo.attr.surveyname }}>{{ processString(aSurveyInfo.name, 1) }}</h1>
-        <h2 class="hotel-tagline" lang="{{ aSurveyInfo.languagecode }}" dir="{{ aSurveyInfo.dir }}">{{ brand.tagline(aSurveyInfo.languagecode) }}</h2>
+    <div id="{{ aSurveyInfo.id.welcomecontainer }}" class="hotel-welcome hs-welcome-card {{ aSurveyInfo.class.welcomecontainer }}" {{ aSurveyInfo.attr.welcomecontainer }}>
+        <h1 class="hotel-title visually-hidden {{ aSurveyInfo.class.surveyname }}" {{ aSurveyInfo.attr.surveyname }}>{{ processString(aSurveyInfo.name, 1) }}</h1>
+        <div class="hs-welcome-star" aria-hidden="true">{{ ic.icon('star') }}</div>
+        <h2 class="hotel-tagline" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ brand.tagline(lang) }}</h2>
         <div class="hotel-welcome-text {{ aSurveyInfo.class.welcome }}" {{ aSurveyInfo.attr.welcome }}>
             {{ processString(aSurveyInfo.welcome, 1) }}
+        </div>
+        <div class="hs-facts">
+            <span>{{ ic.icon('clock') }}{{ i18n.t('s.time', lang) }}</span>
+            <span>{{ ic.icon('user') }}{{ i18n.t('s.anon', lang) }}</span>
+            <span>{{ ic.icon('check') }}{{ i18n.t('s.q9', lang) }}</span>
         </div>
     </div>
 
@@ -32,6 +37,7 @@
 
     {# Presents the navigator (Start survey) #}
     {{ include('./subviews/navigation/navigator.twig') }}
+    <p class="hs-lang-note" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ i18n.t('s.langNote', lang) }}</p>
 </form> <!-- main form -->
 
 {{ registerScript("BasicFirstPageThemeScripts", "

@@ -37,5 +37,9 @@
             {% endblock %}
         </div>
         <div class="hotel-done-names">{{ brand.names() }}</div>
+        <div class="hs-done-actions">
+            <a class="hotel-done-btn hotel-done-btn-primary" href="/app/index.html" data-pjax="false">{{ i18n.t('s.done.home', lang) }}</a>
+            <a class="hotel-done-btn" href="/app/nearby.html" data-pjax="false">{{ i18n.t('s.done.nearby', lang) }}</a>
+        </div>
     </div>
 </form> <!-- main form -->

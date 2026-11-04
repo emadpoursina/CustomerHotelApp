@@ -1,0 +1,2 @@
+total	lang_en	lang_fa	q1_avg	q1_n	q2_avg	q2_n	q3_avg	q3_n	q4_avg	q4_n	q5_avg	q5_n	q6_avg	q6_n	promoters	passives	detractors	nps_n	nps
+91	58	33	4.3	91	4.0	91	3.8	91	4.7	91	3.2	91	3.8	91	63	19	9	91	59

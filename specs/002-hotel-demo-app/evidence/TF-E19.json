@@ -1,0 +1,14 @@
+{
+  "flow": "TF-E19",
+  "pass": true,
+  "checks": 1,
+  "failed": [],
+  "details": [
+    {
+      "url": "http://hotelsurvey.localhost/app/index.html",
+      "lang": "fa",
+      "stored": "fa",
+      "pass": true
+    }
+  ]
+}

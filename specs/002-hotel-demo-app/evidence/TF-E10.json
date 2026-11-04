@@ -1,0 +1,26 @@
+{
+  "flow": "TF-E10",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "rows": 21,
+      "order": true,
+      "firstDistance": 150,
+      "countText": true,
+      "demoPill": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "rows": 21,
+      "order": true,
+      "firstDistance": 150,
+      "countText": true,
+      "demoPill": true,
+      "pass": true
+    }
+  ]
+}

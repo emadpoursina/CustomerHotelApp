@@ -1,0 +1,8 @@
+{
+  "flow": "TF-D4",
+  "pass": true,
+  "lines": 6,
+  "badLines": [],
+  "leakMatches": 0,
+  "sigintExit": 0
+}

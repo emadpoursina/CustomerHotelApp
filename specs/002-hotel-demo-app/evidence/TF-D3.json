@@ -1,0 +1,14 @@
+{
+  "flow": "TF-D3",
+  "pass": true,
+  "checks": 1,
+  "failed": [],
+  "details": [
+    {
+      "syntheticCommentMatches": 0,
+      "longestArray": 6,
+      "schemaWalk": "ok",
+      "pass": true
+    }
+  ]
+}

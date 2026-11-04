@@ -1,0 +1,63 @@
+{
+  "flow": "TF-E21",
+  "pass": true,
+  "checks": 8,
+  "failed": [],
+  "details": [
+    {
+      "screen": "home",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "step": "rtl",
+      "drawerRight": true,
+      "barFillsFromRight": true,
+      "asciiDigits": 0,
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "stray": [],
+      "pass": true
+    },
+    {
+      "step": "english-no-persian",
+      "stray": [
+        {
+          "url": "/app/index.html",
+          "persian": []
+        },
+        {
+          "url": "/app/nearby.html",
+          "persian": []
+        },
+        {
+          "url": "/app/dashboard.html",
+          "persian": []
+        }
+      ],
+      "pass": true
+    }
+  ]
+}

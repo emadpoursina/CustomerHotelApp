@@ -4,7 +4,7 @@ QR-code guest feedback for a single hotel. Built on LimeSurvey CE. See `hotelSur
 
 ## Status
 
-**Current iteration: demo.** Scope is in `hotelSurveyDemoPRD.md` (app shell, survey, Nearby, simple dashboard). Not started. The milestones below are from the full PRD; 3–5 are deferred until after the demo.
+**Current iteration: demo.** Scope is in `hotelSurveyDemoPRD.md` (app shell, survey, Nearby, simple dashboard). Implemented on branch `hotel-demo-app` (spec `specs/002-hotel-demo-app/`), not yet merged. The milestones below are from the full PRD; 3–5 are deferred until after the demo.
 
 | Milestone (PRD §8) | Status |
 |---|---|
@@ -19,9 +19,10 @@ QR-code guest feedback for a single hotel. Built on LimeSurvey CE. See `hotelSur
 ```
 docker-compose.yml          LimeSurvey + MariaDB
 .env.example                Environment template (copy to .env)
+app/                        Static demo app (Home, Nearby, Dashboard), mounted into LimeSurvey
 db/init/                    SQL run on first database start (custom tables only)
-limesurvey/themes/          Child theme, mounted into LimeSurvey
-scripts/                    validate.sh, backup-db.sh
+limesurvey/themes/          Child theme (survey and app shell), mounted into LimeSurvey
+scripts/                    validate.sh, backup-db.sh, build-dashboard.py, seed-demo.py
 docs/decisions.md           Decisions and open questions
 ```
 
@@ -39,3 +40,15 @@ The database init script runs only when the database volume is created for the f
 ## Backups
 
 `./scripts/backup-db.sh` writes `backups/<db>-<timestamp>.sql.gz`. Restore is not yet documented. The PRD requires a tested restore before launch.
+
+## Demo
+
+App: `http://hotelsurvey.localhost/app/index.html` (Home, Nearby, Rate, Dashboard). Requires `.env` and the running stack.
+
+```bash
+docker compose up -d
+python3 scripts/seed-demo.py            # about 40 demo responses through the public survey
+python3 scripts/build-dashboard.py --watch   # refresh app/data/dashboard.json every 10 s (leave running)
+```
+
+The dashboard publishes aggregates only (`app/data/dashboard.json`, git-ignored). Steps for the walkthrough and the test flows are in `specs/002-hotel-demo-app/quickstart.md`; results are in `specs/002-hotel-demo-app/evidence.md`.

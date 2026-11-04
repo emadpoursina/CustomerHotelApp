@@ -315,7 +315,7 @@ iframe {
   justify-content: center;
   min-height: var(--touch-min);
   padding-inline: var(--space-1);
-  padding-block-start: var(--space-3);
+  padding-block: 0;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-control);
   background: var(--color-surface);
@@ -535,4 +535,183 @@ iframe {
 
 .hotel-names-sep {
   color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   App-shell restyle (demo PRD D-03, contracts/survey-theme.md §2, US2)
+   The survey screens sit inside the app shell (shell.css): app bar, drawer
+   and tab bar are rendered by nav_bar.twig and footer.twig. Question and
+   thank-you cards follow the prototype. Tokens only, logical properties.
+   ========================================================================== */
+
+/* The shell owns the header now; the old centred brand header and the
+   language selector on the welcome card are not shown. */
+.hotel-header,
+.hotel-welcome-intro,
+.hotel-welcome-time,
+.hotel-lang {
+  display: none;
+}
+
+/* Survey column: the page itself is the phone-width column (shell.css), so the
+   survey wrapper takes the full column with the same inner padding as the app. */
+#limesurvey {
+  max-width: none;
+  padding-inline: var(--space-4);
+  padding-block-start: var(--space-4);
+}
+
+/* Welcome card (contracts/survey-theme.md §2): centred, gold star, facts row. */
+.hs-welcome-card {
+  text-align: center;
+  padding: var(--space-6) var(--space-5);
+}
+
+.hs-welcome-star {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--color-accent);
+}
+
+.hs-welcome-star svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
+}
+
+.hs-welcome-card .hotel-welcome-text {
+  color: var(--color-text-muted);
+  font-size: var(--size-body-sm);
+  line-height: 1.55;
+}
+
+.hs-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-block: var(--space-4);
+}
+
+.hs-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--size-support);
+  color: var(--color-text-muted);
+}
+
+.hs-facts .hs-ic {
+  width: 16px;
+  height: 16px;
+}
+
+.hs-lang-note {
+  margin-block: var(--space-4) 0;
+  font-size: var(--size-support);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.hs-welcome-card .hotel-nav,
+.hs-welcome-card + .hotel-nav {
+  margin-block-start: var(--space-4);
+}
+
+/* Question screens: the progress row (bar and step text side by side). */
+.hotel-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: none;
+  margin-block: var(--space-3) var(--space-4);
+  padding-inline: var(--space-4);
+}
+
+.hotel-progress-track {
+  flex: 1 1 auto;
+}
+
+.hotel-progress-step {
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Question card: the prototype's card surface with a generous top margin. */
+.question-container.row {
+  padding: var(--space-5);
+  margin-block-end: var(--space-4);
+}
+
+.hotel-scale {
+  margin-block: var(--space-5) var(--space-2);
+}
+
+.hotel-scale-11 ul,
+.hotel-scale-11 .answer-container ul {
+  gap: var(--space-2);
+}
+
+/* Thank-you buttons (FR-014): two buttons under the hotel names. */
+.hs-done-actions {
+  display: grid;
+  gap: var(--space-3);
+  margin-block-start: var(--space-5);
+}
+
+.hotel-done-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-5);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hotel-done-btn-primary {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-surface);
+}
+
+.hotel-done-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Placeholder notice: a compact muted line above the tab bar (R-14). */
+.hotel-notice {
+  margin: var(--space-3) var(--space-4) 0;
+  font-size: var(--size-label);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Keep the survey's own content clear of the fixed tab bar. */
+#limesurvey {
+  padding-block-end: var(--space-6);
+}
+
+/* Visually hidden, but still announced (survey name h1 on the welcome card). */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -1,0 +1,56 @@
+{
+  "flow": "TF-E13",
+  "pass": true,
+  "checks": 8,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "role": "dialog",
+      "modal": "true",
+      "btns": 3,
+      "pills": 2,
+      "walkOk": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "directions-toast",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "escape-close",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "role": "dialog",
+      "modal": "true",
+      "btns": 3,
+      "pills": 2,
+      "walkOk": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "directions-toast",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "escape-close",
+      "pass": true
+    }
+  ]
+}

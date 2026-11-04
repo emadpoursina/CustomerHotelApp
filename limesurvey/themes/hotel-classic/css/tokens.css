@@ -57,4 +57,13 @@
   --progress-height: 4px;
   /* Focus ring points at an existing colour token (never a hard-coded value). */
   --focus-ring: var(--color-text);
+
+  /* App shell (demo PRD §3). Derived from the colour tokens above, no new hex values. */
+  --appbar-h: 56px;
+  --tabbar-h: 64px;
+  --width-app: 430px;
+  --shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 8%, transparent),
+            0 4px 16px color-mix(in srgb, var(--color-text) 8%, transparent);
+  --scrim: color-mix(in srgb, var(--color-text) 45%, transparent);
+  --accent-soft: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
 }

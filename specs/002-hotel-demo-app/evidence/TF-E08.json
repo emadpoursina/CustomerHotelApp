@@ -1,0 +1,40 @@
+{
+  "flow": "TF-E08",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "icon": 1,
+      "names": [
+        "Paradise Garden Hotel",
+        "باغ پردیس"
+      ],
+      "links": [
+        "/app/index.html",
+        "/app/nearby.html"
+      ],
+      "before": 91,
+      "after": 92,
+      "newest": "en",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "icon": 1,
+      "names": [
+        "Paradise Garden Hotel",
+        "باغ پردیس"
+      ],
+      "links": [
+        "/app/index.html",
+        "/app/nearby.html"
+      ],
+      "before": 92,
+      "after": 93,
+      "newest": "fa",
+      "pass": true
+    }
+  ]
+}

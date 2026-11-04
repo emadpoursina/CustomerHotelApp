@@ -1,0 +1,28 @@
+test_empty_cycle_one_line_output (test_build_dashboard.TF_D1_EmptyTable.test_empty_cycle_one_line_output) ... ok
+test_empty_cycle_publishes_zero_totals_and_nulls_and_validates (test_build_dashboard.TF_D1_EmptyTable.test_empty_cycle_publishes_zero_totals_and_nulls_and_validates) ... ok
+test_counts_copied_and_avg_half_up (test_build_dashboard.TF_U01_Shape.test_counts_copied_and_avg_half_up) ... ok
+test_empty_range_gives_null_avg_and_score (test_build_dashboard.TF_U01_Shape.test_empty_range_gives_null_avg_and_score) ... ok
+test_cases (test_build_dashboard.TF_U02_NPS.test_cases) ... ok
+test_half_up_helpers (test_build_dashboard.TF_U02_NPS.test_half_up_helpers) ... ok
+test_extra_key_rejected_at_every_level (test_build_dashboard.TF_U03_Schema.test_extra_key_rejected_at_every_level) ... ok
+test_snapshot_matches_schema (test_build_dashboard.TF_U03_Schema.test_snapshot_matches_schema) ... ok
+test_failed_cycle_keeps_file_and_leaves_no_tmp (test_build_dashboard.TF_U04_AtomicWrite.test_failed_cycle_keeps_file_and_leaves_no_tmp) ... ok
+test_write_uses_one_os_replace (test_build_dashboard.TF_U04_AtomicWrite.test_write_uses_one_os_replace) ... ok
+test_bad_column_is_rejected (test_build_dashboard.TF_U05_Columns.test_bad_column_is_rejected) ... ok
+test_codes_resolve_in_order_and_q8_q9_ignored (test_build_dashboard.TF_U05_Columns.test_codes_resolve_in_order_and_q8_q9_ignored) ... ok
+test_missing_question_is_not_found (test_build_dashboard.TF_U05_Columns.test_missing_question_is_not_found) ... ok
+test_failed_cycle_one_stderr_line (test_build_dashboard.TF_U06_Output.test_failed_cycle_one_stderr_line) ... ok
+test_generated_at_and_one_line_stdout (test_build_dashboard.TF_U06_Output.test_generated_at_and_one_line_stdout) ... ok
+test_answer_plan_is_deterministic_and_in_range (test_seed_form.TF_U07_Seed.test_answer_plan_is_deterministic_and_in_range) ... ok
+test_form_parse_returns_hidden_inputs_action_and_answer_field (test_seed_form.TF_U07_Seed.test_form_parse_returns_hidden_inputs_action_and_answer_field) ... ok
+test_host_guard (test_seed_form.TF_U07_Seed.test_host_guard) ... ok
+test_refused_host_exits_2 (test_seed_form.TF_U07_Seed.test_refused_host_exits_2) ... seed: refused host (only localhost, *.localhost and 127.0.0.1 are allowed)
+ok
+test_english_and_persian_tables_have_the_same_keys (test_shell_strings.TF_U08_Strings.test_english_and_persian_tables_have_the_same_keys) ... ok
+test_every_key_used_by_the_app_exists_in_both_languages (test_shell_strings.TF_U08_Strings.test_every_key_used_by_the_app_exists_in_both_languages) ... ok
+test_shared_and_survey_keys_present_identical_and_non_empty (test_shell_strings.TF_U08_Strings.test_shared_and_survey_keys_present_identical_and_non_empty) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.008s
+
+OK
