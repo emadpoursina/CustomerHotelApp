@@ -1,11 +1,14 @@
 # AGENTS.md — Hotel Guest Survey
 
-Single-hotel guest feedback app. Guests scan a room QR code and complete a short survey in Persian or English. Management reviews results in LimeSurvey's admin UI. **Source of truth for requirements: `hotelSurveyPRD.md`.**
+Single-hotel guest feedback app. Guests scan a room QR code and complete a short survey in Persian or English. Management reviews results in LimeSurvey's admin UI.
+
+**Source of truth for requirements (current iteration): `hotelSurveyDemoPRD.md`.** It's a reduced demo scope: an app-style shell around the survey, plus a Nearby places section and a simple dashboard. Where it differs from the full MVP spec in `hotelSurveyPRD.md`, the demo PRD wins. Items it defers (QR codes, rooms, exports, production) are not to be built in this iteration.
 
 ## Architecture rules
 
 - LimeSurvey CE is the survey engine. Do not rebuild survey functionality.
-- Customisation lives outside LimeSurvey core: the child theme in `limesurvey/themes/hotel-classic/`, custom SQL in `db/init/`, and scripts in `scripts/`.
+- Customisation lives outside LimeSurvey core: the child theme in `limesurvey/themes/hotel-classic/`, the static demo app in `app/` (Home, Nearby, Dashboard; vanilla HTML/CSS/JS, no build step), custom SQL in `db/init/`, and scripts in `scripts/`.
+- The dashboard reads LimeSurvey's response table read-only and publishes aggregates only, never comment text.
 - Never modify LimeSurvey core files or LimeSurvey core database tables.
 - Custom data goes in separate tables (for example `hotel_rooms`).
 - Avoid microservices and unnecessary backend code. Add custom components only when a PRD requirement needs them.

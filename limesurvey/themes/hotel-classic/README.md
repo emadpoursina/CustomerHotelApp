@@ -78,5 +78,5 @@ Recreate the survey from `limesurvey/survey/hotel-guest-survey.lss` through **Su
 - **Rating direction (R-04):** the 0–10 and 1–5 tiles follow the page direction. The single-rule switch `[dir="rtl"] .hotel-scale { direction: ltr; }` is commented out in `hotel.css`, pending operator review.
 - **Digit style (R-05):** Persian screens use Persian digits (۰–۹), controlled by `persianDigits` in `i18n.twig`, pending review (R3).
 - **Persian typefaces (R5):** Noto Naskh Arabic and Vazirmatn are the proposed choices.
-- **Language scope (R1):** `AGENTS.md`, `hotelSurveyPRD.md` FR-03 and `docs/brand.md` still describe German and English. Those files are an operator action and were not edited here.
+- **Language scope (R1):** resolved. The survey is Persian and English only (`docs/decisions.md` §1, item 9). `AGENTS.md`, `hotelSurveyPRD.md` FR-03 and `docs/brand.md` already reflect this.
 - **Placeholder brand (R13):** replace the placeholder brand and turn the notice off before any production use.

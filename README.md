@@ -2,6 +2,18 @@
 
 QR-code guest feedback for a single hotel. Built on LimeSurvey CE. See `hotelSurveyPRD.md` for requirements and `AGENTS.md` for working rules. Open decisions are listed in `docs/decisions.md`.
 
+## Status
+
+**Current iteration: demo.** Scope is in `hotelSurveyDemoPRD.md` (app shell, survey, Nearby, simple dashboard). Not started. The milestones below are from the full PRD; 3–5 are deferred until after the demo.
+
+| Milestone (PRD §8) | Status |
+|---|---|
+| 1. Infrastructure | Local only. Production VPS, public domain, admin IP restriction and tested restore are open (`docs/decisions.md` §2) |
+| 2. Design and survey | Complete. Branded bilingual survey (fa/en), committed in `79c28c7` |
+| 3. QR-code management | Not started. `hotel_rooms` table exists and is empty |
+| 4. Management and reporting | Not started |
+| 5. QA and launch | Not started. Blocked on `docs/decisions.md` §2 |
+
 ## Layout
 
 ```

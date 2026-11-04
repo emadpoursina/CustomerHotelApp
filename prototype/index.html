@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paradise Garden Hotel · App demo (prototype)</title>
+<!-- Clickable design prototype for hotelSurveyDemoPRD.md. Everything is mocked in the browser:
+     no server, no LimeSurvey. Colours, fonts and spacing come from the real theme tokens. -->
+<link rel="stylesheet" href="../limesurvey/themes/hotel-classic/css/tokens.css">
+<link rel="stylesheet" href="../limesurvey/themes/hotel-classic/css/fonts.css">
+<style>
+  :root {
+    --shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 8%, transparent),
+              0 4px 16px color-mix(in srgb, var(--color-text) 8%, transparent);
+    --scrim: color-mix(in srgb, var(--color-text) 45%, transparent);
+    --appbar-h: 56px;
+    --tabbar-h: 64px;
+    --accent-soft: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: var(--font-body);
+    font-size: var(--size-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    -webkit-tap-highlight-color: transparent;
+  }
+  :lang(fa) body, body:lang(fa) { font-family: var(--font-body-fa); }
+  h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; margin: 0; line-height: 1.2; }
+  :lang(fa) h1, :lang(fa) h2, :lang(fa) h3 { font-family: var(--font-heading-fa); }
+  button { font: inherit; color: inherit; }
+  svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  [dir="rtl"] .flip svg, [dir="rtl"] svg.flip { transform: scaleX(-1); }
+  :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  /* ---- Device frame (desktop only) ---- */
+  .app {
+    position: relative; display: flex; flex-direction: column;
+    height: 100dvh; width: 100%; overflow: hidden; background: var(--color-bg);
+  }
+  @media (min-width: 600px) {
+    body { display: grid; place-items: center; background: var(--color-border); padding: var(--space-6); }
+    .app { width: 400px; height: min(860px, calc(100dvh - 48px)); border-radius: 36px;
+           box-shadow: 0 24px 64px color-mix(in srgb, var(--color-text) 28%, transparent);
+           border: 8px solid var(--color-text); }
+  }
+
+  /* ---- App bar ---- */
+  .appbar {
+    flex: none; height: var(--appbar-h); display: grid; grid-template-columns: var(--touch-min) 1fr var(--touch-min);
+    align-items: center; padding-inline: var(--space-1); background: var(--color-bg);
+    border-block-end: var(--border-width) solid var(--color-border);
+  }
+  .appbar h1 { font-size: 22px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .icon-btn {
+    width: var(--touch-min); height: var(--touch-min); display: grid; place-items: center;
+    border: 0; background: none; border-radius: 50%; cursor: pointer; position: relative;
+  }
+  .icon-btn:active { background: var(--color-border); }
+  .dot { position: absolute; top: 12px; inset-inline-end: 12px; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+
+  /* ---- Content ---- */
+  main { flex: 1; overflow-y: auto; overflow-x: hidden; padding: var(--space-4) var(--space-4) var(--space-6); overscroll-behavior: contain; }
+  .stack > * + * { margin-block-start: var(--space-4); }
+  .card { background: var(--color-surface); border-radius: var(--radius-card); box-shadow: var(--shadow); padding: var(--space-4); }
+  .muted { color: var(--color-text-muted); }
+  .small { font-size: var(--size-support); }
+  .label { font-size: var(--size-label); text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); font-weight: 600; }
+  :lang(fa) .label { text-transform: none; letter-spacing: 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-block: var(--space-6) var(--space-3); }
+  .section-head h2 { font-size: var(--size-h3); }
+  .link { background: none; border: 0; color: var(--color-text); font-weight: 600; font-size: var(--size-support); cursor: pointer; min-height: var(--touch-min); min-width: var(--touch-min); padding-inline: var(--space-2); text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 4px; }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    min-height: var(--touch-min); padding: 0 var(--space-5); border-radius: var(--radius-control);
+    border: var(--border-width) solid var(--color-text); background: var(--color-text); color: var(--color-surface);
+    font-weight: 600; cursor: pointer; width: 100%;
+  }
+  .btn.secondary { background: var(--color-surface); color: var(--color-text); border-color: var(--color-border); }
+  .btn:active { transform: translateY(1px); }
+  .btn-row { display: flex; gap: var(--space-3); }
+
+  .pill { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--size-label); font-weight: 600;
+          padding: 2px var(--space-2); border-radius: 999px; background: var(--accent-soft); color: var(--color-text); }
+  .pill.ok { background: color-mix(in srgb, var(--color-success) 14%, var(--color-surface)); color: var(--color-success); }
+  .pill.closed { background: color-mix(in srgb, var(--color-error) 10%, var(--color-surface)); color: var(--color-error); }
+
+  /* ---- Home ---- */
+  .hero { background: var(--color-text); color: var(--color-bg); border-radius: var(--radius-card); padding: var(--space-6) var(--space-5); position: relative; overflow: hidden; }
+  .hero .wordmark { font-family: var(--font-heading-latin); color: var(--color-accent); font-size: var(--size-h2); font-weight: 600; }
+  .hero .fa-name { font-family: var(--font-heading-fa); color: var(--color-accent); font-size: var(--size-h3); }
+  .hero p { margin: var(--space-2) 0 0; color: var(--color-border); font-size: var(--size-body-sm); }
+  .hero .greet { font-size: var(--size-support); color: var(--color-border); margin: 0 0 var(--space-3); }
+  .hero::after { content: ""; position: absolute; inset-inline-end: -40px; inset-block-start: -40px; width: 140px; height: 140px; border-radius: 50%;
+                 border: 1px solid color-mix(in srgb, var(--color-accent) 50%, transparent); }
+  .rate-card { display: flex; gap: var(--space-4); align-items: center; border: var(--border-width-selected) solid var(--color-accent); cursor: pointer; width: 100%; text-align: start; }
+  .rate-card .ic { width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); display: grid; place-items: center; color: var(--color-accent); }
+  .rate-card h2 { font-size: var(--size-h3); }
+  .rate-card p { margin: var(--space-1) 0 0; }
+  .qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .qa { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); min-height: 88px;
+        background: var(--color-surface); border: 0; border-radius: var(--radius-card); box-shadow: var(--shadow); cursor: pointer;
+        font-size: var(--size-support); font-weight: 500; padding: var(--space-2); text-align: center; }
+  .qa svg { color: var(--color-accent); }
+  .h-scroll { display: flex; gap: var(--space-3); overflow-x: auto; margin-inline: calc(var(--space-4) * -1); padding: 2px var(--space-4) var(--space-3); scroll-snap-type: x mandatory; scroll-padding-inline: var(--space-4); }
+  .h-scroll::-webkit-scrollbar { display: none; }
+  .mini { flex: 0 0 72%; scroll-snap-align: start; text-align: start; border: 0; cursor: pointer; }
+  .mini h3 { font-size: var(--size-h3); margin-block: var(--space-2) var(--space-1); }
+
+  /* ---- Nearby ---- */
+  .search { display: flex; align-items: center; gap: var(--space-2); background: var(--color-surface); border: var(--border-width) solid var(--color-border);
+            border-radius: var(--radius-control); padding-inline: var(--space-3); min-height: var(--touch-min); }
+  .search:focus-within { border-color: var(--color-text); }
+  .search input { flex: 1; border: 0; outline: 0; background: none; font: inherit; color: inherit; min-height: 44px; min-width: 0; }
+  .search svg { color: var(--color-text-muted); }
+  .chips { display: flex; gap: var(--space-2); overflow-x: auto; margin-inline: calc(var(--space-4) * -1); padding: var(--space-3) var(--space-4) var(--space-1); }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: var(--space-1); padding-inline: var(--space-4);
+          border-radius: 999px; border: var(--border-width) solid var(--color-border); background: var(--color-surface); cursor: pointer; font-size: var(--size-body-sm); white-space: nowrap; }
+  .chip svg { width: 18px; height: 18px; }
+  .chip[aria-pressed="true"] { border: var(--border-width-selected) solid var(--color-accent); background: var(--accent-soft); font-weight: 600; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); margin-block: var(--space-2); }
+  .toggle { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); background: none; border: 0; cursor: pointer; font-size: var(--size-body-sm); padding: 0; }
+  .switch { width: 40px; height: 24px; border-radius: 999px; background: var(--color-border); position: relative; transition: background .15s; }
+  .switch::after { content: ""; position: absolute; top: 3px; inset-inline-start: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-surface); box-shadow: var(--shadow); transition: inset-inline-start .15s; }
+  [aria-checked="true"] .switch { background: var(--color-accent); }
+  [aria-checked="true"] .switch::after { inset-inline-start: 19px; }
+  .seg { display: inline-flex; border: var(--border-width) solid var(--color-border); border-radius: var(--radius-control); overflow: hidden; background: var(--color-surface); }
+  .seg button { border: 0; background: none; min-height: 40px; padding-inline: var(--space-3); cursor: pointer; font-size: var(--size-support); }
+  .seg button[aria-pressed="true"] { background: var(--color-text); color: var(--color-surface); font-weight: 600; }
+  .list { display: flex; flex-direction: column; gap: var(--space-3); }
+  .place { display: grid; grid-template-columns: 48px 1fr auto; gap: var(--space-3); align-items: center; width: 100%; text-align: start; border: 0; cursor: pointer; }
+  .place .ic, .sheet .ic { width: 48px; height: 48px; border-radius: var(--radius-control); background: var(--accent-soft); display: grid; place-items: center; color: var(--color-text); }
+  .place h3 { font-family: var(--font-body); font-size: var(--size-body); font-weight: 600; }
+  :lang(fa) .place h3 { font-family: var(--font-body-fa); }
+  .meta { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); align-items: center; font-size: var(--size-support); color: var(--color-text-muted); margin-block-start: var(--space-1); }
+  .meta .star { display: inline-flex; align-items: center; gap: 2px; color: var(--color-text); font-weight: 600; }
+  .meta svg { width: 14px; height: 14px; }
+  .star svg { fill: var(--color-accent); stroke: var(--color-accent); }
+  .chev { color: var(--color-text-muted); }
+  .empty { text-align: center; padding: var(--space-10) var(--space-4); }
+  .empty svg { width: 40px; height: 40px; color: var(--color-border); }
+  .count { font-size: var(--size-support); color: var(--color-text-muted); }
+
+  /* ---- Survey ---- */
+  .progress { display: flex; align-items: center; gap: var(--space-3); margin-block-end: var(--space-4); }
+  .bar { flex: 1; height: var(--progress-height); background: var(--color-border); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--color-accent); border-radius: 999px; transition: width .2s; }
+  .q-card h2 { font-size: var(--size-h2); margin-block: var(--space-2) var(--space-2); }
+  .q-tag { display: inline-block; font-size: var(--size-label); font-weight: 600; color: var(--color-text-muted); }
+  .scale { display: grid; gap: var(--space-2); margin-block: var(--space-5) var(--space-2); }
+  .scale.s5 { grid-template-columns: repeat(5, 1fr); }
+  .scale.s11 { grid-template-columns: repeat(6, 1fr); }
+  .tile { min-height: 56px; border-radius: var(--radius-control); border: var(--border-width) solid var(--color-border); background: var(--color-surface);
+          font-size: var(--size-h3); font-weight: 600; cursor: pointer; }
+  .scale.s11 .tile { min-height: var(--touch-min); font-size: var(--size-body); }
+  .tile[aria-checked="true"] { border: var(--border-width-selected) solid var(--color-accent); background: var(--accent-soft); }
+  .ends { display: flex; justify-content: space-between; font-size: var(--size-support); color: var(--color-text-muted); }
+  textarea { width: 100%; min-height: 140px; border-radius: var(--radius-control); border: var(--border-width) solid var(--color-border); padding: var(--space-3);
+             font: inherit; color: inherit; background: var(--color-surface); resize: vertical; margin-block-start: var(--space-4); }
+  textarea:focus { outline: 0; border-color: var(--color-text); }
+  .err { display: flex; align-items: center; gap: var(--space-2); color: var(--color-error); font-size: var(--size-support); font-weight: 500; margin-block-start: var(--space-3); }
+  .err svg { width: 18px; height: 18px; }
+  .survey-nav { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-3); margin-block-start: var(--space-5); }
+  .survey-nav.solo { grid-template-columns: 1fr; }
+  .done-ic { width: 72px; height: 72px; border-radius: 50%; margin: var(--space-4) auto; display: grid; place-items: center;
+             background: color-mix(in srgb, var(--color-success) 14%, var(--color-surface)); color: var(--color-success); }
+  .done-ic svg { width: 36px; height: 36px; stroke-width: 2.4; }
+  .center { text-align: center; }
+  .facts { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; margin-block: var(--space-4); }
+  .facts span { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--size-support); color: var(--color-text-muted); }
+  .facts svg { width: 16px; height: 16px; }
+
+  /* ---- Dashboard ---- */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .kpi { padding: var(--space-3); text-align: center; }
+  .kpi b { display: block; font-family: var(--font-heading-latin); font-size: 30px; font-weight: 600; line-height: 1.1; margin-block-start: var(--space-1); font-variant-numeric: lining-nums tabular-nums; }
+  :lang(fa) .kpi b { font-family: var(--font-heading-fa); font-size: 26px; }
+  .kpi span { font-size: var(--size-label); color: var(--color-text-muted); }
+  .cat { display: grid; grid-template-columns: 1fr auto; gap: var(--space-1) var(--space-3); align-items: baseline; }
+  .cat + .cat { margin-block-start: var(--space-4); }
+  .cat .track { grid-column: 1 / -1; height: 8px; border-radius: 999px; background: var(--color-bg); overflow: hidden; }
+  .cat .track i { display: block; height: 100%; border-radius: 999px; background: var(--color-text-muted); }
+  .cat.top .track i { background: var(--color-accent); }
+  .cat b { font-variant-numeric: tabular-nums; }
+  .split { display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin-block: var(--space-3) var(--space-2); background: var(--color-bg); }
+  .split i:first-child { background: var(--color-text); }
+  .split i:last-child { background: var(--color-accent); }
+  .legend { display: flex; justify-content: space-between; font-size: var(--size-support); }
+  .warn { display: flex; gap: var(--space-2); align-items: flex-start; font-size: var(--size-support); padding: var(--space-3);
+          border-radius: var(--radius-control); background: color-mix(in srgb, var(--color-warning) 12%, var(--color-surface)); color: var(--color-text); }
+  .warn svg { width: 18px; height: 18px; color: var(--color-warning); }
+  .nps-scale { display: flex; height: 8px; border-radius: 999px; overflow: hidden; margin-block-start: var(--space-3); }
+  .nps-scale i:nth-child(1) { background: var(--color-error); }
+  .nps-scale i:nth-child(2) { background: var(--color-border); }
+  .nps-scale i:nth-child(3) { background: var(--color-success); }
+
+  /* ---- Tab bar ---- */
+  .tabbar {
+    flex: none; display: grid; grid-template-columns: repeat(5, 1fr); align-items: end;
+    height: calc(var(--tabbar-h) + env(safe-area-inset-bottom)); padding-block-end: env(safe-area-inset-bottom);
+    background: var(--color-surface); border-block-start: var(--border-width) solid var(--color-border); position: relative; z-index: 2;
+  }
+  .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; height: var(--tabbar-h);
+         border: 0; background: none; cursor: pointer; font-size: 11px; color: var(--color-text-muted); font-weight: 500; }
+  .tab[aria-current="page"] { color: var(--color-text); font-weight: 600; }
+  .tab[aria-current="page"] svg { color: var(--color-accent); }
+  .tab.center .bubble { width: 56px; height: 56px; border-radius: 50%; background: var(--color-text); color: var(--color-accent); display: grid; place-items: center;
+                        margin-block-start: -28px; box-shadow: var(--shadow); border: 4px solid var(--color-surface); }
+  .tab.center[aria-current="page"] .bubble { background: var(--color-accent); color: var(--color-surface); }
+  .tab.center[aria-current="page"] .bubble svg { color: var(--color-surface); }
+
+  /* ---- Drawer, sheet, toast ---- */
+  .scrim { position: absolute; inset: 0; background: var(--scrim); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 10; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .drawer { position: absolute; inset-block: 0; inset-inline-start: 0; width: 82%; max-width: 320px; background: var(--color-bg); z-index: 11;
+            transform: translateX(-100%); transition: transform .2s ease-out, visibility 0s linear .2s; visibility: hidden; display: flex; flex-direction: column; }
+  [dir="rtl"] .drawer { transform: translateX(100%); }
+  .drawer.open { transform: none !important; visibility: visible; transition: transform .2s ease-out; box-shadow: var(--shadow); }
+  .drawer header { padding: var(--space-8) var(--space-5) var(--space-5); background: var(--color-text); color: var(--color-bg); }
+  .drawer header .wordmark { font-family: var(--font-heading-latin); color: var(--color-accent); font-size: var(--size-h2); font-weight: 600; }
+  .drawer header .fa-name { font-family: var(--font-heading-fa); color: var(--color-accent); }
+  .drawer nav { flex: 1; overflow-y: auto; padding: var(--space-2) 0; }
+  .d-item { display: flex; align-items: center; gap: var(--space-4); width: 100%; min-height: 52px; padding-inline: var(--space-5); border: 0; background: none;
+            cursor: pointer; text-align: start; font-size: var(--size-body); }
+  .d-item[aria-current="page"] { background: var(--accent-soft); font-weight: 600; box-shadow: inset 3px 0 0 var(--color-accent); }
+  [dir="rtl"] .d-item[aria-current="page"] { box-shadow: inset -3px 0 0 var(--color-accent); }
+  .d-item .soon { margin-inline-start: auto; font-size: var(--size-label); color: var(--color-text-muted); }
+  .d-sep { height: 1px; background: var(--color-border); margin: var(--space-2) var(--space-5); }
+  .d-lang { padding: var(--space-3) var(--space-5); }
+  .d-lang .seg { margin-block-start: var(--space-2); }
+  .d-lang .seg button { min-height: var(--touch-min); padding-inline: var(--space-5); font-size: var(--size-body-sm); }
+  .d-lang .seg button:disabled { opacity: .5; cursor: not-allowed; }
+  .drawer footer { padding: var(--space-4) var(--space-5); font-size: var(--size-label); color: var(--color-text-muted); border-block-start: var(--border-width) solid var(--color-border); }
+
+  .sheet { position: absolute; inset-inline: 0; bottom: 0; z-index: 11; background: var(--color-surface); border-radius: 20px 20px 0 0;
+           padding: var(--space-3) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom)); transform: translateY(100%); transition: transform .2s ease-out, visibility 0s linear .2s; visibility: hidden; max-height: 85%; overflow-y: auto; }
+  .sheet.open { transform: none; visibility: visible; transition: transform .2s ease-out; }
+  .handle { width: 40px; height: 4px; border-radius: 999px; background: var(--color-border); margin: 0 auto var(--space-4); }
+  .sheet-head { display: flex; gap: var(--space-3); align-items: center; }
+  .sheet-head h2 { font-size: var(--size-h2); }
+  .sheet p { line-height: 1.55; }
+  .sheet .tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block: var(--space-3) var(--space-5); }
+  .sheet-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+  .sheet-actions .btn { flex-direction: column; gap: var(--space-1); min-height: 64px; padding: var(--space-2); font-size: var(--size-support); }
+
+  .toast { position: absolute; inset-inline: var(--space-4); bottom: calc(var(--tabbar-h) + var(--space-3) + env(safe-area-inset-bottom)); z-index: 20;
+           background: var(--color-text); color: var(--color-bg); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); font-size: var(--size-body-sm);
+           display: flex; align-items: center; gap: var(--space-2); opacity: 0; transform: translateY(8px); transition: opacity .15s, transform .15s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: none; }
+  .toast svg { color: var(--color-accent); width: 20px; height: 20px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="appbar">
+    <button class="icon-btn" id="menuBtn" aria-label="Menu" aria-controls="drawer" aria-expanded="false"></button>
+    <h1 id="title"></h1>
+    <button class="icon-btn" id="bellBtn" aria-label="Notifications"></button>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+  <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true"></section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+(() => {
+  /* ---------------- Icons ---------------- */
+  const P = {
+    menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
+    bell: '<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+    home: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+    pin: '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+    star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+    chart: '<path d="M4 20V11M10 20V5M16 20v-8M21 20H3"/>',
+    grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    chev: '<path d="M9 6l6 6-6 6"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    food: '<path d="M7 3v7a2 2 0 0 0 4 0V3M9 12v9M17 3c-2.2 1.5-2.2 7 0 8.5V21"/>',
+    cafe: '<path d="M4 9h12v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M12 3v3"/>',
+    poi: '<path d="M3 21h18M5 21V10M19 21V10M9.5 21V10M14.5 21V10M2.5 10L12 4l9.5 6z"/>',
+    all: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    bed: '<path d="M3 18V7M3 13h18v5M21 18v-5a3 3 0 0 0-3-3h-7v3"/><circle cx="7" cy="10.5" r="1.5"/>',
+    sparkle: '<path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M18.5 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+    wifi: '<path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r=".6"/>',
+    key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16.5 6.5l3 3"/>',
+    leaf: '<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15z"/><path d="M5 19l7-7"/>',
+    phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+    nav: '<path d="M3 11l18-8-8 18-2-8z"/>',
+    save: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+    check: '<path d="M5 12l5 5 9-10"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    gear: '<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+    alert: '<path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17h.01"/>',
+    walk: '<circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2-6 3 3v3M9 12l2-4 4 2 2 3M11 8l-3 3-1 3"/>',
+    services: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>'
+  };
+  const ic = (n, cls = '') => `<svg viewBox="0 0 24 24" aria-hidden="true" class="${cls}">${P[n]}</svg>`;
+
+  /* ---------------- Strings ---------------- */
+  const S = {
+    en: {
+      'brand.en': 'Paradise Garden Hotel', 'brand.fa': 'باغ پردیس', tagline: 'Your experience matters',
+      'demo': 'Demo build · placeholder brand', soon: 'Coming soon in the full app', menu: 'Menu', notifications: 'Notifications',
+      'tab.home': 'Home', 'tab.nearby': 'Nearby', 'tab.rate': 'Rate', 'tab.dash': 'Dashboard', 'tab.services': 'Services',
+      'title.home': 'Welcome', 'title.nearby': 'Nearby', 'title.rate': 'Rate your stay', 'title.dash': 'Dashboard',
+      'greet.m': 'Good morning', 'greet.a': 'Good afternoon', 'greet.e': 'Good evening',
+      'home.rate.t': 'Rate your stay', 'home.rate.d': 'Two minutes, anonymous',
+      'home.services': 'Hotel services', 'home.nearby': 'Nearby highlights', 'seeAll': 'See all',
+      'qa.room': 'Room service', 'qa.house': 'Housekeeping', 'qa.wifi': 'Wi-Fi', 'qa.late': 'Late checkout', 'qa.concierge': 'Concierge', 'qa.spa': 'Spa',
+      'd.mystay': 'My stay', 'd.room': 'Room service', 'd.wifi': 'Wi-Fi', 'd.settings': 'Settings', 'd.lang': 'Language', 'd.langLocked': 'Locked while the survey is open', 'd.soon': 'Soon',
+      'n.search': 'Search restaurants, cafés, places…', 'n.all': 'All', 'n.restaurant': 'Restaurants', 'n.cafe': 'Cafés', 'n.poi': 'Places of interest',
+      'n.open': 'Open now', 'n.sort.dist': 'Nearest', 'n.sort.rating': 'Top rated', 'n.results': '%1 places', 'n.empty.t': 'No places match', 'n.empty.d': 'Try another word or clear the filters.',
+      'n.clear': 'Clear filters', 'n.isOpen': 'Open', 'n.isClosed': 'Closed', 'n.min': '%1 min walk', 'n.hours': 'Hours', 'n.dir': 'Directions', 'n.call': 'Call', 'n.save': 'Save', 'n.demo': 'Demo data',
+      's.welcome.t': 'Your experience matters', 's.welcome.d': 'We would be delighted if you could take two minutes to share your experience with us.',
+      's.time': 'About 2 minutes', 's.anon': 'Anonymous', 's.q9': '9 questions', 's.langNote': 'The survey stays in English once you start.',
+      's.start': 'Start survey', 's.step': 'Question %1 of %2', 's.back': 'Back', 's.next': 'Continue', 's.submit': 'Submit',
+      's.req': 'Required', 's.opt': 'Optional', 's.err': 'Please choose an answer to continue.', 's.placeholder': 'Write as much or as little as you like',
+      's.e15.lo': 'Very poor', 's.e15.hi': 'Excellent', 's.e010.lo': 'Not at all likely', 's.e010.hi': 'Extremely likely',
+      's.done.t': 'Thank you', 's.done.d': 'Thank you for taking the time to share your experience. Your feedback helps us make every stay more special.',
+      's.done.home': 'Back to home', 's.done.nearby': 'Explore nearby',
+      'db.view': 'Manager view (demo)', 'db.7': '7 days', 'db.30': '30 days', 'db.all': 'All', 'db.total': 'Responses', 'db.avg': 'Overall stay', 'db.nps': 'NPS',
+      'db.cats': 'Satisfaction by category', 'db.n': 'n = %1', 'db.lang': 'Survey language', 'db.low': 'Low sample (%1 responses). Treat these numbers with care.',
+      'db.updated': 'Updated %1', 'db.npsHelp': 'Promoters (9–10) minus detractors (0–6)', 'db.det': 'Detractors', 'db.pas': 'Passives', 'db.pro': 'Promoters', 'db.none': 'No responses in this period.',
+      'db.privacy': 'Aggregates only. Guest comments are not shown here.',
+      'lang.en': 'English', 'lang.fa': 'فارسی'
+    },
+    fa: {
+      'brand.en': 'Paradise Garden Hotel', 'brand.fa': 'باغ پردیس', tagline: 'تجربهٔ شما برای ما ارزشمند است',
+      'demo': 'نسخهٔ نمایشی · نام تجاری موقت', soon: 'به‌زودی در نسخهٔ کامل', menu: 'منو', notifications: 'اعلان‌ها',
+      'tab.home': 'خانه', 'tab.nearby': 'اطراف', 'tab.rate': 'نظرسنجی', 'tab.dash': 'داشبورد', 'tab.services': 'خدمات',
+      'title.home': 'خوش آمدید', 'title.nearby': 'اطراف هتل', 'title.rate': 'نظر شما دربارهٔ اقامت', 'title.dash': 'داشبورد',
+      'greet.m': 'صبح بخیر', 'greet.a': 'روز بخیر', 'greet.e': 'عصر بخیر',
+      'home.rate.t': 'به اقامت خود امتیاز دهید', 'home.rate.d': 'دو دقیقه، بدون نام',
+      'home.services': 'خدمات هتل', 'home.nearby': 'پیشنهادهای اطراف', 'seeAll': 'همه',
+      'qa.room': 'سرویس اتاق', 'qa.house': 'نظافت', 'qa.wifi': 'وای‌فای', 'qa.late': 'تخلیهٔ دیرتر', 'qa.concierge': 'پذیرش', 'qa.spa': 'اسپا',
+      'd.mystay': 'اقامت من', 'd.room': 'سرویس اتاق', 'd.wifi': 'وای‌فای', 'd.settings': 'تنظیمات', 'd.lang': 'زبان', 'd.langLocked': 'تا پایان نظرسنجی قابل تغییر نیست', 'd.soon': 'به‌زودی',
+      'n.search': 'جست‌وجوی رستوران، کافه، دیدنی‌ها…', 'n.all': 'همه', 'n.restaurant': 'رستوران‌ها', 'n.cafe': 'کافه‌ها', 'n.poi': 'دیدنی‌ها',
+      'n.open': 'اکنون باز', 'n.sort.dist': 'نزدیک‌ترین', 'n.sort.rating': 'بهترین امتیاز', 'n.results': '%1 مکان', 'n.empty.t': 'مکانی پیدا نشد', 'n.empty.d': 'واژهٔ دیگری را امتحان کنید یا فیلترها را پاک کنید.',
+      'n.clear': 'پاک کردن فیلترها', 'n.isOpen': 'باز', 'n.isClosed': 'بسته', 'n.min': '%1 دقیقه پیاده', 'n.hours': 'ساعت کار', 'n.dir': 'مسیر', 'n.call': 'تماس', 'n.save': 'ذخیره', 'n.demo': 'دادهٔ نمایشی',
+      's.welcome.t': 'تجربهٔ شما برای ما ارزشمند است', 's.welcome.d': 'خوشحال می‌شویم اگر دو دقیقه وقت بگذارید و تجربهٔ خود را با ما در میان بگذارید.',
+      's.time': 'حدود ۲ دقیقه', 's.anon': 'بدون نام', 's.q9': '۹ پرسش', 's.langNote': 'پس از شروع، نظرسنجی به فارسی می‌ماند.',
+      's.start': 'شروع نظرسنجی', 's.step': 'پرسش %1 از %2', 's.back': 'قبلی', 's.next': 'ادامه', 's.submit': 'ارسال',
+      's.req': 'الزامی', 's.opt': 'اختیاری', 's.err': 'لطفاً برای ادامه یک گزینه را انتخاب کنید.', 's.placeholder': 'هر قدر که می‌خواهید بنویسید',
+      's.e15.lo': 'بسیار ضعیف', 's.e15.hi': 'عالی', 's.e010.lo': 'اصلاً احتمال ندارد', 's.e010.hi': 'به احتمال بسیار زیاد',
+      's.done.t': 'سپاسگزاریم', 's.done.d': 'از اینکه وقت گذاشتید و تجربهٔ خود را با ما در میان گذاشتید سپاسگزاریم. نظر شما به ما کمک می‌کند هر اقامت را ویژه‌تر کنیم.',
+      's.done.home': 'بازگشت به خانه', 's.done.nearby': 'گشتی در اطراف',
+      'db.view': 'نمای مدیریت (نمایشی)', 'db.7': '۷ روز', 'db.30': '۳۰ روز', 'db.all': 'همه', 'db.total': 'پاسخ‌ها', 'db.avg': 'اقامت کلی', 'db.nps': 'NPS',
+      'db.cats': 'رضایت به تفکیک بخش', 'db.n': 'n = %1', 'db.lang': 'زبان نظرسنجی', 'db.low': 'نمونه کم است (%1 پاسخ). این اعداد را با احتیاط بخوانید.',
+      'db.updated': 'به‌روزرسانی %1', 'db.npsHelp': 'مروجان (۹–۱۰) منهای منتقدان (۰–۶)', 'db.det': 'منتقدان', 'db.pas': 'خنثی', 'db.pro': 'مروجان', 'db.none': 'در این بازه پاسخی ثبت نشده است.',
+      'db.privacy': 'فقط آمار کلی. نظرهای نوشتاری مهمانان اینجا نمایش داده نمی‌شود.',
+      'lang.en': 'English', 'lang.fa': 'فارسی'
+    }
+  };
+
+  const Q = [
+    { en: 'How would you rate your overall stay?', fa: 'اقامت خود را در مجموع چگونه ارزیابی می‌کنید؟', type: 5, cat: { en: 'Overall stay', fa: 'اقامت کلی' } },
+    { en: 'How clean was your room?', fa: 'اتاق شما چقدر تمیز بود؟', type: 5, cat: { en: 'Cleanliness', fa: 'تمیزی اتاق' } },
+    { en: 'How comfortable was your room?', fa: 'اتاق شما چقدر راحت بود؟', type: 5, cat: { en: 'Comfort', fa: 'راحتی اتاق' } },
+    { en: 'How friendly was our staff?', fa: 'کارکنان ما چقدر خوش‌برخورد بودند؟', type: 5, cat: { en: 'Staff', fa: 'کارکنان' } },
+    { en: 'How would you rate breakfast?', fa: 'صبحانه را چگونه ارزیابی می‌کنید؟', type: 5, cat: { en: 'Breakfast', fa: 'صبحانه' } },
+    { en: 'How satisfied were you with our facilities?', fa: 'از امکانات ما چقدر راضی بودید؟', type: 5, cat: { en: 'Facilities', fa: 'امکانات' } },
+    { en: 'Would you recommend our hotel?', fa: 'آیا هتل ما را به دیگران توصیه می‌کنید؟', type: 11 },
+    { en: 'What did you particularly like?', fa: 'چه چیزی را به‌ویژه پسندیدید؟', type: 'text' },
+    { en: 'What could we improve?', fa: 'چه چیزی را می‌توانیم بهتر کنیم؟', type: 'text' }
+  ];
+
+  /* Mock places (fictional names, demo data only). hours: [open, close] in 24h; close > 24 means after midnight. */
+  const PLACES = [
+    { id: 1, cat: 'restaurant', en: 'Shahrzad Garden', fa: 'باغ شهرزاد', d: 350, r: 4.6, p: 2, h: [12, 23], tags: { en: 'Persian · Kebab · Garden seating', fa: 'ایرانی · کباب · فضای باغ' }, desc: { en: 'Charcoal kebabs and slow-cooked stews under old plane trees.', fa: 'کباب ذغالی و خورش‌های جاافتاده زیر چنارهای کهن.' } },
+    { id: 2, cat: 'restaurant', en: 'Saffron House', fa: 'خانهٔ زعفران', d: 600, r: 4.4, p: 2, h: [11, 22], tags: { en: 'Persian · Family', fa: 'ایرانی · خانوادگی' }, desc: { en: 'Home-style dishes, tahdig and saffron desserts.', fa: 'غذاهای خانگی، ته‌دیگ و دسرهای زعفرانی.' } },
+    { id: 3, cat: 'restaurant', en: 'Olive & Thyme', fa: 'زیتون و آویشن', d: 900, r: 4.3, p: 3, h: [18, 24], tags: { en: 'Mediterranean · Dinner', fa: 'مدیترانه‌ای · شام' }, desc: { en: 'Grilled fish, mezze and a quiet terrace.', fa: 'ماهی کبابی، پیش‌غذاهای مدیترانه‌ای و تراسی آرام.' } },
+    { id: 4, cat: 'restaurant', en: 'Mountain Kebab', fa: 'کباب کوهستان', d: 1200, r: 4.5, p: 1, h: [12, 24], tags: { en: 'Kebab · Quick', fa: 'کباب · سریع' }, desc: { en: 'Busy, cheap and famous for its koobideh.', fa: 'شلوغ، ارزان و معروف به کوبیده‌اش.' } },
+    { id: 5, cat: 'restaurant', en: 'Lotus Noodle Bar', fa: 'نودل‌بار لوتوس', d: 750, r: 4.1, p: 2, h: [12, 22], tags: { en: 'Asian · Vegetarian options', fa: 'آسیایی · گزینهٔ گیاهی' }, desc: { en: 'Hand-pulled noodles and dumplings.', fa: 'نودل دست‌ساز و دامپلینگ.' } },
+    { id: 6, cat: 'restaurant', en: 'Caspian Fish House', fa: 'ماهی‌سرای کاسپین', d: 1600, r: 4.2, p: 3, h: [12, 23], tags: { en: 'Seafood · Northern cuisine', fa: 'غذای دریایی · غذای شمالی' }, desc: { en: 'Fresh fish, herb rice and northern specialities.', fa: 'ماهی تازه، سبزی‌پلو و غذاهای شمالی.' } },
+    { id: 7, cat: 'restaurant', en: 'Night Market Grill', fa: 'کبابی بازار شب', d: 1100, r: 4.0, p: 1, h: [18, 26], tags: { en: 'Street food · Late', fa: 'غذای خیابانی · تا دیروقت' }, desc: { en: 'Skewers, grilled corn and late-night crowds.', fa: 'سیخ‌های کباب، بلال کبابی و شب‌زنده‌داران.' } },
+    { id: 8, cat: 'cafe', en: 'Corner Café', fa: 'کافه گوشه', d: 200, r: 4.7, p: 1, h: [8, 22], tags: { en: 'Coffee · Pastries', fa: 'قهوه · شیرینی' }, desc: { en: 'Small, bright and two minutes from the lobby.', fa: 'کوچک، روشن و دو دقیقه تا لابی.' } },
+    { id: 9, cat: 'cafe', en: 'Rumi Tea House', fa: 'چای‌خانهٔ رومی', d: 450, r: 4.8, p: 1, h: [10, 23], tags: { en: 'Tea · Traditional', fa: 'چای · سنتی' }, desc: { en: 'Samovar tea, dates and live music on Thursdays.', fa: 'چای سماوری، خرما و موسیقی زنده در پنجشنبه‌ها.' } },
+    { id: 10, cat: 'cafe', en: 'Bean & Book', fa: 'کافه کتاب و قهوه', d: 650, r: 4.5, p: 2, h: [9, 21], tags: { en: 'Coffee · Books · Wi-Fi', fa: 'قهوه · کتاب · وای‌فای' }, desc: { en: 'A quiet reading room with good espresso.', fa: 'اتاق مطالعه‌ای آرام با اسپرسوی خوب.' } },
+    { id: 11, cat: 'cafe', en: 'Golestan Pastry Café', fa: 'کافه شیرینی گلستان', d: 300, r: 4.3, p: 1, h: [7, 20], tags: { en: 'Pastries · Breakfast', fa: 'شیرینی · صبحانه' }, desc: { en: 'Fresh pastries from seven in the morning.', fa: 'شیرینی تازه از ساعت هفت صبح.' } },
+    { id: 12, cat: 'cafe', en: 'Moonlight Roastery', fa: 'رُست‌خانهٔ مهتاب', d: 1000, r: 4.6, p: 2, h: [9, 22], tags: { en: 'Specialty coffee', fa: 'قهوهٔ تخصصی' }, desc: { en: 'Beans roasted in-house, pour-over bar.', fa: 'دانه‌های برشته در محل و بار دم‌آوری.' } },
+    { id: 13, cat: 'cafe', en: 'Garden Terrace', fa: 'کافه تراس باغ', d: 150, r: 4.2, p: 2, h: [10, 23], tags: { en: 'Terrace · Desserts', fa: 'تراس · دسر' }, desc: { en: 'Rooftop seats with a view over the garden.', fa: 'نشیمن روی بام با چشم‌انداز باغ.' } },
+    { id: 14, cat: 'cafe', en: 'Night Owl Café', fa: 'کافه جغد شب', d: 1300, r: 4.0, p: 1, h: [16, 25], tags: { en: 'Late · Board games', fa: 'تا دیروقت · بازی‌های رومیزی' }, desc: { en: 'Open late, with board games and hot chocolate.', fa: 'تا دیروقت باز است، با بازی رومیزی و شکلات داغ.' } },
+    { id: 15, cat: 'poi', en: 'Old Citadel Museum', fa: 'موزهٔ ارگ قدیم', d: 1800, r: 4.8, p: 1, h: [9, 17], tags: { en: 'Museum · History', fa: 'موزه · تاریخ' }, desc: { en: 'Mirrored halls and a garden courtyard.', fa: 'تالارهای آینه‌کاری و حیاطی باغ‌مانند.' } },
+    { id: 16, cat: 'poi', en: 'Covered Bazaar', fa: 'بازار سرپوشیده', d: 2100, r: 4.6, p: 1, h: [9, 18], tags: { en: 'Shopping · Crafts', fa: 'خرید · صنایع دستی' }, desc: { en: 'Spices, carpets and copperware under brick domes.', fa: 'ادویه، فرش و مس زیر گنبدهای آجری.' } },
+    { id: 17, cat: 'poi', en: 'Rose Garden Park', fa: 'پارک باغ گل سرخ', d: 500, r: 4.4, p: 1, h: [6, 23], tags: { en: 'Park · Walk', fa: 'پارک · پیاده‌روی' }, desc: { en: 'Fountains and rose beds, lovely at sunset.', fa: 'فواره‌ها و باغچه‌های گل سرخ، زیبا در غروب.' } },
+    { id: 18, cat: 'poi', en: 'Hilltop Viewpoint', fa: 'چشم‌انداز تپه', d: 3200, r: 4.7, p: 1, h: [0, 24], tags: { en: 'View · Sunset', fa: 'چشم‌انداز · غروب' }, desc: { en: 'The best view of the city lights.', fa: 'بهترین منظره از چراغ‌های شهر.' } },
+    { id: 19, cat: 'poi', en: 'Carpet & Craft Gallery', fa: 'نگارخانهٔ فرش و صنایع دستی', d: 950, r: 4.5, p: 1, h: [10, 19], tags: { en: 'Gallery · Crafts', fa: 'نگارخانه · صنایع دستی' }, desc: { en: 'Hand-woven carpets and live weaving demos.', fa: 'فرش‌های دست‌باف و نمایش زندهٔ بافت.' } },
+    { id: 20, cat: 'poi', en: 'Riverside Walk', fa: 'پیاده‌راه کنار رود', d: 700, r: 4.3, p: 1, h: [0, 24], tags: { en: 'Walk · Outdoors', fa: 'پیاده‌روی · فضای باز' }, desc: { en: 'A shaded path along the river, with tea stalls.', fa: 'مسیری سایه‌دار کنار رود، با دکه‌های چای.' } },
+    { id: 21, cat: 'poi', en: 'Art House Cinema', fa: 'سینمای خانهٔ هنر', d: 1400, r: 4.2, p: 2, h: [14, 24], tags: { en: 'Cinema · Culture', fa: 'سینما · فرهنگ' }, desc: { en: 'Independent films, some with English subtitles.', fa: 'فیلم‌های مستقل، برخی با زیرنویس انگلیسی.' } }
+  ];
+  const CAT_ICON = { restaurant: 'food', cafe: 'cafe', poi: 'poi', all: 'all' };
+
+  /* Seeded demo responses for the dashboard (deterministic). Prototype submissions are added on top (scores only, never comment text). */
+  function seed() {
+    let s = 42; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const pick5 = (bias) => Math.max(1, Math.min(5, Math.round(3.9 + bias + (rnd() - 0.5) * 2.4)));
+    const out = [];
+    for (let i = 0; i < 40; i++) {
+      const daysAgo = Math.floor(Math.pow(rnd(), 0.55) * 30);
+      const q = [pick5(0.4), pick5(0.5), pick5(0.2), pick5(0.7), pick5(-0.5), pick5(0)];
+      const nps = Math.max(0, Math.min(10, Math.round(q[0] * 2 + (rnd() - 0.35) * 3)));
+      out.push({ t: Date.now() - daysAgo * 864e5 - rnd() * 864e5 * 0.9, lang: rnd() < 0.55 ? 'fa' : 'en', q: [...q, nps] });
+    }
+    return out;
+  }
+  const SEED = seed();
+  const mine = () => JSON.parse(localStorage.getItem('demo.responses') || '[]');
+
+  /* ---------------- State ---------------- */
+  const st = {
+    lang: localStorage.getItem('demo.lang') || 'en',
+    route: 'home',
+    nearby: { q: '', cat: 'all', open: false, sort: 'dist' },
+    survey: { step: 0, ans: Array(9).fill(null), lang: null, err: false },
+    dash: '30'
+  };
+  const $ = (id) => document.getElementById(id);
+  const t = (k, ...a) => { let v = (S[st.lang][k] ?? k); a.forEach((x, i) => v = v.replace('%' + (i + 1), x)); return v; };
+  const num = (x, d = 0) => new Intl.NumberFormat(st.lang === 'fa' ? 'fa-IR' : 'en-US', { minimumFractionDigits: d, maximumFractionDigits: d }).format(x);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const inSurvey = () => st.survey.step >= 1 && st.survey.step <= 9;
+
+  /* ---------------- Shell ---------------- */
+  function shell() {
+    document.documentElement.lang = st.lang;
+    document.documentElement.dir = st.lang === 'fa' ? 'rtl' : 'ltr';
+    $('menuBtn').innerHTML = ic('menu'); $('menuBtn').setAttribute('aria-label', t('menu'));
+    $('bellBtn').innerHTML = ic('bell') + '<span class="dot"></span>'; $('bellBtn').setAttribute('aria-label', t('notifications'));
+    $('title').textContent = t({ home: 'title.home', nearby: 'title.nearby', rate: 'title.rate', dash: 'title.dash' }[st.route]);
+    const tabs = [['home', 'home', 'tab.home'], ['nearby', 'pin', 'tab.nearby'], ['rate', 'star', 'tab.rate'], ['dash', 'chart', 'tab.dash'], ['services', 'grid', 'tab.services']];
+    $('tabbar').innerHTML = tabs.map(([r, i, k]) => r === 'rate'
+      ? `<button class="tab center" data-go="${r}" ${st.route === r ? 'aria-current="page"' : ''}><span class="bubble">${ic(i)}</span>${t(k)}</button>`
+      : `<button class="tab" data-go="${r}" ${st.route === r ? 'aria-current="page"' : ''}>${ic(i)}${t(k)}</button>`).join('');
+    drawer();
+  }
+
+  function drawer() {
+    const cur = (r) => st.route === r ? 'aria-current="page"' : '';
+    const locked = inSurvey();
+    $('drawer').innerHTML = `
+      <header><div class="wordmark">${t('brand.en')}</div><div class="fa-name" lang="fa">${t('brand.fa')}</div>
+        <div class="small" style="margin-block-start:var(--space-2);color:var(--color-border)">${t('tagline')}</div></header>
+      <nav>
+        <button class="d-item" data-go="home" ${cur('home')}>${ic('home')}${t('tab.home')}</button>
+        <button class="d-item" data-go="rate" ${cur('rate')}>${ic('star')}${t('title.rate')}</button>
+        <button class="d-item" data-go="nearby" ${cur('nearby')}>${ic('pin')}${t('tab.nearby')}</button>
+        <button class="d-item" data-go="dash" ${cur('dash')}>${ic('chart')}${t('tab.dash')}</button>
+        <div class="d-sep"></div>
+        <button class="d-item" data-soon>${ic('bed')}${t('d.mystay')}<span class="soon">${t('d.soon')}</span></button>
+        <button class="d-item" data-soon>${ic('sparkle')}${t('d.room')}<span class="soon">${t('d.soon')}</span></button>
+        <button class="d-item" data-soon>${ic('wifi')}${t('d.wifi')}<span class="soon">${t('d.soon')}</span></button>
+        <button class="d-item" data-soon>${ic('gear')}${t('d.settings')}<span class="soon">${t('d.soon')}</span></button>
+        <div class="d-sep"></div>
+        <div class="d-lang"><div class="label">${ic('globe', '').replace('<svg', '<svg style="width:14px;height:14px;vertical-align:-2px"')} ${t('d.lang')}</div>
+          <div class="seg" role="group">
+            <button data-lang="en" aria-pressed="${st.lang === 'en'}" ${locked ? 'disabled' : ''}>English</button>
+            <button data-lang="fa" aria-pressed="${st.lang === 'fa'}" ${locked ? 'disabled' : ''} lang="fa">فارسی</button>
+          </div>
+          ${locked ? `<div class="small muted" style="margin-block-start:var(--space-2)">${t('d.langLocked')}</div>` : ''}
+        </div>
+      </nav>
+      <footer>${t('demo')}</footer>`;
+  }
+
+  function openDrawer(open) {
+    $('drawer').classList.toggle('open', open); $('scrim').classList.toggle('open', open);
+    $('drawer').setAttribute('aria-hidden', String(!open)); $('menuBtn').setAttribute('aria-expanded', String(open));
+    if (!open) closeSheet(true);
+  }
+  function openSheet(html) {
+    $('sheet').innerHTML = '<div class="handle"></div>' + html; $('sheet').classList.add('open'); $('sheet').setAttribute('aria-hidden', 'false'); $('scrim').classList.add('open');
+  }
+  function closeSheet(silent) {
+    $('sheet').classList.remove('open'); $('sheet').setAttribute('aria-hidden', 'true');
+    if (!silent && !$('drawer').classList.contains('open')) $('scrim').classList.remove('open');
+  }
+  let toastTimer;
+  function toast(msg) {
+    $('toast').innerHTML = ic('info') + esc(msg || t('soon')); $('toast').classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('show'), 2000);
+  }
+
+  function go(r) {
+    if (r === 'services') { toast(); return; }
+    if (r === 'rate' && st.survey.step === 10 && st.route !== 'rate') st.survey.step = 0;
+    st.route = r; openDrawer(false); closeSheet();
+    if (location.hash !== '#' + r) history.replaceState(null, '', '#' + r);
+    render(); $('main').scrollTop = 0;
+  }
+
+  /* ---------------- Screens ---------------- */
+  function home() {
+    const h = new Date().getHours();
+    const greet = t(h < 12 ? 'greet.m' : h < 17 ? 'greet.a' : 'greet.e');
+    const qa = [['sparkle', 'qa.room'], ['bed', 'qa.house'], ['wifi', 'qa.wifi'], ['clock', 'qa.late'], ['key', 'qa.concierge'], ['leaf', 'qa.spa']];
+    const picks = [8, 1, 17].map((id) => PLACES.find((p) => p.id === id));
+    return `<div class="stack">
+      <section class="hero">
+        <p class="greet">${greet}</p>
+        <div class="wordmark">${t('brand.en')}</div><div class="fa-name" lang="fa">${t('brand.fa')}</div>
+        <p>${t('tagline')}</p>
+      </section>
+      <button class="card rate-card" data-go="rate">
+        <span class="ic">${ic('star')}</span>
+        <span style="flex:1"><h2>${t('home.rate.t')}</h2><p class="small muted">${t('home.rate.d')}</p></span>
+        <span class="chev flip">${ic('chev')}</span>
+      </button>
+      <div class="section-head"><h2>${t('home.services')}</h2></div>
+      <div class="qa-grid">${qa.map(([i, k]) => `<button class="qa" data-soon>${ic(i)}${t(k)}</button>`).join('')}</div>
+      <div class="section-head"><h2>${t('home.nearby')}</h2><button class="link" data-go="nearby">${t('seeAll')}</button></div>
+      <div class="h-scroll">${picks.map((p) => `<button class="card mini" data-place="${p.id}">
+          <span class="pill">${ic(CAT_ICON[p.cat]).replace('<svg', '<svg style="width:14px;height:14px"')} ${t('n.' + p.cat)}</span>
+          <h3>${esc(p[st.lang])}</h3>
+          <div class="meta"><span class="star">${ic('star')} ${num(p.r, 1)}</span><span>${distTxt(p.d)}</span></div>
+        </button>`).join('')}</div>
+    </div>`;
+  }
+
+  const openNow = (p) => { const n = new Date(); const h = n.getHours() + n.getMinutes() / 60; return (h >= p.h[0] && h < p.h[1]) || (p.h[1] > 24 && h < p.h[1] - 24); };
+  const distTxt = (m) => m < 1000 ? (st.lang === 'fa' ? `${num(m)} متر` : `${num(m)} m`) : (st.lang === 'fa' ? `${num(m / 1000, 1)} کیلومتر` : `${num(m / 1000, 1)} km`);
+  const hoursTxt = (p) => p.h[0] === 0 && p.h[1] === 24 ? (st.lang === 'fa' ? 'شبانه‌روزی' : 'Open 24 hours')
+    : `${num(p.h[0])}:${num(0)}${num(0)} – ${num(p.h[1] % 24)}:${num(0)}${num(0)}`;
+
+  function filtered() {
+    const f = st.nearby; const q = f.q.trim().toLowerCase();
+    return PLACES.filter((p) => (f.cat === 'all' || p.cat === f.cat) && (!f.open || openNow(p)) &&
+      (!q || [p.en, p.fa, p.tags.en, p.tags.fa].some((s) => s.toLowerCase().includes(q))))
+      .sort((a, b) => f.sort === 'dist' ? a.d - b.d : b.r - a.r);
+  }
+
+  function nearby() {
+    const f = st.nearby;
+    const cats = ['all', 'restaurant', 'cafe', 'poi'];
+    return `<div>
+      <label class="search">${ic('search')}<input id="q" type="search" value="${esc(f.q)}" placeholder="${t('n.search')}" aria-label="${t('n.search')}" autocomplete="off"></label>
+      <div class="chips" role="group">${cats.map((c) => `<button class="chip" data-cat="${c}" aria-pressed="${f.cat === c}">${ic(CAT_ICON[c])}${t('n.' + c)}</button>`).join('')}</div>
+      <div class="toolbar">
+        <button class="toggle" id="openT" role="switch" aria-checked="${f.open}"><span class="switch"></span>${t('n.open')}</button>
+        <div class="seg" role="group">
+          <button data-sort="dist" aria-pressed="${f.sort === 'dist'}">${t('n.sort.dist')}</button>
+          <button data-sort="rating" aria-pressed="${f.sort === 'rating'}">${t('n.sort.rating')}</button>
+        </div>
+      </div>
+      <div id="results">${results()}</div>
+    </div>`;
+  }
+  function results() {
+    const list = filtered();
+    if (!list.length) return `<div class="empty">${ic('search')}<h3 style="margin-block:var(--space-3) var(--space-2)">${t('n.empty.t')}</h3>
+      <p class="muted small">${t('n.empty.d')}</p><button class="btn secondary" data-clear style="width:auto;margin:var(--space-4) auto 0">${t('n.clear')}</button></div>`;
+    return `<p class="count">${t('n.results', num(list.length))} · <span class="pill">${t('n.demo')}</span></p><div class="list">${list.map((p) => {
+      const o = openNow(p);
+      return `<button class="card place" data-place="${p.id}">
+        <span class="ic">${ic(CAT_ICON[p.cat])}</span>
+        <span style="min-width:0"><h3>${esc(p[st.lang])}</h3>
+          <span class="meta"><span class="star">${ic('star')} ${num(p.r, 1)}</span><span>${distTxt(p.d)}</span><span>${'$'.repeat(p.p)}</span>
+          <span class="pill ${o ? 'ok' : 'closed'}">${t(o ? 'n.isOpen' : 'n.isClosed')}</span></span></span>
+        <span class="chev flip">${ic('chev')}</span></button>`;
+    }).join('')}</div>`;
+  }
+  function placeSheet(id) {
+    const p = PLACES.find((x) => x.id === +id); const o = openNow(p);
+    openSheet(`<div class="sheet-head"><span class="ic">${ic(CAT_ICON[p.cat])}</span><div><div class="label">${t('n.' + p.cat)}</div><h2>${esc(p[st.lang])}</h2></div></div>
+      <div class="meta" style="margin-block-start:var(--space-3);font-size:var(--size-body-sm)">
+        <span class="star">${ic('star')} ${num(p.r, 1)}</span><span>${ic('walk')} ${t('n.min', num(Math.max(1, Math.round(p.d / 80))))}</span><span>${'$'.repeat(p.p)}</span>
+        <span class="pill ${o ? 'ok' : 'closed'}">${t(o ? 'n.isOpen' : 'n.isClosed')}</span></div>
+      <p>${esc(p.desc[st.lang])}</p>
+      <div class="meta">${ic('clock')} ${t('n.hours')}: ${hoursTxt(p)}</div>
+      <div class="tags">${p.tags[st.lang].split(' · ').map((x) => `<span class="pill">${esc(x)}</span>`).join('')}</div>
+      <div class="sheet-actions">
+        <button class="btn" data-soon>${ic('nav', 'flip')}${t('n.dir')}</button>
+        <button class="btn secondary" data-soon>${ic('phone')}${t('n.call')}</button>
+        <button class="btn secondary" data-soon>${ic('save')}${t('n.save')}</button>
+      </div>`);
+  }
+
+  function rate() {
+    const s = st.survey;
+    if (s.step === 0) return `<div class="card center">
+        <div class="done-ic" style="background:var(--accent-soft);color:var(--color-accent)">${ic('star')}</div>
+        <h2 style="font-size:var(--size-h2)">${t('s.welcome.t')}</h2>
+        <p class="muted" style="line-height:1.55">${t('s.welcome.d')}</p>
+        <div class="facts"><span>${ic('clock')}${t('s.time')}</span><span>${ic('user')}${t('s.anon')}</span><span>${ic('check')}${t('s.q9')}</span></div>
+        <button class="btn" data-start>${t('s.start')}</button>
+        <p class="small muted" style="margin-block-end:0">${t('s.langNote')}</p>
+      </div>`;
+    if (s.step === 10) return `<div class="card center">
+        <div class="done-ic">${ic('check')}</div>
+        <h2 style="font-size:var(--size-h1)">${t('s.done.t')}</h2>
+        <p class="muted" style="line-height:1.55">${t('s.done.d')}</p>
+        <div style="margin-block:var(--space-5) var(--space-2)"><div class="wordmark" style="font-family:var(--font-heading-latin);color:var(--color-accent);font-size:var(--size-h3);font-weight:600">${t('brand.en')}</div>
+        <div lang="fa" style="font-family:var(--font-heading-fa);color:var(--color-accent)">${t('brand.fa')}</div></div>
+        <div class="stack"><button class="btn" data-go="home">${t('s.done.home')}</button><button class="btn secondary" data-go="nearby">${t('s.done.nearby')}</button></div>
+      </div>`;
+    const i = s.step - 1, q = Q[i], a = s.ans[i];
+    const req = q.type !== 'text';
+    let ctl = '';
+    if (q.type === 5) ctl = `<div class="scale s5" role="radiogroup">${[1, 2, 3, 4, 5].map((v) => `<button class="tile" role="radio" data-ans="${v}" aria-checked="${a === v}">${num(v)}</button>`).join('')}</div>
+      <div class="ends"><span>${t('s.e15.lo')}</span><span>${t('s.e15.hi')}</span></div>`;
+    if (q.type === 11) ctl = `<div class="scale s11" role="radiogroup">${[...Array(11).keys()].map((v) => `<button class="tile" role="radio" data-ans="${v}" aria-checked="${a === v}">${num(v)}</button>`).join('')}</div>
+      <div class="ends"><span>${num(0)} = ${t('s.e010.lo')}</span><span>${num(10)} = ${t('s.e010.hi')}</span></div>`;
+    if (q.type === 'text') ctl = `<textarea id="txt" placeholder="${t('s.placeholder')}">${esc(a || '')}</textarea>`;
+    return `<div class="progress"><div class="bar"><i style="width:${(s.step / 9) * 100}%"></i></div><span class="small muted">${t('s.step', num(s.step), num(9))}</span></div>
+      <div class="card q-card">
+        <span class="q-tag">${req ? t('s.req') : t('s.opt')}</span>
+        <h2>${q[st.lang]}</h2>
+        ${ctl}
+        ${s.err ? `<div class="err" role="alert">${ic('alert')}${t('s.err')}</div>` : ''}
+      </div>
+      <div class="survey-nav ${s.step === 1 ? 'solo' : ''}">
+        ${s.step > 1 ? `<button class="btn secondary" data-prev>${t('s.back')}</button>` : ''}
+        <button class="btn" data-next>${s.step === 9 ? t('s.submit') : t('s.next')}</button>
+      </div>`;
+  }
+
+  function dash() {
+    const days = st.dash === 'all' ? Infinity : +st.dash;
+    const all = SEED.concat(mine()).filter((r) => Date.now() - r.t <= days * 864e5);
+    const n = all.length;
+    const ranges = [['7', 'db.7'], ['30', 'db.30'], ['all', 'db.all']];
+    const head = `<div class="toolbar" style="margin-block-start:0"><span class="label">${t('db.view')}</span>
+      <div class="seg" role="group">${ranges.map(([v, k]) => `<button data-range="${v}" aria-pressed="${st.dash === v}">${t(k)}</button>`).join('')}</div></div>`;
+    if (!n) return head + `<div class="card empty">${ic('chart')}<p class="muted">${t('db.none')}</p></div>`;
+    const avg = (i) => all.reduce((s, r) => s + r.q[i], 0) / n;
+    const pro = all.filter((r) => r.q[6] >= 9).length, det = all.filter((r) => r.q[6] <= 6).length;
+    const nps = Math.round(((pro - det) / n) * 100);
+    const fa = all.filter((r) => r.lang === 'fa').length;
+    const avgs = Q.slice(0, 6).map((_, i) => avg(i)); const best = avgs.indexOf(Math.max(...avgs));
+    const pct = (x) => num(Math.round((x / n) * 100)) + (st.lang === 'fa' ? '٪' : '%');
+    const stamp = new Date().toLocaleTimeString(st.lang === 'fa' ? 'fa-IR' : 'en-GB', { hour: '2-digit', minute: '2-digit' });
+    return `<div class="stack">${head}
+      ${n < 10 ? `<div class="warn" role="note">${ic('alert')}<span>${t('db.low', num(n))}</span></div>` : ''}
+      <div class="kpis">
+        <div class="card kpi"><span>${t('db.total')}</span><b>${num(n)}</b></div>
+        <div class="card kpi"><span>${t('db.avg')}</span><b>${num(avg(0), 1)}</b><span>/ ${num(5)}</span></div>
+        <div class="card kpi"><span>${t('db.nps')}</span><b dir="ltr">${nps > 0 ? '+' : ''}${num(nps)}</b></div>
+      </div>
+      <div class="card"><div class="section-head" style="margin-block-start:0"><h2>${t('db.nps')}</h2><span class="small muted">${t('db.npsHelp')}</span></div>
+        <div class="nps-scale"><i style="width:${(det / n) * 100}%"></i><i style="width:${((n - det - pro) / n) * 100}%"></i><i style="width:${(pro / n) * 100}%"></i></div>
+        <div class="legend" style="margin-block-start:var(--space-2)"><span>${t('db.det')} ${pct(det)}</span><span>${t('db.pas')} ${pct(n - det - pro)}</span><span>${t('db.pro')} ${pct(pro)}</span></div>
+      </div>
+      <div class="card"><div class="section-head" style="margin-block-start:0"><h2>${t('db.cats')}</h2><span class="small muted">${t('db.n', num(n))}</span></div>
+        ${Q.slice(0, 6).map((q, i) => `<div class="cat ${i === best ? 'top' : ''}"><span>${q.cat[st.lang]}</span><b>${num(avgs[i], 1)}</b>
+          <div class="track"><i style="width:${(avgs[i] / 5) * 100}%"></i></div></div>`).join('')}
+      </div>
+      <div class="card"><h2 style="font-size:var(--size-h3)">${t('db.lang')}</h2>
+        <div class="split"><i style="width:${((n - fa) / n) * 100}%"></i><i style="width:${(fa / n) * 100}%"></i></div>
+        <div class="legend"><span>English ${pct(n - fa)}</span><span lang="fa">فارسی ${pct(fa)}</span></div>
+      </div>
+      <p class="small muted center">${t('db.privacy')}<br>${t('db.updated', stamp)}</p>
+    </div>`;
+  }
+
+  function render() {
+    shell();
+    $('main').innerHTML = { home, nearby, rate, dash }[st.route]();
+  }
+
+  /* ---------------- Events ---------------- */
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('button'); if (!el) { if (e.target.id === 'scrim') { openDrawer(false); closeSheet(); } return; }
+    const d = el.dataset;
+    if (el.id === 'menuBtn') return openDrawer(!$('drawer').classList.contains('open'));
+    if (el.id === 'bellBtn' || 'soon' in d) return toast();
+    if (d.go) return go(d.go);
+    if (d.lang) { st.lang = d.lang; localStorage.setItem('demo.lang', d.lang); render(); openDrawer(true); return; }
+    if (d.place) return placeSheet(d.place);
+    if (d.cat) { st.nearby.cat = d.cat; return refreshNearby(); }
+    if (d.sort) { st.nearby.sort = d.sort; return refreshNearby(); }
+    if (el.id === 'openT') { st.nearby.open = !st.nearby.open; return refreshNearby(); }
+    if ('clear' in d) { st.nearby = { q: '', cat: 'all', open: false, sort: st.nearby.sort }; return render(); }
+    if (d.range) { st.dash = d.range; return render(); }
+    const s = st.survey;
+    if ('start' in d) { s.step = 1; s.ans = Array(9).fill(null); s.lang = st.lang; s.err = false; return render(); }
+    if (d.ans !== undefined) { s.ans[s.step - 1] = +d.ans; s.err = false; return render(); }
+    if ('prev' in d) { saveText(); s.step--; s.err = false; return render(); }
+    if ('next' in d) {
+      saveText();
+      const q = Q[s.step - 1];
+      if (q.type !== 'text' && s.ans[s.step - 1] === null) { s.err = true; return render(); }
+      if (s.step === 9) {
+        const list = mine(); list.push({ t: Date.now(), lang: s.lang, q: s.ans.slice(0, 7) }); /* scores only, no comment text */
+        localStorage.setItem('demo.responses', JSON.stringify(list));
+        s.ans = Array(9).fill(null);
+      }
+      s.step++; s.err = false; render(); $('main').scrollTop = 0; return;
+    }
+  });
+  function saveText() { const x = $('txt'); if (x) st.survey.ans[st.survey.step - 1] = x.value; }
+  function refreshNearby() {
+    document.querySelectorAll('[data-cat]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === st.nearby.cat)));
+    document.querySelectorAll('[data-sort]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sort === st.nearby.sort)));
+    $('openT').setAttribute('aria-checked', String(st.nearby.open));
+    $('results').innerHTML = results();
+  }
+  document.addEventListener('input', (e) => { if (e.target.id === 'q') { st.nearby.q = e.target.value; $('results').innerHTML = results(); } });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { openDrawer(false); closeSheet(); } });
+  window.addEventListener('hashchange', () => { const r = location.hash.slice(1); if (['home', 'nearby', 'rate', 'dash'].includes(r) && r !== st.route) go(r); });
+
+  const start = location.hash.slice(1);
+  if (['home', 'nearby', 'rate', 'dash'].includes(start)) st.route = start;
+  render();
+})();
+</script>
+</body>
+</html>

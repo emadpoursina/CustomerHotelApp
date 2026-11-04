@@ -14,6 +14,10 @@ Records how the scaffold was set up from `hotelSurveyPRD.md`. Section 1 lists re
 | 6 | Local routing and TLS | Shared Caddy at `hotelsurvey.localhost` → host port 8090. No TLS locally | Confirmed by you | Local override |
 | 7 | Production TLS | **Caddy with automatic Let's Encrypt certificates** on the VPS. Same Caddy pattern as local, with `auto_https` enabled and a public domain | Reuses existing infrastructure. No manual certificate handling | PRD §6.1, §7.3 |
 | 8 | Token storage | SHA-256 hash of each room token in `hotel_rooms.qr_token_hash`. Raw tokens exist only in printed QR codes | PRD §6.4 | PRD §6.4, §7.3 |
+| 9 | Survey languages | **Persian (`fa`) and English (`en`) only.** German is dropped. The language is fixed for the whole survey session. Right-to-left layout for Persian | Operator decision during Milestone 2. `AGENTS.md`, PRD FR-03 and `docs/brand.md` were updated to match (plan risk R1, resolved) | Operator; AGENTS.md; PRD FR-03 |
+| 10 | Milestone 2 (branded bilingual survey) | Complete. Child theme `hotel-classic` extends `vanilla`; nine questions per PRD FR-04; required validation for Q1–Q7; Q8–Q9 optional; thank-you screen. Committed in `79c28c7`. Evidence in `specs/001-branded-bilingual-survey/evidence.md` | Tasks 60/60 in `specs/001-branded-bilingual-survey/tasks.md` | PRD §8 Milestone 2 |
+| 11 | Placeholder brand | The brand in `docs/brand.md` (Bagh-e Pardis / Paradise Garden Hotel) is a development placeholder. The theme shows a "placeholder brand" notice on guest pages until it is turned off in admin | Not cleared for production (see §2 item 3) | `docs/brand.md`; theme README |
+| 12 | Demo scope | **`hotelSurveyDemoPRD.md` replaces the full PRD for the current iteration.** App-style shell (app bar, hamburger drawer, bottom tab bar, mock buttons), existing survey re-skinned, Nearby places with mock data, simple aggregates-only dashboard. QR codes, rooms, exports and production are deferred. §2 items are not resolved by this | Operator is short on time and needs a presentable demo in one iteration; the app experience matters more than QR codes | Operator, 2026-11-04 |
 
 ## 2. Still needs a human
 
