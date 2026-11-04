@@ -1,0 +1,65 @@
+# Hotel Guest Survey — runtime stack (PRD §6.1)
+# Services: LimeSurvey CE (survey engine) · MariaDB (database)
+# Routing and TLS: the shared Caddy in ~/docker-infrastructure/caddy (hotelsurvey.localhost → host :8090).
+name: hotel-survey
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      # Runs once, on first database initialisation. Custom tables only — never LimeSurvey core tables (PRD §6.4).
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend
+
+  limesurvey:
+    image: ${LIMESURVEY_IMAGE:-martialblog/limesurvey:6-apache}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_TYPE: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      ADMIN_USER: ${LS_ADMIN_USER}
+      ADMIN_PASSWORD: ${LS_ADMIN_PASSWORD}
+      ADMIN_NAME: ${LS_ADMIN_NAME}
+      ADMIN_EMAIL: ${LS_ADMIN_EMAIL}
+      PUBLIC_URL: ${PUBLIC_URL}
+    volumes:
+      - limesurvey_upload:/var/www/html/upload
+      # Hotel child theme (PRD §6.1 "Survey customization") — kept outside LimeSurvey core.
+      - ./limesurvey/themes/hotel-classic:/var/www/html/upload/themes/survey/hotel-classic:ro
+    # Published on the host so the shared Caddy can reach it at host.docker.internal:8090.
+    # The martialblog image's Apache listens on 8080 (see /etc/apache2/ports.conf), not 80.
+    ports:
+      - "${SURVEY_PORT:-8090}:8080"
+    networks:
+      - backend
+      - frontend
+
+volumes:
+  db_data:
+  limesurvey_upload:
+
+networks:
+  # Database is reachable only from LimeSurvey — no outbound or public access.
+  backend:
+    internal: true
+  frontend:

@@ -1,0 +1,40 @@
+/* Hotel Classic design tokens (PRD §5.2–5.4). Single source for colours, type and spacing. */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap");
+/* TODO (Milestone 2): self-host both fonts instead of loading from Google (PRD §5.3). */
+
+:root {
+  /* Colour */
+  --color-bg: #F8F5EF;            /* Warm Ivory — main background */
+  --color-surface: #FFFFFF;       /* Cards and surfaces */
+  --color-text: #352B25;          /* Deep Espresso — primary text */
+  --color-accent: #B89A65;        /* Champagne Gold — accents, selected states only */
+  --color-border: #DCD2C3;        /* Soft Taupe — borders and dividers */
+  --color-text-muted: #796C60;    /* Muted Brown — secondary text */
+  --color-success: #47765C;
+  --color-warning: #B68A43;
+  --color-error: #A34E45;
+
+  /* Typography */
+  --font-heading: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --size-h1: 32px;
+  --size-h2: 24px;
+  --size-h3: 18px;
+  --size-body: 16px;
+  --size-support: 13px;
+  --size-label: 12px;
+
+  /* Layout (4px spacing scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --touch-min: 48px;
+  --width-survey: 680px;
+  --width-dashboard: 1440px;
+}

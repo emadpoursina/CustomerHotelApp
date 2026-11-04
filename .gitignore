@@ -1,0 +1,11 @@
+# Secrets
+.env
+
+# Backups and local scratch
+backups/
+scratch/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
