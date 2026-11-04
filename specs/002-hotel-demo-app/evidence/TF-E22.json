@@ -1,0 +1,122 @@
+{
+  "flow": "TF-E22",
+  "pass": true,
+  "checks": 6,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "range": "7d",
+      "kpis": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "expectKpi": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English 64%فارسی 36%",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "range": "30d",
+      "kpis": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "expectKpi": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English 64%فارسی 36%",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "range": "all",
+      "kpis": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "expectKpi": [
+        "91",
+        "4.3",
+        "+59"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English 64%فارسی 36%",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "range": "7d",
+      "kpis": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "expectKpi": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English ۶۴٪فارسی ۳۶٪",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "range": "30d",
+      "kpis": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "expectKpi": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English ۶۴٪فارسی ۳۶٪",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "range": "all",
+      "kpis": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "expectKpi": [
+        "۹۱",
+        "۴٫۳",
+        "+۵۹"
+      ],
+      "bars": 6,
+      "okBars": true,
+      "okAvgs": true,
+      "split": "English ۶۴٪فارسی ۳۶٪",
+      "pass": true
+    }
+  ]
+}

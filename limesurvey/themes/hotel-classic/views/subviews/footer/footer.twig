@@ -1,0 +1,41 @@
+{#
+Add your footer in this file.
+
+You will need to add custom CSS to make this work, for example, the following
+should work for a bottom-aligned footer in all browsers that properly support
+flex:
+
+body {
+     padding-bottom: 0; /* no bottom padding, footer should be bottom aligned */
+     padding-top: 60px;/* now is redefine in JS to fit any title length */
+     flex-direction: column; /* article, then footer */
+     display: flex; /* flex, to extend the content to full size */
+     min-height: 100vh; /* full height, to bottom-align footer */
+}
+body > article {
+    flex: 1; /* the main article should use as much space as possible */
+}
+
+#}
+{#
+  hotel-classic — footer override (demo PRD D-01 tab bar, contracts/app-shell.md §2).
+  Keeps the vanilla footer (above) and adds the placeholder notice (R-14) and the
+  five-tab bar. Rate is the current tab on every survey screen. Links leave the
+  survey, so each carries data-pjax="false". The Rate link never carries lang (R-05).
+#}
+{% import './subviews/hotel/i18n.twig' as i18n %}
+{% import './subviews/hotel/icons.twig' as ic %}
+{% if not aSurveyInfo.popupPreview %}
+    {% set lang = aSurveyInfo.languagecode %}
+    {% set rateHref = aSurveyInfo.surveyUrl|split('?')|first %}
+    {% if aSurveyInfo.options.placeholdernotice == 'on' %}
+        <p class="hotel-notice" role="note" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ i18n.t('notice.placeholder', lang) }}</p>
+    {% endif %}
+    <nav class="hs-tabbar" aria-label="{{ i18n.t('nav.main', lang) }}" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">
+        <a class="hs-tab" href="/app/index.html" data-pjax="false">{{ ic.icon('home') }}{{ i18n.t('tab.home', lang) }}</a>
+        <a class="hs-tab" href="/app/nearby.html" data-pjax="false">{{ ic.icon('pin') }}{{ i18n.t('tab.nearby', lang) }}</a>
+        <a class="hs-tab hs-tab-center" href="{{ rateHref }}" data-pjax="false" aria-current="page"><span class="hs-bubble">{{ ic.icon('star') }}</span>{{ i18n.t('tab.rate', lang) }}</a>
+        <a class="hs-tab" href="/app/dashboard.html" data-pjax="false">{{ ic.icon('chart') }}{{ i18n.t('tab.dash', lang) }}</a>
+        <button class="hs-tab" type="button" data-soon>{{ ic.icon('grid') }}{{ i18n.t('tab.services', lang) }}</button>
+    </nav>
+{% endif %}

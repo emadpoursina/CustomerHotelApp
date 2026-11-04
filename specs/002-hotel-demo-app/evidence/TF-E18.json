@@ -1,0 +1,27 @@
+{
+  "flow": "TF-E18",
+  "pass": true,
+  "checks": 3,
+  "failed": [],
+  "details": [
+    {
+      "step": "to-fa",
+      "lang": "fa",
+      "dir": "rtl",
+      "stored": "fa",
+      "pass": true
+    },
+    {
+      "step": "to-en",
+      "lang": "en",
+      "stored": "en",
+      "pass": true
+    },
+    {
+      "step": "rows-unchanged",
+      "rows0": 211,
+      "rows1": 211,
+      "pass": true
+    }
+  ]
+}

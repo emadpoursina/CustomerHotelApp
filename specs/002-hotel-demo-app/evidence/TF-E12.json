@@ -1,0 +1,28 @@
+{
+  "flow": "TF-E12",
+  "pass": true,
+  "checks": 4,
+  "failed": [],
+  "details": [
+    {
+      "name": "cafes+open",
+      "got": "[13,8,9,12,14]",
+      "pass": true
+    },
+    {
+      "name": "cafes+open+rating",
+      "got": "[9,8,12,13,14]",
+      "pass": true
+    },
+    {
+      "name": "restaurants+kebab (open on, 21:00)",
+      "got": "[1,4]",
+      "pass": true
+    },
+    {
+      "name": "all+open at 00:30",
+      "got": "[20,7,14,18]",
+      "pass": true
+    }
+  ]
+}

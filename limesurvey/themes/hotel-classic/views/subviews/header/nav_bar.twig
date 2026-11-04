@@ -1,18 +1,68 @@
 {#
-  hotel-classic — brand header and placeholder notice (FR-021, FR-030, FR-037,
-  research R-15, theme contract §4). Replaces vanilla's Bootstrap navbar.
+  hotel-classic — app shell header, drawer and toast on survey pages (demo PRD D-01, D-03,
+  contracts/app-shell.md §2 and §5, data-model.md §2, research R-05, R-07, R-14).
 
-  * No language menu here: the language is fixed once the survey starts (FR-006).
-    The welcome-screen selector lives in language_changer_first_page.twig.
-  * The notice is shown only when the placeholdernotice option is 'on' (one switch).
+  Replaces the stock navigation bar and the brand header. The language switch state comes from
+  aSurveyInfo.include_content: welcome (links that reload with ?lang=), question screens (locked),
+  thank-you (store and open Home). Rate links never carry a lang parameter.
+  The shell renders in the session language (aSurveyInfo.languagecode, FR-015).
 #}
-{% import './subviews/hotel/brand.twig' as brand %}
 {% import './subviews/hotel/i18n.twig' as i18n %}
+{% import './subviews/hotel/icons.twig' as ic %}
 {% if not aSurveyInfo.popupPreview %}
-    <header class="hotel-header" id="survey-nav">
-        <div class="hotel-brand">{{ brand.wordmark() }}</div>
-        {% if aSurveyInfo.options.placeholdernotice == 'on' %}
-            <p class="hotel-notice" role="note" lang="{{ aSurveyInfo.languagecode }}" dir="{{ aSurveyInfo.dir }}">{{ i18n.t('notice.placeholder', aSurveyInfo.languagecode) }}</p>
-        {% endif %}
+    {% set lang = aSurveyInfo.languagecode %}
+    {% set dir = aSurveyInfo.dir %}
+    {% set inc = aSurveyInfo.include_content %}
+    {% set rateHref = aSurveyInfo.surveyUrl|split('?')|first %}
+    {% set langSep = ('?' in aSurveyInfo.surveyUrl) ? '&' : '?' %}
+    {% set lockState = (inc == 'firstpage') ? 'welcome' : ((inc == 'submit') ? 'completed' : 'in-progress') %}
+    {% set title = i18n.t('title.rate', lang) %}
+
+    <header class="hs-appbar" id="survey-nav" lang="{{ lang }}" dir="{{ dir }}">
+        <button class="hs-icon-btn" id="hs-menu" type="button" aria-controls="hs-drawer" aria-expanded="false" aria-label="{{ i18n.t('menu', lang) }}" data-pjax="false">{{ ic.icon('menu') }}</button>
+        <h1 class="hs-title"><span class="hs-mark">{{ ic.icon('leaf') }}</span>{{ title }}</h1>
+        <button class="hs-icon-btn" type="button" data-soon aria-label="{{ i18n.t('notifications', lang) }}">{{ ic.icon('bell') }}<span class="hs-dot"></span></button>
     </header>
+
+    <div class="hs-scrim" id="hs-scrim" hidden></div>
+    <aside class="hs-drawer" id="hs-drawer" aria-hidden="true" aria-label="{{ i18n.t('menu', lang) }}" lang="{{ lang }}" dir="{{ dir }}">
+        <header class="hs-d-head">
+            <div class="hs-d-wordmark" lang="en" dir="ltr">{{ i18n.t('brand.name_en', 'en') }}</div>
+            <div class="hs-d-faname" lang="fa">{{ i18n.t('brand.name_fa', 'fa') }}</div>
+            <div class="hs-d-tagline">{{ i18n.t('brand.tagline', lang) }}</div>
+        </header>
+        <nav class="hs-d-nav">
+            <a class="hs-d-item" href="/app/index.html" data-pjax="false">{{ ic.icon('home') }}{{ i18n.t('tab.home', lang) }}</a>
+            <a class="hs-d-item" href="{{ rateHref }}" data-pjax="false" aria-current="page">{{ ic.icon('star') }}{{ i18n.t('title.rate', lang) }}</a>
+            <a class="hs-d-item" href="/app/nearby.html" data-pjax="false">{{ ic.icon('pin') }}{{ i18n.t('tab.nearby', lang) }}</a>
+            <a class="hs-d-item" href="/app/dashboard.html" data-pjax="false">{{ ic.icon('chart') }}{{ i18n.t('tab.dash', lang) }}</a>
+            <div class="hs-d-sep"></div>
+            <button class="hs-d-item" type="button" data-soon>{{ ic.icon('bed') }}{{ i18n.t('d.mystay', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>
+            <button class="hs-d-item" type="button" data-soon>{{ ic.icon('sparkle') }}{{ i18n.t('d.room', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>
+            <button class="hs-d-item" type="button" data-soon>{{ ic.icon('wifi') }}{{ i18n.t('d.wifi', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>
+            <button class="hs-d-item" type="button" data-soon>{{ ic.icon('gear') }}{{ i18n.t('d.settings', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>
+            <div class="hs-d-sep"></div>
+            <div class="hs-d-lang">
+                <div class="hs-d-label">{{ ic.icon('globe') }}{{ i18n.t('d.lang', lang) }}</div>
+                {% if lockState == 'welcome' %}
+                    <div class="hs-seg" role="group" aria-label="{{ i18n.t('d.lang', lang) }}">
+                        <a href="{{ aSurveyInfo.surveyUrl }}{{ langSep }}lang=en" lang="en" dir="ltr" data-pjax="false"{% if lang == 'en' %} aria-current="true"{% endif %}>English</a>
+                        <a href="{{ aSurveyInfo.surveyUrl }}{{ langSep }}lang=fa" lang="fa" dir="rtl" data-pjax="false"{% if lang == 'fa' %} aria-current="true"{% endif %}>فارسی</a>
+                    </div>
+                {% elseif lockState == 'completed' %}
+                    <div class="hs-seg" role="group" aria-label="{{ i18n.t('d.lang', lang) }}">
+                        <button type="button" data-lang="en" data-href="/app/index.html" aria-pressed="{{ lang == 'en' ? 'true' : 'false' }}">English</button>
+                        <button type="button" data-lang="fa" data-href="/app/index.html" lang="fa" aria-pressed="{{ lang == 'fa' ? 'true' : 'false' }}">فارسی</button>
+                    </div>
+                {% else %}
+                    <div class="hs-seg" role="group" aria-label="{{ i18n.t('d.lang', lang) }}">
+                        <button type="button" data-lang="en" disabled aria-pressed="{{ lang == 'en' ? 'true' : 'false' }}">English</button>
+                        <button type="button" data-lang="fa" disabled lang="fa" aria-pressed="{{ lang == 'fa' ? 'true' : 'false' }}">فارسی</button>
+                    </div>
+                    <p class="hs-d-note">{{ i18n.t('d.langLocked', lang) }}</p>
+                {% endif %}
+            </div>
+        </nav>
+        <footer class="hs-d-foot">{{ i18n.t('demo', lang) }}</footer>
+    </aside>
 {% endif %}

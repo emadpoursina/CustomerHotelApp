@@ -1,0 +1,158 @@
+{
+  "flow": "TF-E04",
+  "pass": true,
+  "checks": 22,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "sel": ".app-qa >> nth=0",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "sel": ".app-qa >> nth=5",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "sel": "#hs-shell .hs-icon-btn[data-soon]",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "sel": ".hs-tabbar button[data-soon]",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "sel": "#hs-drawer .hs-d-item[data-soon] >> nth=0",
+      "drawer": true,
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "sel": "#hs-drawer .hs-d-item[data-soon] >> nth=3",
+      "drawer": true,
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "double-tap",
+      "hideMs": 2037,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "sheet-Directions",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "sheet-Call",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "sheet-Save",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "above-tabbar",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": ".app-qa >> nth=0",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": ".app-qa >> nth=5",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": "#hs-shell .hs-icon-btn[data-soon]",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": ".hs-tabbar button[data-soon]",
+      "shown": 1,
+      "textOk": true,
+      "urlSame": true,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": "#hs-drawer .hs-d-item[data-soon] >> nth=0",
+      "drawer": true,
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "sel": "#hs-drawer .hs-d-item[data-soon] >> nth=3",
+      "drawer": true,
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "double-tap",
+      "hideMs": 2047,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "sheet-مسیر",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "sheet-تماس",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "sheet-ذخیره",
+      "shown": 1,
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "above-tabbar",
+      "pass": true
+    }
+  ]
+}

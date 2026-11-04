@@ -1,0 +1,1 @@
+TF-D7: PASS {"flow": "TF-D7", "pass": true, "writeCounterChanges": {}, "jobExit": 0, "note": "only write-class counters are compared (Com_insert/update/delete/replace, Com_create_*, Com_alter_*, Com_drop_*); other Com_* counters are noise"}

@@ -1,0 +1,17 @@
+{
+  "flow": "TF-E25",
+  "pass": true,
+  "checks": 1,
+  "failed": [],
+  "details": [
+    {
+      "drawerDur": "0s",
+      "sheetDur": "0s",
+      "toastDur": "0s",
+      "drawerOpen": 1,
+      "sheetOpen": 1,
+      "toastShown": 1,
+      "pass": true
+    }
+  ]
+}

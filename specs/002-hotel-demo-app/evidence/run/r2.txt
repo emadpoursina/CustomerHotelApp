@@ -1,0 +1,4 @@
+R2 verify: PASS
+{"link":"/app/index.html","url":"http://hotelsurvey.localhost/app/index.html","freshDocument":true,"docNavRequest":true,"pjaxRequests":0,"pass":true}
+{"link":"/app/nearby.html","url":"http://hotelsurvey.localhost/app/nearby.html","freshDocument":true,"docNavRequest":true,"pjaxRequests":0,"pass":true}
+{"link":"/app/dashboard.html","url":"http://hotelsurvey.localhost/app/dashboard.html","freshDocument":true,"docNavRequest":true,"pjaxRequests":0,"pass":true}

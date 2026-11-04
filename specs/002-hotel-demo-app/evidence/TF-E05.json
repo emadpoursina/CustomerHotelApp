@@ -1,0 +1,118 @@
+{
+  "flow": "TF-E05",
+  "pass": true,
+  "checks": 16,
+  "failed": [],
+  "details": [
+    {
+      "lang": "en",
+      "hour": 9,
+      "greet": "Good morning",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "hour": 14,
+      "greet": "Good afternoon",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "hour": 20,
+      "greet": "Good evening",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "highlight-hrefs",
+      "hrefs": [
+        "/app/nearby.html#place=8",
+        "/app/nearby.html#place=1",
+        "/app/nearby.html#place=17"
+      ],
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "highlight-8",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=8",
+      "title": "Corner Café",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "highlight-1",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=1",
+      "title": "Shahrzad Garden",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "highlight-17",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=17",
+      "title": "Rose Garden Park",
+      "pass": true
+    },
+    {
+      "lang": "en",
+      "step": "see-all",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "hour": 9,
+      "greet": "صبح بخیر",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "hour": 14,
+      "greet": "روز بخیر",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "hour": 20,
+      "greet": "عصر بخیر",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "highlight-hrefs",
+      "hrefs": [
+        "/app/nearby.html#place=8",
+        "/app/nearby.html#place=1",
+        "/app/nearby.html#place=17"
+      ],
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "highlight-8",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=8",
+      "title": "کافه گوشه",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "highlight-1",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=1",
+      "title": "باغ شهرزاد",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "highlight-17",
+      "url": "http://hotelsurvey.localhost/app/nearby.html#place=17",
+      "title": "پارک باغ گل سرخ",
+      "pass": true
+    },
+    {
+      "lang": "fa",
+      "step": "see-all",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    }
+  ]
+}

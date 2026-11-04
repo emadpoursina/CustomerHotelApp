@@ -1,0 +1,5 @@
+baseline exit=0
+hex-in-app-css exit=1 revert_ok=0
+bare-app-href exit=1 revert_ok=0
+comment-token exit=1 revert_ok=0
+gitignore-line-removed exit=1 revert_ok=0

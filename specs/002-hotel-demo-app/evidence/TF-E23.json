@@ -1,0 +1,126 @@
+{
+  "flow": "TF-E23",
+  "pass": true,
+  "checks": 12,
+  "failed": [],
+  "details": [
+    {
+      "name": "zero",
+      "lang": "en",
+      "bad": false,
+      "hasNone": true,
+      "pass": true
+    },
+    {
+      "name": "zero",
+      "lang": "fa",
+      "bad": false,
+      "hasNone": true,
+      "pass": true
+    },
+    {
+      "name": "low",
+      "lang": "en",
+      "low": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "low",
+      "lang": "fa",
+      "low": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "stale",
+      "lang": "en",
+      "stale": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "stale",
+      "lang": "fa",
+      "stale": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "unavailable-404",
+      "lang": "en",
+      "unavailable": true,
+      "noNumbers": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "unavailable-404",
+      "lang": "fa",
+      "unavailable": true,
+      "noNumbers": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "unavailable-json",
+      "lang": "en",
+      "unavailable": true,
+      "noNumbers": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "unavailable-json",
+      "lang": "fa",
+      "unavailable": true,
+      "noNumbers": true,
+      "bad": false,
+      "pass": true
+    },
+    {
+      "name": "per-range",
+      "lang": "en",
+      "got": {
+        "7d": [
+          "7",
+          "3.0",
+          "0"
+        ],
+        "30d": [
+          "31",
+          "4.5",
+          "+45"
+        ],
+        "all": [
+          "40",
+          "3.5",
+          "−5"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "per-range",
+      "lang": "fa",
+      "got": {
+        "7d": [
+          "۷",
+          "۳٫۰",
+          "۰"
+        ],
+        "30d": [
+          "۳۱",
+          "۴٫۵",
+          "+۴۵"
+        ],
+        "all": [
+          "۴۰",
+          "۳٫۵",
+          "−۵"
+        ]
+      },
+      "pass": true
+    }
+  ]
+}

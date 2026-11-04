@@ -1,0 +1,45 @@
+{
+  "flow": "TF-E26",
+  "pass": false,
+  "checks": 2,
+  "failed": [
+    {
+      "lang": "en",
+      "cafeRows": 2,
+      "before": 105,
+      "after": 105,
+      "secondsToShow": null,
+      "consoleErrors": [],
+      "pass": false
+    },
+    {
+      "lang": "fa",
+      "cafeRows": 2,
+      "before": 105,
+      "after": 105,
+      "secondsToShow": null,
+      "consoleErrors": [],
+      "pass": false
+    }
+  ],
+  "details": [
+    {
+      "lang": "en",
+      "cafeRows": 2,
+      "before": 105,
+      "after": 105,
+      "secondsToShow": null,
+      "consoleErrors": [],
+      "pass": false
+    },
+    {
+      "lang": "fa",
+      "cafeRows": 2,
+      "before": 105,
+      "after": 105,
+      "secondsToShow": null,
+      "consoleErrors": [],
+      "pass": false
+    }
+  ]
+}

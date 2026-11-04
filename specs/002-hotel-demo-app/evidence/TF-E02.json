@@ -1,0 +1,122 @@
+{
+  "flow": "TF-E02",
+  "pass": true,
+  "checks": 18,
+  "failed": [],
+  "details": [
+    {
+      "label": "en/index.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "en/index.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "en/index.html",
+      "step": "esc-close",
+      "pass": true
+    },
+    {
+      "label": "en/nearby.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "en/nearby.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "en/nearby.html",
+      "step": "esc-close",
+      "pass": true
+    },
+    {
+      "label": "en/dashboard.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "en/dashboard.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "en/dashboard.html",
+      "step": "esc-close",
+      "pass": true
+    },
+    {
+      "label": "fa/index.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "fa/index.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "fa/index.html",
+      "step": "esc-close",
+      "pass": true
+    },
+    {
+      "label": "fa/nearby.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "fa/nearby.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "fa/nearby.html",
+      "step": "esc-close",
+      "pass": true
+    },
+    {
+      "label": "fa/dashboard.html",
+      "step": "open",
+      "visible": true,
+      "scrimShown": true,
+      "expanded": "true",
+      "side": true,
+      "pass": true
+    },
+    {
+      "label": "fa/dashboard.html",
+      "step": "scrim-close",
+      "pass": true
+    },
+    {
+      "label": "fa/dashboard.html",
+      "step": "esc-close",
+      "pass": true
+    }
+  ]
+}

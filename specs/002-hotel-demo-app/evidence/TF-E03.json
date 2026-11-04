@@ -1,0 +1,125 @@
+{
+  "flow": "TF-E03",
+  "pass": true,
+  "checks": 20,
+  "failed": [],
+  "details": [
+    {
+      "from": "index.html",
+      "target": "nearby.html",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    },
+    {
+      "from": "index.html",
+      "target": "dashboard.html",
+      "url": "http://hotelsurvey.localhost/app/dashboard.html",
+      "pass": true
+    },
+    {
+      "from": "index.html",
+      "step": "rate",
+      "url": "http://hotelsurvey.localhost/index.php/420001",
+      "pass": true
+    },
+    {
+      "from": "index.html",
+      "step": "services",
+      "pass": true
+    },
+    {
+      "from": "nearby.html",
+      "target": "index.html",
+      "url": "http://hotelsurvey.localhost/app/index.html",
+      "pass": true
+    },
+    {
+      "from": "nearby.html",
+      "target": "dashboard.html",
+      "url": "http://hotelsurvey.localhost/app/dashboard.html",
+      "pass": true
+    },
+    {
+      "from": "nearby.html",
+      "step": "rate",
+      "url": "http://hotelsurvey.localhost/index.php/420001",
+      "pass": true
+    },
+    {
+      "from": "nearby.html",
+      "step": "services",
+      "pass": true
+    },
+    {
+      "from": "dashboard.html",
+      "target": "index.html",
+      "url": "http://hotelsurvey.localhost/app/index.html",
+      "pass": true
+    },
+    {
+      "from": "dashboard.html",
+      "target": "nearby.html",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    },
+    {
+      "from": "dashboard.html",
+      "step": "rate",
+      "url": "http://hotelsurvey.localhost/index.php/420001",
+      "pass": true
+    },
+    {
+      "from": "dashboard.html",
+      "step": "services",
+      "pass": true
+    },
+    {
+      "survey": "welcome",
+      "target": "/app/index.html",
+      "url": "http://hotelsurvey.localhost/app/index.html",
+      "pass": true
+    },
+    {
+      "survey": "welcome",
+      "target": "/app/nearby.html",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    },
+    {
+      "survey": "welcome",
+      "target": "/app/dashboard.html",
+      "url": "http://hotelsurvey.localhost/app/dashboard.html",
+      "pass": true
+    },
+    {
+      "survey": "welcome",
+      "step": "rate-href",
+      "href": "/index.php/420001",
+      "pass": true
+    },
+    {
+      "survey": "q3",
+      "target": "/app/index.html",
+      "url": "http://hotelsurvey.localhost/app/index.html",
+      "pass": true
+    },
+    {
+      "survey": "q3",
+      "target": "/app/nearby.html",
+      "url": "http://hotelsurvey.localhost/app/nearby.html",
+      "pass": true
+    },
+    {
+      "survey": "q3",
+      "target": "/app/dashboard.html",
+      "url": "http://hotelsurvey.localhost/app/dashboard.html",
+      "pass": true
+    },
+    {
+      "survey": "q3",
+      "step": "rate-href",
+      "href": "/index.php/420001",
+      "pass": true
+    }
+  ]
+}

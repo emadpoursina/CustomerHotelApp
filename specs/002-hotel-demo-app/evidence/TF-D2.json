@@ -1,0 +1,23 @@
+{
+  "flow": "TF-D2",
+  "pass": true,
+  "checks": 3,
+  "failed": [],
+  "details": [
+    {
+      "range": "7d",
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "range": "30d",
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "range": "all",
+      "mismatches": [],
+      "pass": true
+    }
+  ]
+}

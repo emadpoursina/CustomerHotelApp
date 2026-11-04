@@ -23,12 +23,12 @@
         <authorUrl></authorUrl>
         <copyright>Copyright (c) Hotel Guest Survey development. Placeholder brand.</copyright>
         <license>GNU General Public License version 2 or later</license>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <apiVersion>3</apiVersion>
         <description><![CDATA[Child theme of vanilla for the hotel guest survey (English and Persian).
         The Paradise Garden Hotel / Bagh-e Pardis brand used here is a DEVELOPMENT PLACEHOLDER
         and is not cleared for production; replace it before launch (see docs/brand.md).]]></description>
-        <lastUpdate>2026-11-04 12:00:00</lastUpdate>
+        <lastUpdate>2026-11-04 22:00:00</lastUpdate>
         <extends>vanilla</extends>
     </metadata>
 
@@ -42,8 +42,10 @@
             <add>css/tokens.css</add>
             <add>css/fonts.css</add>
             <add>css/hotel.css</add>
+            <add>css/shell.css</add>
         </css>
         <js>
+            <add>scripts/shell.js</add>
             <add>scripts/custom.js</add>
         </js>
     </files>
@@ -54,7 +56,7 @@
         <!-- FR-014: validation messages are shown on the page, next to the question. -->
         <showpopups type="buttons" category="Simple options" width="4" title="Show popups" options="1|0|-1" optionlabels="Popup|On page|No">0</showpopups>
         <showclearall type="buttons" category="Simple options" width="4" title="Show 'Clear all' button" options="on|off" optionlabels="Yes|No">off</showclearall>
-        <questionhelptextposition type="buttons" category="Simple options" width="4" title="Question help text position" options="top|bottom" optionlabels="Top|Bottom">top</questionhelptextposition>
+        <questionhelptextposition type="buttons" category="Simple options" width="4" title="Question help text position" options="top|bottom" optionlabels="Top|Bottom">bottom</questionhelptextposition>
         <!-- A-11: no logo image, the wordmark is text. -->
         <brandlogo type="buttons" category="Images" width="4" title="Logo" options="on|off" optionlabels="Yes|No">off</brandlogo>
     </options>

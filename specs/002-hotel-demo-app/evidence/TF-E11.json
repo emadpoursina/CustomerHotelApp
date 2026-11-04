@@ -1,0 +1,53 @@
+{
+  "flow": "TF-E11",
+  "pass": true,
+  "checks": 9,
+  "failed": [],
+  "details": [
+    {
+      "step": "key-c",
+      "n": 12,
+      "pass": true
+    },
+    {
+      "step": "key-a",
+      "n": 5,
+      "pass": true
+    },
+    {
+      "step": "key-f",
+      "n": 3,
+      "pass": true
+    },
+    {
+      "step": "key-e",
+      "n": 3,
+      "pass": true
+    },
+    {
+      "q": "cafe",
+      "got": "[8,11,14]",
+      "pass": true
+    },
+    {
+      "q": "  CAFE ",
+      "got": "[8,11,14]",
+      "pass": true
+    },
+    {
+      "q": "کافه",
+      "got": "[8,10,11,13,14]",
+      "pass": true
+    },
+    {
+      "q": "kebab (fa)",
+      "got": "[1,4]",
+      "pass": true
+    },
+    {
+      "q": "باغ (en)",
+      "got": "[1,13,17]",
+      "pass": true
+    }
+  ]
+}

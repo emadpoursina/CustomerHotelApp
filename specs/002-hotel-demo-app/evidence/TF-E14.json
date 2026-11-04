@@ -1,0 +1,25 @@
+{
+  "flow": "TF-E14",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "step": "empty-shown",
+      "empty": 1,
+      "title": "No places match",
+      "body": "Try another word or clear the filters.",
+      "pass": true
+    },
+    {
+      "step": "cleared",
+      "q": "",
+      "all": "true",
+      "open": "false",
+      "rating": "true",
+      "rows": 21,
+      "focused": "q",
+      "pass": true
+    }
+  ]
+}

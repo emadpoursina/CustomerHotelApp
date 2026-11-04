@@ -1,0 +1,47 @@
+{
+  "pass": true,
+  "within": 10,
+  "limitSeconds": 15,
+  "timings": [
+    {
+      "run": 1,
+      "seconds": 7.577
+    },
+    {
+      "run": 2,
+      "seconds": 10.606
+    },
+    {
+      "run": 3,
+      "seconds": 7.066
+    },
+    {
+      "run": 4,
+      "seconds": 10.586
+    },
+    {
+      "run": 5,
+      "seconds": 7.562
+    },
+    {
+      "run": 6,
+      "seconds": 10.598
+    },
+    {
+      "run": 7,
+      "seconds": 7.052
+    },
+    {
+      "run": 8,
+      "seconds": 10.587
+    },
+    {
+      "run": 9,
+      "seconds": 7.561
+    },
+    {
+      "run": 10,
+      "seconds": 10.593
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "flow": "TF-E27",
+  "pass": true,
+  "checks": 6,
+  "failed": [],
+  "details": [
+    {
+      "screen": "home",
+      "lang": "en",
+      "appStrings": 33,
+      "protoStrings": 33,
+      "pass": true
+    },
+    {
+      "screen": "nearby",
+      "lang": "en",
+      "appStrings": 120,
+      "protoStrings": 119,
+      "pass": true
+    },
+    {
+      "screen": "dash",
+      "lang": "en",
+      "appStrings": 48,
+      "protoStrings": 41,
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "appStrings": 33,
+      "protoStrings": 33,
+      "pass": true
+    },
+    {
+      "screen": "nearby",
+      "lang": "fa",
+      "appStrings": 120,
+      "protoStrings": 119,
+      "pass": true
+    },
+    {
+      "screen": "dash",
+      "lang": "fa",
+      "appStrings": 48,
+      "protoStrings": 41,
+      "pass": true
+    }
+  ]
+}

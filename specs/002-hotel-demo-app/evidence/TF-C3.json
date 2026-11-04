@@ -1,0 +1,166 @@
+{
+  "flow": "TF-C3",
+  "pass": true,
+  "checks": 16,
+  "failed": [],
+  "details": [
+    {
+      "screen": "home",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "home",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "nearby-sheet",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "dashboard",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-welcome",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q1",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-q7",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "overflowing": [],
+      "pass": true
+    },
+    {
+      "screen": "survey-thankyou",
+      "lang": "en",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "pass": true
+    },
+    {
+      "screen": "survey-thankyou",
+      "lang": "fa",
+      "width": 360,
+      "clientWidth": 360,
+      "docScroll": 360,
+      "bodyScroll": 360,
+      "pass": true
+    }
+  ]
+}

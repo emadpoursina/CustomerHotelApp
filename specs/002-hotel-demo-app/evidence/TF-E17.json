@@ -1,0 +1,21 @@
+{
+  "flow": "TF-E17",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "step": "fresh-welcome-fa",
+      "lang": "fa",
+      "pass": true
+    },
+    {
+      "step": "rows",
+      "rows0": 210,
+      "rows1": 211,
+      "comp0": 94,
+      "comp1": 94,
+      "pass": true
+    }
+  ]
+}

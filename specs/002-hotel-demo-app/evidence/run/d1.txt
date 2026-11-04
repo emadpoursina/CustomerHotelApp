@@ -1,0 +1,2 @@
+exit=0 stdout_lines=1 line=dashboard: all=90 30d=90 7d=90 at 2026-11-04T22:44:58Z schema=ok empty_branch=skipped: table not empty (193 rows); the shared database is never emptied
+TF-D1: PASS

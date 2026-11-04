@@ -1,0 +1,31 @@
+{
+  "flow": "TF-E16",
+  "pass": true,
+  "checks": 3,
+  "failed": [],
+  "details": [
+    {
+      "step": "resume-q4",
+      "stepText": "Question 4 of 9",
+      "lang": "en",
+      "lockedCount": 2,
+      "langParamSent": false,
+      "resumed": true,
+      "pass": true
+    },
+    {
+      "step": "no-new-row",
+      "rowsBefore": 209,
+      "rowsAfter": 209,
+      "completedBefore": 93,
+      "completedAfter": 93,
+      "pass": true
+    },
+    {
+      "step": "fresh-after-submit",
+      "fresh": true,
+      "lang": "fa",
+      "pass": true
+    }
+  ]
+}

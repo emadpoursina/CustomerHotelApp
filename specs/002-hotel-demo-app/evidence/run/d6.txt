@@ -1,0 +1,6 @@
+languages (40 most recent completed rows, the seed): en:24 fa:16
+Q1-Q6 averages (seed rows): 4.48 4.08 3.80 4.83 3.13 3.83
+seeded rows not dated today: 0
+database code matches in scripts/seed-demo.py: 0
+completed rows now: 91
+TF-D6: PASS (1/1)

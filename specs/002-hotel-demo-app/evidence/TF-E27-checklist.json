@@ -1,0 +1,111 @@
+{
+  "note": "Strings present on one side only. Visual review is recorded in evidence.md.",
+  "checklist": {
+    "home-en": {
+      "onlyInApp": [],
+      "onlyInPrototype": []
+    },
+    "nearby-en": {
+      "onlyInApp": [
+        "21 places ·",
+        "Demo data"
+      ],
+      "onlyInPrototype": [
+        "21 places · Demo data"
+      ]
+    },
+    "dash-en": {
+      "onlyInApp": [
+        "Not refreshed since 14:51. Is the refresh job running?",
+        "105",
+        "+63",
+        "Detractors 10%",
+        "Passives 18%",
+        "Promoters 72%",
+        "n = 105",
+        "n = 105",
+        "n = 105",
+        "3.8",
+        "n = 105",
+        "4.7",
+        "n = 105",
+        "3.2",
+        "n = 105",
+        "3.8",
+        "n = 105",
+        "English 63%",
+        "فارسی 37%",
+        "Updated 14:51"
+      ],
+      "onlyInPrototype": [
+        "40",
+        "4.1",
+        "+48",
+        "Detractors 5%",
+        "Passives 43%",
+        "Promoters 53%",
+        "n = 40",
+        "4.1",
+        "4.3",
+        "4.1",
+        "3.3",
+        "English 33%",
+        "فارسی 68%",
+        "Updated 14:52"
+      ]
+    },
+    "home-fa": {
+      "onlyInApp": [],
+      "onlyInPrototype": []
+    },
+    "nearby-fa": {
+      "onlyInApp": [
+        "۲۱ مکان ·",
+        "دادهٔ نمایشی"
+      ],
+      "onlyInPrototype": [
+        "۲۱ مکان · دادهٔ نمایشی"
+      ]
+    },
+    "dash-fa": {
+      "onlyInApp": [
+        "از ۱۴:۵۱ به‌روزرسانی نشده است. آیا فرایند به‌روزرسانی در حال اجراست؟",
+        "۱۰۵",
+        "+۶۳",
+        "منتقدان ۱۰٪",
+        "خنثی ۱۸٪",
+        "مروجان ۷۲٪",
+        "n = ۱۰۵",
+        "n = ۱۰۵",
+        "n = ۱۰۵",
+        "۳٫۸",
+        "n = ۱۰۵",
+        "۴٫۷",
+        "n = ۱۰۵",
+        "۳٫۲",
+        "n = ۱۰۵",
+        "۳٫۸",
+        "n = ۱۰۵",
+        "English ۶۳٪",
+        "فارسی ۳۷٪",
+        "به‌روزرسانی ۱۴:۵۱"
+      ],
+      "onlyInPrototype": [
+        "۴۰",
+        "۴٫۱",
+        "+۴۸",
+        "منتقدان ۵٪",
+        "خنثی ۴۳٪",
+        "مروجان ۵۳٪",
+        "n = ۴۰",
+        "۴٫۱",
+        "۴٫۳",
+        "۴٫۱",
+        "۳٫۳",
+        "English ۳۳٪",
+        "فارسی ۶۸٪",
+        "به‌روزرسانی ۱۴:۵۲"
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "flow": "TF-E06",
+  "pass": true,
+  "checks": 2,
+  "failed": [],
+  "details": [
+    {
+      "lang": "fa",
+      "dir": "rtl",
+      "url": "http://hotelsurvey.localhost/index.php/420001?lang=fa",
+      "hasBar": true,
+      "selectorOnCard": 0,
+      "drawerLinks": 2,
+      "enabled": true,
+      "pass": true
+    },
+    {
+      "step": "rows-unchanged",
+      "before": 202,
+      "after": 202,
+      "pass": true
+    }
+  ]
+}

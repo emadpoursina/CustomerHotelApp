@@ -1,0 +1,17 @@
+{
+  "flow": "TF-D6",
+  "pass": true,
+  "checks": 1,
+  "failed": [],
+  "details": [
+    {
+      "total": 40,
+      "enCount": 24,
+      "faCount": 16,
+      "distinctAverages": 6,
+      "notToday": "0",
+      "dbCode": 0,
+      "pass": true
+    }
+  ]
+}

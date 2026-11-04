@@ -5,6 +5,13 @@
 backups/
 scratch/
 
+# Generated demo data
+app/data/dashboard.json
+app/data/*.tmp
+
+# Python bytecode
+__pycache__/
+
 # Worker run logs (Pi, Antigravity, Claude harnesses)
 .agent/
 .pi/

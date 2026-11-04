@@ -1,0 +1,7 @@
+..................seed: refused host (only localhost, *.localhost and 127.0.0.1 are allowed)
+....
+----------------------------------------------------------------------
+Ran 22 tests in 0.008s
+
+OK
+validate: ok
