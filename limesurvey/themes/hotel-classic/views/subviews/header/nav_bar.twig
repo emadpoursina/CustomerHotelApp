@@ -20,16 +20,19 @@
 
     <header class="hs-appbar" id="survey-nav" lang="{{ lang }}" dir="{{ dir }}">
         <button class="hs-icon-btn" id="hs-menu" type="button" aria-controls="hs-drawer" aria-expanded="false" aria-label="{{ i18n.t('menu', lang) }}" data-pjax="false">{{ ic.icon('menu') }}</button>
-        <h1 class="hs-title"><span class="hs-mark">{{ ic.icon('leaf') }}</span>{{ title }}</h1>
+        <h1 class="hs-title"><span class="hs-mark">{{ ic.icon('mark') }}</span><span class="hs-title-text">{{ title }}</span></h1>
         <button class="hs-icon-btn" type="button" data-soon aria-label="{{ i18n.t('notifications', lang) }}">{{ ic.icon('bell') }}<span class="hs-dot"></span></button>
     </header>
 
     <div class="hs-scrim" id="hs-scrim" hidden></div>
     <aside class="hs-drawer" id="hs-drawer" aria-hidden="true" aria-label="{{ i18n.t('menu', lang) }}" lang="{{ lang }}" dir="{{ dir }}">
         <header class="hs-d-head">
-            <div class="hs-d-wordmark" lang="en" dir="ltr">{{ i18n.t('brand.name_en', 'en') }}</div>
-            <div class="hs-d-faname" lang="fa">{{ i18n.t('brand.name_fa', 'fa') }}</div>
-            <div class="hs-d-tagline">{{ i18n.t('brand.tagline', lang) }}</div>
+            <span class="hs-d-mark">{{ ic.icon('mark') }}</span>
+            {# Both brand names, the session language first (same markup as HotelApp.brandNames). #}
+            {% set nameFa %}<div class="hs-brand-fa" lang="fa" dir="rtl">{{ i18n.t('brand.name_fa', 'fa') }}</div>{% endset %}
+            {% set nameEn %}<div class="hs-brand-en" lang="en" dir="ltr">{{ i18n.t('brand.name_en', 'en') }}</div>{% endset %}
+            <div class="hs-brand hs-brand-{{ lang == 'fa' ? 'fa' : 'en' }}">{% if lang == 'fa' %}{{ nameFa }}{{ nameEn }}{% else %}{{ nameEn }}{{ nameFa }}{% endif %}</div>
+            <div class="hs-d-place">{{ i18n.t('brand.place', lang) }}</div>
         </header>
         <nav class="hs-d-nav">
             <a class="hs-d-item" href="/app/index.html" data-pjax="false">{{ ic.icon('home') }}{{ i18n.t('tab.home', lang) }}</a>

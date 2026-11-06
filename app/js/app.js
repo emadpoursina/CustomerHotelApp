@@ -1,5 +1,5 @@
 /*
- * Demo app core: shell rendering, language, JSON loading (contracts/app-screens.md, app-shell.md §2).
+ * Guest app core: shell rendering, language, JSON loading (contracts/app-screens.md, app-shell.md §2).
  * Classic script, no build step. Exposes window.HotelApp only.
  * Screen text is inserted with textContent or escaped strings; icons are static inline SVG.
  */
@@ -10,6 +10,8 @@
   var SURVEY_URL = '/index.php/420001';
 
   var P = {
+    // Brand mark: a pointed Persian arch over the lake (docs/brand.md). Same paths as icons.twig.
+    mark: '<path d="M5.5 20.5V11.8C5.5 8.4 8.3 5.9 12 3c3.7 2.9 6.5 5.4 6.5 8.8v8.7"/><path d="M8.5 15.2c1.2 0 1.2-.9 2.4-.9s1.2.9 2.4.9 1.2-.9 2.4-.9"/><path d="M8.5 18.2c1.2 0 1.2-.9 2.4-.9s1.2.9 2.4.9 1.2-.9 2.4-.9"/><path d="M3 20.5h18"/><path d="M12 6.6v1.6"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     bell: '<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
     home: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
@@ -39,7 +41,9 @@
     gear: '<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
     alert: '<path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17h.01"/>',
-    walk: '<circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2-6 3 3v3M9 12l2-4 4 2 2 3M11 8l-3 3-1 3"/>'
+    walk: '<circle cx="13" cy="4.5" r="1.8"/><path d="M10 21l2-6 3 3v3M9 12l2-4 4 2 2 3M11 8l-3 3-1 3"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>'
   };
 
   function icon(name, cls) {
@@ -63,6 +67,13 @@
     return el;
   }
 
+  // Both brand names, the current language first. Each name carries its own lang and direction.
+  function brandNames(lang) {
+    var fa = '<div class="hs-brand-fa" lang="fa" dir="rtl">' + T('brand.fa') + '</div>';
+    var en = '<div class="hs-brand-en" lang="en" dir="ltr">' + T('brand.en') + '</div>';
+    return '<div class="hs-brand hs-brand-' + lang + '">' + (lang === 'fa' ? fa + en : en + fa) + '</div>';
+  }
+
   // Shell markup (contracts/app-shell.md §2). Top mount sits above <main>, foot mount below it.
   function renderShell(route) {
     state.route = route;
@@ -76,7 +87,7 @@
     top.innerHTML =
       '<header class="hs-appbar">' +
         '<button class="hs-icon-btn" id="hs-menu" type="button" aria-controls="hs-drawer" aria-expanded="' + (drawerWasOpen ? 'true' : 'false') + '" aria-label="' + T('menu') + '">' + icon('menu') + '</button>' +
-        '<h1 class="hs-title"><span class="hs-mark">' + icon('leaf') + '</span>' + T({ home: 'title.home', nearby: 'title.nearby', rate: 'title.rate', dash: 'title.dash' }[state.route]) + '</h1>' +
+        '<h1 class="hs-title"><span class="hs-mark">' + icon('mark') + '</span><span class="hs-title-text">' + T({ home: 'title.home', nearby: 'title.nearby', rate: 'title.rate', dash: 'title.dash' }[state.route]) + '</span></h1>' +
         '<button class="hs-icon-btn" type="button" data-soon aria-label="' + T('notifications') + '">' + icon('bell') + '<span class="hs-dot"></span></button>' +
       '</header>';
 
@@ -84,9 +95,9 @@
       '<div class="hs-scrim" id="hs-scrim"' + (drawerWasOpen ? '' : ' hidden') + '></div>' +
       '<aside class="hs-drawer' + (drawerWasOpen ? ' is-open' : '') + '" id="hs-drawer" aria-hidden="' + (drawerWasOpen ? 'false' : 'true') + '" aria-label="' + T('menu') + '">' +
         '<header class="hs-d-head">' +
-          '<div class="hs-d-wordmark" lang="en" dir="ltr">' + T('brand.en') + '</div>' +
-          '<div class="hs-d-faname" lang="fa">' + T('brand.fa') + '</div>' +
-          '<div class="hs-d-tagline">' + T('tagline') + '</div>' +
+          '<span class="hs-d-mark">' + icon('mark') + '</span>' +
+          brandNames(lang) +
+          '<div class="hs-d-place">' + T('brand.place') + '</div>' +
         '</header>' +
         '<nav class="hs-d-nav">' +
           '<a class="hs-d-item" href="/app/index.html"' + cur('home') + '>' + icon('home') + T('tab.home') + '</a>' +
@@ -154,6 +165,7 @@
   window.HotelApp = {
     SURVEY_URL: SURVEY_URL,
     icon: icon,
+    brandNames: brandNames,
     renderShell: renderShell,
     applyLang: applyLang,
     setScreen: setScreen,

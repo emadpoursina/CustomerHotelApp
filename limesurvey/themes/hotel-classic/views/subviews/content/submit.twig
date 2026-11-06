@@ -6,6 +6,7 @@
 #}
 {% import './subviews/hotel/brand.twig' as brand %}
 {% import './subviews/hotel/i18n.twig' as i18n %}
+{% import './subviews/hotel/icons.twig' as ic %}
 {% set lang = aSurveyInfo.languagecode %}
 
 {# include the form opening tag #}
@@ -38,8 +39,8 @@
         </div>
         <div class="hotel-done-names">{{ brand.names() }}</div>
         <div class="hs-done-actions">
-            <a class="hotel-done-btn hotel-done-btn-primary" href="/app/index.html" data-pjax="false">{{ i18n.t('s.done.home', lang) }}</a>
-            <a class="hotel-done-btn" href="/app/nearby.html" data-pjax="false">{{ i18n.t('s.done.nearby', lang) }}</a>
+            <a class="hotel-done-btn hotel-done-btn-primary" href="/app/index.html" data-pjax="false">{{ ic.icon('home') }}{{ i18n.t('s.done.home', lang) }}</a>
+            <a class="hotel-done-btn" href="/app/nearby.html" data-pjax="false">{{ ic.icon('compass') }}{{ i18n.t('s.done.nearby', lang) }}</a>
         </div>
     </div>
 </form> <!-- main form -->

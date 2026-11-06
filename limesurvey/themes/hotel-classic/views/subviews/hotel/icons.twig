@@ -5,6 +5,7 @@
 #}
 {% macro icon(name, cls) %}
 {%- set paths = {
+  'mark': '<path d="M5.5 20.5V11.8C5.5 8.4 8.3 5.9 12 3c3.7 2.9 6.5 5.4 6.5 8.8v8.7"/><path d="M8.5 15.2c1.2 0 1.2-.9 2.4-.9s1.2.9 2.4.9 1.2-.9 2.4-.9"/><path d="M8.5 18.2c1.2 0 1.2-.9 2.4-.9s1.2.9 2.4.9 1.2-.9 2.4-.9"/><path d="M3 20.5h18"/><path d="M12 6.6v1.6"/>',
   'menu': '<path d="M4 6h16M4 12h16M4 18h16"/>',
   'bell': '<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
   'home': '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
@@ -22,7 +23,9 @@
   'gear': '<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/>',
   'check': '<path d="M5 12l5 5 9-10"/>',
   'clock': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  'user': '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'
+  'user': '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  'arrow': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'compass': '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'
 } -%}
 <svg class="hs-ic{% if cls %} {{ cls }}{% endif %}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{{- paths[name] is defined ? paths[name]|raw : '' -}}</svg>
 {% endmacro %}

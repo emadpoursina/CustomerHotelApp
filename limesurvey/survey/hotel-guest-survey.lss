@@ -1206,7 +1206,7 @@
    <row>
     <id><![CDATA[13]]></id>
     <qid><![CDATA[7]]></qid>
-    <question><![CDATA[Would you recommend our hotel?]]></question>
+    <question><![CDATA[Would you recommend Kowsar Malekshahr to others?]]></question>
     <help><![CDATA[0 = Not at all likely, 10 = Extremely likely]]></help>
     <script/>
     <language><![CDATA[en]]></language>
@@ -1214,7 +1214,7 @@
    <row>
     <id><![CDATA[14]]></id>
     <qid><![CDATA[7]]></qid>
-    <question><![CDATA[آیا هتل ما را به دیگران توصیه می‌کنید؟]]></question>
+    <question><![CDATA[آیا مجتمع کوثر ملکشهر را به دیگران توصیه می‌کنید؟]]></question>
     <help><![CDATA[۰ = اصلاً احتمال ندارد، ۱۰ = به احتمال بسیار زیاد]]></help>
     <script/>
     <language><![CDATA[fa]]></language>
@@ -1574,7 +1574,7 @@ The following answers were given by the participant:<br />
 {ANSWERTABLE}]]></email_admin_responses>
     <surveyls_numberformat><![CDATA[0]]></surveyls_numberformat>
     <surveyls_language><![CDATA[en]]></surveyls_language>
-    <surveyls_title><![CDATA[Paradise Garden Hotel – Guest survey]]></surveyls_title>
+    <surveyls_title><![CDATA[Kowsar Malekshahr Complex – Guest survey]]></surveyls_title>
     <surveyls_description><![CDATA[Development placeholder brand]]></surveyls_description>
     <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">We would be delighted if you could take two minutes to share your experience with us.</p>
 <p class="hotel-welcome-intro">Your answers are anonymous. We never ask for your name or contact details.</p>
@@ -1692,7 +1692,7 @@ The following answers were given by the participant:<br />
 {ANSWERTABLE}]]></email_admin_responses>
     <surveyls_numberformat><![CDATA[0]]></surveyls_numberformat>
     <surveyls_language><![CDATA[fa]]></surveyls_language>
-    <surveyls_title><![CDATA[نظرسنجی مهمانان – باغ پردیس]]></surveyls_title>
+    <surveyls_title><![CDATA[نظرسنجی مهمانان – مجتمع کوثر ملکشهر]]></surveyls_title>
     <surveyls_description><![CDATA[Development placeholder brand]]></surveyls_description>
     <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">خوشحال می‌شویم اگر دو دقیقه وقت بگذارید و تجربهٔ خود را با ما در میان بگذارید.</p>
 <p class="hotel-welcome-intro">پاسخ‌های شما ناشناس است؛ هرگز نام یا اطلاعات تماس شما را نمی‌پرسیم.</p>

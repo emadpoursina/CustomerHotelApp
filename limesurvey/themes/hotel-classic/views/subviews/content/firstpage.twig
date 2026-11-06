@@ -1,7 +1,8 @@
 {#
   hotel-classic — welcome screen (FR-001 to FR-003, demo PRD D-03, theme contract §2).
-  Welcome card: star icon, tagline heading, admin welcome message, facts row (time, anonymous,
-  9 questions), Start button (navigator.twig) and the language note. The survey name stays in the
+  Welcome card: photo band of the complex with the brand mark, brand name, tagline heading, admin
+  welcome message, facts row (time, anonymous, 9 questions), Start button (navigator.twig) and the
+  language note. The survey name stays in the
   DOM as a visually hidden h1. The language is chosen in the app drawer (shell), not on this card.
 #}
 {% import './subviews/hotel/brand.twig' as brand %}
@@ -21,7 +22,11 @@
     <!-- Welcome Message -->
     <div id="{{ aSurveyInfo.id.welcomecontainer }}" class="hotel-welcome hs-welcome-card {{ aSurveyInfo.class.welcomecontainer }}" {{ aSurveyInfo.attr.welcomecontainer }}>
         <h1 class="hotel-title visually-hidden {{ aSurveyInfo.class.surveyname }}" {{ aSurveyInfo.attr.surveyname }}>{{ processString(aSurveyInfo.name, 1) }}</h1>
-        <div class="hs-welcome-star" aria-hidden="true">{{ ic.icon('star') }}</div>
+        <div class="hs-welcome-media" aria-hidden="true">
+            <img src="/app/img/kowsar-hero.jpg" alt="" width="546" height="336" decoding="async">
+            <span class="hs-welcome-mark">{{ ic.icon('mark') }}</span>
+        </div>
+        <p class="hs-welcome-brand" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ i18n.t(lang == 'fa' ? 'brand.name_fa' : 'brand.name_en', lang) }}</p>
         <h2 class="hotel-tagline" lang="{{ lang }}" dir="{{ aSurveyInfo.dir }}">{{ brand.tagline(lang) }}</h2>
         <div class="hotel-welcome-text {{ aSurveyInfo.class.welcome }}" {{ aSurveyInfo.attr.welcome }}>
             {{ processString(aSurveyInfo.welcome, 1) }}
