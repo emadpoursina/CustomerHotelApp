@@ -326,9 +326,11 @@ iframe {
   box-sizing: border-box;
 }
 
-/* Selected: gold border (accent) plus a thicker border and a check glyph, so
-   the state does not rely on colour alone (contract §5, US3-AS3). */
+/* Selected: lapis fill with a gold ring plus a check glyph, so the state does
+   not rely on colour alone (contract §5, US3-AS3). */
 .hotel-scale input[type="radio"]:checked + label {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   border-color: var(--color-accent);
   border-width: var(--border-width-selected);
   font-weight: 600;
@@ -339,17 +341,17 @@ iframe {
   display: none;
 }
 
-/* Check mark drawn with borders (no glyph font needed), in the text colour. */
+/* Check mark drawn with borders (no glyph font needed), gold, in the top end corner. */
 .hotel-scale input[type="radio"]:checked + label::after {
   content: "";
   display: block;
   position: absolute;
-  inset-block-start: var(--space-1);
-  inset-inline: 0;
-  margin-inline: auto;
-  width: 6px;
-  height: 11px;
-  border: solid var(--color-text);
+  inset-block-start: 5px;
+  inset-inline-start: auto; /* clears the parent theme's physical left offset */
+  inset-inline-end: 7px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--color-accent);
   border-width: 0 var(--border-width-selected) var(--border-width-selected) 0;
   transform: rotate(45deg);
 }
@@ -471,18 +473,21 @@ iframe {
 }
 
 .hotel-btn-primary {
-  background: var(--color-text);
-  color: var(--color-surface);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .hotel-btn-primary:hover,
 .hotel-btn-primary:focus-visible {
+  background: var(--color-primary-deep);
   border-color: var(--color-accent);
+  color: var(--color-on-primary);
 }
 
 .hotel-btn-secondary {
   background: var(--color-surface);
-  color: var(--color-text);
+  color: var(--color-primary);
   border-color: var(--color-border);
   font-weight: 500;
 }
@@ -541,7 +546,7 @@ iframe {
    App-shell restyle (demo PRD D-03, contracts/survey-theme.md §2, US2)
    The survey screens sit inside the app shell (shell.css): app bar, drawer
    and tab bar are rendered by nav_bar.twig and footer.twig. Question and
-   thank-you cards follow the prototype. Tokens only, logical properties.
+   thank-you cards match the app's cards. Tokens only, logical properties.
    ========================================================================== */
 
 /* The shell owns the header now; the old centred brand header and the
@@ -553,58 +558,188 @@ iframe {
   display: none;
 }
 
-/* Survey column: the page itself is the phone-width column (shell.css), so the
-   survey wrapper takes the full column with the same inner padding as the app. */
+/* No automatic hyphenation anywhere in the survey (it split words mid-line). */
+#limesurvey,
+#limesurvey * {
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+/* ---- Column: the page is the phone-width column (shell.css). The stock
+   vanilla wrappers each add their own margin and gutter; zero them so the
+   survey lines up with the app screens (16px side inset). ---- */
+#outerframeContainer {
+  padding-inline: 0;
+}
+
+#main-row {
+  --bs-gutter-x: 0;
+  margin: 0;
+}
+
+#main-col {
+  margin-block-start: 0;
+  padding-inline: 0;
+}
+
 #limesurvey {
   max-width: none;
-  padding-inline: var(--space-4);
-  padding-block-start: var(--space-4);
+  padding: var(--space-2) var(--space-4) var(--space-6);
 }
 
-/* Welcome card (contracts/survey-theme.md §2): centred, gold star, facts row. */
-.hs-welcome-card {
+#limesurvey .group-outer-container,
+#limesurvey .group-container {
+  margin-block: 0;
+}
+
+/* ---- Cards ---- */
+#limesurvey .question-container.row,
+#limesurvey .hotel-welcome,
+#limesurvey .hotel-done {
+  --bs-gutter-x: 0;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: var(--border-width) solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+}
+
+#limesurvey .question-container.row > * {
+  padding-inline: 0;
+}
+
+/* ---- Engine alert ("required questions not answered"): a brand error note. ---- */
+.ls-questions-have-errors.alert {
+  --bs-gutter-x: 0;
+  /* Rendered above the form, outside its padding: inset to match the cards. */
+  margin: 0 var(--space-4) var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4) calc(var(--space-4) + 36px);
+  border: var(--border-width) solid color-mix(in srgb, var(--color-error) 28%, transparent);
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--color-error) 7%, var(--color-surface));
+  color: var(--color-error);
+  font-size: var(--size-body-sm);
+  line-height: 1.5;
+}
+
+/* Close button at the inline end in both directions (Bootstrap places it with a physical right). */
+.ls-questions-have-errors .btn-close {
+  inset-inline-end: 0;
+  inset-inline-start: auto;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  padding: var(--space-3);
+}
+
+/* ---- Welcome card: photo band, brand mark, tagline, facts ---- */
+#limesurvey .hs-welcome-card {
+  padding: 0 0 var(--space-6);
+  overflow: hidden;
   text-align: center;
-  padding: var(--space-6) var(--space-5);
 }
 
-.hs-welcome-star {
+.hs-welcome-card > :not(.hs-welcome-media) {
+  padding-inline: var(--space-5);
+}
+
+.hs-welcome-media {
+  position: relative;
+  height: 148px;
+  margin-block-end: 40px;
+  background: var(--primary-hero);
+}
+
+.hs-welcome-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 45%;
+}
+
+.hs-welcome-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, color-mix(in srgb, var(--color-primary) 55%, transparent) 100%);
+}
+
+.hs-welcome-mark {
+  position: absolute;
+  inset-block-end: -30px;
+  inset-inline-start: calc(50% - 30px);
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
-  margin: 0 auto var(--space-4);
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
+  border: 4px solid var(--color-surface);
   border-radius: 50%;
-  background: var(--accent-soft);
+  background: var(--primary-hero);
   color: var(--color-accent);
+  box-shadow: var(--shadow);
 }
 
-.hs-welcome-star svg {
-  width: 32px;
-  height: 32px;
-  fill: var(--color-accent);
-  stroke: var(--color-accent);
+.hs-welcome-mark svg {
+  width: 30px;
+  height: 30px;
 }
 
-.hs-welcome-card .hotel-welcome-text {
+.hs-welcome-brand {
+  margin: 0 0 var(--space-1);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.hs-welcome-brand:lang(fa) {
+  font-size: var(--size-support);
+  letter-spacing: 0;
+}
+
+#limesurvey .hs-welcome-card .hotel-tagline {
+  margin-block: 0 var(--space-3);
+  font-family: var(--font-heading-latin);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+#limesurvey .hs-welcome-card .hotel-tagline:lang(fa) {
+  font-family: var(--font-heading-fa);
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.hs-welcome-card .hotel-welcome-text,
+.hs-welcome-card .hotel-welcome-text p {
   color: var(--color-text-muted);
   font-size: var(--size-body-sm);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .hs-facts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-4);
-  margin-block: var(--space-4);
+  gap: var(--space-2);
+  margin-block: var(--space-4) 0;
 }
 
 .hs-facts span {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 6px;
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--primary-soft);
   font-size: var(--size-support);
-  color: var(--color-text-muted);
+  color: var(--color-primary);
 }
 
 .hs-facts .hs-ic {
@@ -619,38 +754,108 @@ iframe {
   text-align: center;
 }
 
-.hs-welcome-card .hotel-nav,
-.hs-welcome-card + .hotel-nav {
-  margin-block-start: var(--space-4);
+#limesurvey .hs-welcome-card + .hotel-nav,
+#limesurvey .hs-welcome-card ~ .hotel-nav {
+  margin-block-start: var(--space-2);
 }
 
-/* Question screens: the progress row (bar and step text side by side). */
+/* ---- Progress row (bar and step text side by side) ---- */
 .hotel-progress {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   max-width: none;
-  margin-block: var(--space-3) var(--space-4);
+  margin-block: var(--space-4) var(--space-3);
   padding-inline: var(--space-4);
 }
 
 .hotel-progress-track {
   flex: 1 1 auto;
+  background: color-mix(in srgb, var(--color-border) 80%, var(--color-surface));
+}
+
+.hotel-progress-fill {
+  background: linear-gradient(90deg, var(--color-accent), color-mix(in srgb, var(--color-accent) 70%, var(--color-primary)));
+}
+
+[dir="rtl"] .hotel-progress-fill {
+  background: linear-gradient(270deg, var(--color-accent), color-mix(in srgb, var(--color-accent) 70%, var(--color-primary)));
 }
 
 .hotel-progress-step {
   margin: 0;
   white-space: nowrap;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
-/* Question card: the prototype's card surface with a generous top margin. */
-.question-container.row {
-  padding: var(--space-5);
-  margin-block-end: var(--space-4);
+/* ---- Question heading and markers ---- */
+#limesurvey .hotel-marker {
+  display: inline-block;
+  margin: 0 0 var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--primary-soft);
+  color: var(--color-primary);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
-.hotel-scale {
-  margin-block: var(--space-5) var(--space-2);
+#limesurvey .hotel-marker:lang(fa) {
+  letter-spacing: 0;
+}
+
+#limesurvey .hotel-marker:not(.hotel-marker-required) {
+  background: var(--accent-soft);
+  color: var(--color-text-muted);
+}
+
+#limesurvey .ls-label-question,
+#limesurvey .question-text {
+  margin-block: 0;
+  font-family: var(--font-heading-latin);
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+#limesurvey .question-text .ls-label-question {
+  font-size: inherit;
+}
+
+html:lang(fa) #limesurvey .ls-label-question,
+html:lang(fa) #limesurvey .question-text {
+  font-family: var(--font-heading-fa);
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+/* Required message: an error-tinted note above the answers. */
+#limesurvey .hotel-required-msg {
+  margin-block: var(--space-3) 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--color-error) 7%, var(--color-surface));
+  align-items: center;
+}
+
+/* ---- Rating tiles ---- */
+#limesurvey .hotel-scale .answer-container {
+  margin-block-start: var(--space-4);
+}
+
+.hotel-scale label {
+  min-height: 52px;
+  border-radius: var(--radius-control);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.hotel-scale input[type="radio"]:not(:checked) + label:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  background: var(--primary-soft);
 }
 
 .hotel-scale-11 ul,
@@ -658,7 +863,104 @@ iframe {
   gap: var(--space-2);
 }
 
-/* Thank-you buttons (FR-014): two buttons under the hotel names. */
+/* Scale anchors ("1 = Very poor, 5 = Excellent") under the tiles. */
+#limesurvey .hotel-scale .question-help-container {
+  margin-block-start: var(--space-3);
+  text-align: center;
+  font-size: var(--size-support);
+}
+
+#limesurvey .hotel-scale .question-help-container .ls-questionhelp {
+  font-size: inherit;
+  text-align: center;
+}
+
+/* ---- Comment fields ---- */
+#limesurvey .hotel-comment .answer-container {
+  margin-block-start: var(--space-4);
+}
+
+.hotel-comment textarea {
+  min-height: 140px;
+  border-radius: var(--radius-control);
+  line-height: 1.55;
+}
+
+.hotel-comment textarea:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+/* ---- Navigation ---- */
+#limesurvey .hotel-nav {
+  margin-block-start: var(--space-5);
+}
+
+#limesurvey .hotel-btn {
+  min-height: 52px;
+  border-radius: var(--radius-control);
+}
+
+#limesurvey .hotel-btn-primary {
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+/* ---- Thank-you card ---- */
+#limesurvey .hotel-done {
+  padding: var(--space-8) var(--space-5) var(--space-6);
+}
+
+.hotel-done-icon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  background: var(--primary-hero);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-raised);
+}
+
+.hotel-done-icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+#limesurvey .hotel-done-heading,
+#limesurvey .hotel-done-text h2 {
+  font-family: var(--font-heading-latin);
+  font-size: 30px;
+  color: var(--color-primary);
+}
+
+html:lang(fa) #limesurvey .hotel-done-heading,
+html:lang(fa) #limesurvey .hotel-done-text h2 {
+  font-family: var(--font-heading-fa);
+  font-size: 22px;
+}
+
+.hotel-done-text,
+.hotel-done-text p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.hotel-done-names {
+  margin-block-start: var(--space-5);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.hotel-done-names .hotel-bdi-en {
+  color: var(--color-primary);
+}
+
+.hotel-done-names .hotel-bdi-fa {
+  color: var(--color-primary);
+}
+
 .hs-done-actions {
   display: grid;
   gap: var(--space-3);
@@ -669,20 +971,36 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: var(--touch-min);
+  gap: var(--space-2);
+  min-height: 52px;
   padding-inline: var(--space-5);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-control);
   background: var(--color-surface);
-  color: var(--color-text);
+  color: var(--color-primary);
   font-weight: 600;
   text-decoration: none;
 }
 
-.hotel-done-btn-primary {
-  background: var(--color-text);
-  border-color: var(--color-text);
-  color: var(--color-surface);
+.hotel-done-btn:hover {
+  color: var(--color-primary);
+}
+
+.hotel-done-btn .hs-ic {
+  width: 20px;
+  height: 20px;
+}
+
+.hotel-done-btn-primary,
+.hotel-done-btn-primary:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+.hotel-done-btn-primary .hs-ic {
+  color: var(--color-accent);
 }
 
 .hotel-done-btn:focus-visible {
@@ -690,17 +1008,12 @@ iframe {
   outline-offset: 2px;
 }
 
-/* Placeholder notice: a compact muted line above the tab bar (R-14). */
+/* Demo notice: a compact muted line above the tab bar (R-14). */
 .hotel-notice {
-  margin: var(--space-3) var(--space-4) 0;
+  margin: 0 var(--space-4);
   font-size: var(--size-label);
   color: var(--color-text-muted);
   text-align: center;
-}
-
-/* Keep the survey's own content clear of the fixed tab bar. */
-#limesurvey {
-  padding-block-end: var(--space-6);
 }
 
 /* Visually hidden, but still announced (survey name h1 on the welcome card). */

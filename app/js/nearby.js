@@ -1,6 +1,7 @@
 /*
  * Nearby screen (contracts/app-screens.md §3, data-model.md §4 and §7, research R-11 and R-12).
- * Classic script. Data: app/data/places.json (demo data). Text is escaped before insertion.
+ * Classic script. Data: HotelPlaces (Neshan through /app/api/places.php, or demo data).
+ * Text is escaped before insertion; links are https or tel only.
  */
 (function () {
   'use strict';
@@ -9,52 +10,21 @@
   var num = window.HotelI18n.num;
   var fold = window.HotelI18n.fold;
   var icon = HotelApp.icon;
+  var P = window.HotelPlaces;
+  var esc = P.esc;
 
   var data = null;
-  var state = { q: '', cat: 'all', open: false, sort: 'dist', sheetId: null };
+  var status = 'loading';   // loading | ready | error
+  var state = { q: '', cat: 'all', open: false, sheetId: null };
   var sheet = null;
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
+  var CATS = ['all', 'restaurant', 'cafe', 'poi'];
 
   function lang() {
     return document.documentElement.lang === 'fa' ? 'fa' : 'en';
   }
 
-  var CAT_ICON = { restaurant: 'food', cafe: 'cafe', poi: 'poi', all: 'all' };
-  var CAT_KEY = { restaurant: 'n.restaurant', cafe: 'n.cafe', poi: 'n.poi', all: 'n.all' };
-  var CATS = ['all', 'restaurant', 'cafe', 'poi'];
-
-  function openNow(p) {
-    var now = new Date();
-    var h = now.getHours() + now.getMinutes() / 60;
-    return (p.hours[0] <= h && h < p.hours[1]) || (p.hours[1] > 24 && h < p.hours[1] - 24);
-  }
-
-  function distance(m) {
-    return m < 1000 ? T('n.m', num(m)) : T('n.km', num(m / 1000, 1));
-  }
-
-  function walkMinutes(m) {
-    return Math.max(1, Math.round(m / 80));
-  }
-
-  function clock(h) {
-    var whole = Math.floor(h % 24);
-    var minutes = Math.round((h - Math.floor(h)) * 60);
-    var hh = (whole < 10 ? num(0) : '') + num(whole);
-    var mm = (minutes < 10 ? num(0) : '') + num(minutes);
-    return hh + ':' + mm;
-  }
-
-  function hours(p) {
-    if (p.hours[0] === 0 && p.hours[1] === 24) {
-      return T('n.24h');
-    }
-    return clock(p.hours[0]) + ' – ' + clock(p.hours[1]);
+  function live() {
+    return !!data && data.source === 'neshan';
   }
 
   function matches(p) {
@@ -62,56 +32,89 @@
     if (state.cat !== 'all' && p.category !== state.cat) {
       return false;
     }
-    if (state.open && !openNow(p)) {
+    if (state.open && P.isOpen(p, data) !== true) {
       return false;
     }
     if (q === '') {
       return true;
     }
-    var fields = [p.name.en, p.name.fa].concat(p.tags.en, p.tags.fa);
+    var fields = [p.name.en, p.name.fa];
+    if (p.address) {
+      fields.push(p.address.en || '', p.address.fa || '');
+    }
     return fields.some(function (s) { return fold(s).indexOf(q) !== -1; });
   }
 
+  function tie(a, b) {
+    return String(a.id) < String(b.id) ? -1 : String(a.id) > String(b.id) ? 1 : 0;
+  }
+
   function sorted(list) {
-    var out = list.slice();
-    if (state.sort === 'rating') {
-      out.sort(function (a, b) {
-        return (b.rating - a.rating) || (a.distance_m - b.distance_m) || (a.id - b.id);
-      });
-    } else {
-      out.sort(function (a, b) {
-        return (a.distance_m - b.distance_m) || (a.id - b.id);
-      });
-    }
-    return out;
+    return list.slice().sort(function (a, b) {
+      return (a.distance_m - b.distance_m) || tie(a, b);
+    });
   }
 
   function pill(p) {
-    var o = openNow(p);
+    var o = P.isOpen(p, data);
+    if (o === null) {
+      return '';
+    }
     return '<span class="app-pill ' + (o ? 'ok' : 'closed') + '">' + esc(T(o ? 'n.isOpen' : 'n.isClosed')) + '</span>';
   }
 
+  function meta(p) {
+    var bits = [];
+    bits.push('<span>' + esc(P.distance(p.distance_m)) + '</span>');
+    return bits.join('<span class="app-dot" aria-hidden="true"></span>') + pill(p);
+  }
+
+  function skeleton() {
+    var row = '<div class="app-card app-place app-skel" aria-hidden="true"><span class="app-ic-square"></span><span><i></i><i></i></span></div>';
+    return '<p class="app-count" role="status">' + esc(T('n.loading')) + '</p><div class="app-list">' + row + row + row + row + '</div>';
+  }
+
+  function errorState() {
+    return '<div class="app-empty">' + icon('alert') +
+      '<h3>' + esc(T('n.error.t')) + '</h3>' +
+      '<p class="app-muted app-small">' + esc(T('n.error.d')) + '</p>' +
+      '<button class="app-btn app-btn-auto secondary" type="button" data-retry>' + icon('refresh') + esc(T('n.retry')) + '</button>' +
+      '</div>';
+  }
+
+  function countLine(n) {
+    var bits = [esc(T('n.results', num(n)))];
+    if (live() && data.radius_m) {
+      bits.push(esc(T('n.within', P.distance(data.radius_m))));
+    }
+    var badge = live() ? (data.stale ? '<span class="app-pill">' + esc(T('n.stale')) + '</span>' : '') : '<span class="app-pill">' + esc(T('n.demo')) + '</span>';
+    return '<p class="app-count"><span>' + bits.join(' · ') + '</span>' + badge + '</p>';
+  }
+
   function resultsHTML() {
+    if (status === 'loading') {
+      return skeleton();
+    }
+    if (status === 'error') {
+      return errorState();
+    }
     var list = sorted(data.places.filter(matches));
     if (!list.length) {
       return '<div class="app-empty">' + icon('search') +
-        '<h3 style="margin-block:var(--space-3) var(--space-2)">' + esc(T('n.empty.t')) + '</h3>' +
+        '<h3>' + esc(T('n.empty.t')) + '</h3>' +
         '<p class="app-muted app-small">' + esc(T('n.empty.d')) + '</p>' +
-        '<button class="app-btn app-btn-auto secondary" type="button" data-clear style="margin:var(--space-4) auto 0">' + esc(T('n.clear')) + '</button>' +
+        '<button class="app-btn app-btn-auto secondary" type="button" data-clear>' + esc(T('n.clear')) + '</button>' +
         '</div>';
     }
     var rows = list.map(function (p) {
       return '<button class="app-card app-place" type="button" data-id="' + esc(p.id) + '">' +
-        '<span class="app-ic-square">' + icon(CAT_ICON[p.category]) + '</span>' +
+        '<span class="app-ic-square">' + icon(P.CAT_ICON[p.category]) + '</span>' +
         '<span class="app-place-main"><h3>' + esc(p.name[lang()]) + '</h3>' +
-          '<span class="app-meta"><span class="app-star">' + icon('star') + num(p.rating, 1) + '</span>' +
-          '<span>' + esc(distance(p.distance_m)) + '</span>' +
-          '<span>' + esc('$'.repeat(p.price)) + '</span>' + pill(p) + '</span></span>' +
+          '<span class="app-meta">' + meta(p) + '</span></span>' +
         '<span class="app-chev hs-flip">' + icon('chev') + '</span>' +
         '</button>';
     }).join('');
-    return '<p class="app-count">' + esc(T('n.results', num(list.length))) + ' · <span class="app-pill">' + esc(T('n.demo')) + '</span></p>' +
-      '<div class="app-list">' + rows + '</div>';
+    return countLine(list.length) + '<div class="app-list">' + rows + '</div>';
   }
 
   function updateResults() {
@@ -125,9 +128,6 @@
     document.querySelectorAll('[data-cat]').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === state.cat));
     });
-    document.querySelectorAll('[data-sort]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-sort') === state.sort));
-    });
     var sw = document.getElementById('openT');
     if (sw) {
       sw.setAttribute('aria-checked', String(state.open));
@@ -135,26 +135,21 @@
   }
 
   function controlsHTML() {
-    var q = esc(state.q);
     return '<div class="app-search">' + icon('search') +
-        '<input id="q" type="search" value="' + q + '" placeholder="' + esc(T('n.search')) + '" aria-label="' + esc(T('n.search')) + '" autocomplete="off">' +
+        '<input id="q" type="search" value="' + esc(state.q) + '" placeholder="' + esc(T('n.search')) + '" aria-label="' + esc(T('n.search')) + '" autocomplete="off" enterkeyhint="search">' +
       '</div>' +
       '<div class="app-chips" role="group" aria-label="' + esc(T('n.all')) + '">' + CATS.map(function (c) {
         return '<button class="app-chip" type="button" data-cat="' + c + '" aria-pressed="' + (state.cat === c) + '">' +
-          '<span class="app-chip-v">' + icon(CAT_ICON[c]) + esc(T(CAT_KEY[c])) + '</span></button>';
+          '<span class="app-chip-v">' + icon(P.CAT_ICON[c]) + esc(T(P.CAT_KEY[c])) + '</span></button>';
       }).join('') + '</div>' +
       '<div class="app-toolbar">' +
         '<button class="app-toggle" type="button" id="openT" role="switch" aria-checked="' + state.open + '"><span class="app-switch"></span>' + esc(T('n.open')) + '</button>' +
-        '<div class="app-seg" role="group" aria-label="' + esc(T('n.sort.dist')) + '">' +
-          '<button type="button" data-sort="dist" aria-pressed="' + (state.sort === 'dist') + '">' + esc(T('n.sort.dist')) + '</button>' +
-          '<button type="button" data-sort="rating" aria-pressed="' + (state.sort === 'rating') + '">' + esc(T('n.sort.rating')) + '</button>' +
-        '</div>' +
       '</div>' +
-      '<div id="results">' + resultsHTML() + '</div>';
+      '<div id="results" aria-live="polite">' + resultsHTML() + '</div>';
   }
 
   function render(main) {
-    if (!main || !data) {
+    if (!main) {
       return;
     }
     main.innerHTML = '<div class="app-stack">' + controlsHTML() + '</div>';
@@ -163,16 +158,6 @@
     } else {
       state.sheetId = null;
     }
-  }
-
-  function placeById(id) {
-    var found = null;
-    data.places.forEach(function (p) {
-      if (p.id === Number(id)) {
-        found = p;
-      }
-    });
-    return found;
   }
 
   function ensureSheet() {
@@ -189,29 +174,42 @@
     return sheet;
   }
 
+  function actions(p) {
+    var dir = live() ? P.safeUrl(p.directions_url) : null;
+    var tel = live() ? P.safeTel(p.phone) : null;
+    var out = dir
+      ? '<a class="app-btn" href="' + esc(dir) + '" target="_blank" rel="noopener noreferrer">' + icon('nav', 'hs-flip') + esc(T('n.dir')) + '</a>'
+      : '<button class="app-btn" type="button" data-soon>' + icon('nav', 'hs-flip') + esc(T('n.dir')) + '</button>';
+    if (tel) {
+      out += '<a class="app-btn secondary" href="tel:' + esc(tel) + '">' + icon('phone') + esc(T('n.call')) + '</a>';
+    } else if (!live()) {
+      out += '<button class="app-btn secondary" type="button" data-soon>' + icon('phone') + esc(T('n.call')) + '</button>';
+    }
+    out += '<button class="app-btn secondary" type="button" data-soon>' + icon('save') + esc(T('n.save')) + '</button>';
+    return out;
+  }
+
   function sheetHTML(p) {
-    var o = openNow(p);
-    var tags = p.tags[lang()].map(function (t) { return '<span class="app-pill">' + esc(t) + '</span>'; }).join('');
+    var l = lang();
+    var rows = '<div class="app-info-row">' + icon('clock') + '<span><b>' + esc(T('n.today')) + '</b> ' + esc(P.todayHours(p, data)) + '</span></div>';
+    if (p.address && p.address[l]) {
+      rows += '<div class="app-info-row">' + icon('pin') + '<span>' + esc(p.address[l]) + '</span></div>';
+    }
+    if (live() && p.phone_display && P.safeTel(p.phone)) {
+      rows += '<div class="app-info-row">' + icon('phone') + '<span dir="ltr">' + esc(p.phone_display) + '</span></div>';
+    }
     return '<div class="app-handle"></div>' +
-      '<div class="app-sheet-head"><span class="app-ic-square">' + icon(CAT_ICON[p.category]) + '</span>' +
-        '<div><div class="app-label">' + esc(T(CAT_KEY[p.category])) + '</div>' +
-        '<h2 id="hs-sheet-title">' + esc(p.name[lang()]) + '</h2></div></div>' +
+      '<div class="app-sheet-head"><span class="app-ic-square">' + icon(P.CAT_ICON[p.category]) + '</span>' +
+        '<div><div class="app-label">' + esc(T(P.CAT_KEY[p.category])) + '</div>' +
+        '<h2 id="hs-sheet-title">' + esc(p.name[l]) + '</h2></div></div>' +
       '<div class="app-meta app-sheet-meta">' +
-        '<span class="app-star">' + icon('star') + num(p.rating, 1) + '</span>' +
-        '<span>' + icon('walk') + esc(T('n.min', num(walkMinutes(p.distance_m)))) + '</span>' +
-        '<span>' + esc('$'.repeat(p.price)) + '</span>' + pill(p) + '</div>' +
-      '<p style="margin-block-start:var(--space-3)">' + esc(p.description[lang()]) + '</p>' +
-      '<div class="app-meta app-hours">' + icon('clock') + esc(T('n.hours')) + ': ' + esc(hours(p)) + '</div>' +
-      '<div class="app-tags">' + tags + '</div>' +
-      '<div class="app-sheet-actions">' +
-        '<button class="app-btn" type="button" data-soon>' + icon('nav', 'hs-flip') + esc(T('n.dir')) + '</button>' +
-        '<button class="app-btn secondary" type="button" data-soon>' + icon('phone') + esc(T('n.call')) + '</button>' +
-        '<button class="app-btn secondary" type="button" data-soon>' + icon('save') + esc(T('n.save')) + '</button>' +
-      '</div>';
+        '<span>' + icon('walk') + esc(T('n.min', num(P.walkMinutes(p.distance_m)))) + '</span>' + pill(p) + '</div>' +
+      '<div class="app-info">' + rows + '</div>' +
+      '<div class="app-sheet-actions">' + actions(p) + '</div>';
   }
 
   function showSheet(id, rebuildOnly) {
-    var p = placeById(id);
+    var p = data && P.byId(data, id);
     if (!p) {
       return;
     }
@@ -224,6 +222,20 @@
     } else {
       el.focus();
     }
+  }
+
+  function load() {
+    status = 'loading';
+    updateResults();
+    P.load().then(function (d) {
+      data = d;
+      status = 'ready';
+      updateResults();
+      openFromHash();
+    }).catch(function () {
+      status = 'error';
+      updateResults();
+    });
   }
 
   document.addEventListener('click', function (e) {
@@ -242,17 +254,14 @@
       updateResults();
       return;
     }
-    var sortBtn = t.closest('[data-sort]');
-    if (sortBtn) {
-      state.sort = sortBtn.getAttribute('data-sort');
-      syncControls();
-      updateResults();
-      return;
-    }
     if (t.closest('#openT')) {
       state.open = !state.open;
       syncControls();
       updateResults();
+      return;
+    }
+    if (t.closest('[data-retry]')) {
+      load();
       return;
     }
     if (t.closest('[data-clear]')) {
@@ -280,20 +289,22 @@
   });
 
   function openFromHash() {
-    var m = /^#place=(\d+)$/.exec(window.location.hash);
-    if (m && placeById(m[1])) {
-      showSheet(m[1]);
+    var m = /^#place=([A-Za-z0-9_%-]+)$/.exec(window.location.hash);
+    if (m) {
+      var id;
+      try {
+        id = decodeURIComponent(m[1]);
+      } catch (err) {
+        return;
+      }
+      if (P.byId(data, id)) {
+        showSheet(id);
+      }
     }
   }
 
   HotelApp.renderShell('nearby');
   HotelApp.setScreen(render);
   HotelApp.applyLang(HotelShell.getLang());
-  HotelApp.loadJSON('/app/data/places.json').then(function (d) {
-    data = d;
-    render(document.getElementById('hs-main'));
-    openFromHash();
-  }).catch(function () {
-    data = null;
-  });
+  load();
 })();

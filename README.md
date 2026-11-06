@@ -1,10 +1,10 @@
 # Hotel Guest Survey
 
-QR-code guest feedback for a single hotel. Built on LimeSurvey CE. See `hotelSurveyPRD.md` for requirements and `AGENTS.md` for working rules. Open decisions are listed in `docs/decisions.md`.
+Guest app and feedback survey for **Kowsar Malekshahr Complex** (مجتمع کوثر ملکشهر), Malekshahr, Isfahan. Built on LimeSurvey CE. See `hotelSurveyPRD.md` for requirements and `AGENTS.md` for working rules. Open decisions are listed in `docs/decisions.md`.
 
 ## Status
 
-**Current iteration: demo.** Scope is in `hotelSurveyDemoPRD.md` (app shell, survey, Nearby, simple dashboard). Implemented on branch `hotel-demo-app` (spec `specs/002-hotel-demo-app/`), not yet merged. The milestones below are from the full PRD; 3–5 are deferred until after the demo.
+**Current iteration: demo.** Scope is in `hotelSurveyDemoPRD.md` (app shell, survey, Nearby, simple dashboard), spec `specs/002-hotel-demo-app/`. Brand: `docs/brand.md`. Nearby places come from Neshan once a key is added (`docs/neshan-places.md`); until then the app shows demo data. The milestones below are from the full PRD; 3–5 are deferred until after the demo.
 
 | Milestone (PRD §8) | Status |
 |---|---|
@@ -19,7 +19,8 @@ QR-code guest feedback for a single hotel. Built on LimeSurvey CE. See `hotelSur
 ```
 docker-compose.yml          LimeSurvey + MariaDB
 .env.example                Environment template (copy to .env)
-app/                        Static demo app (Home, Nearby, Dashboard), mounted into LimeSurvey
+app/                        Guest app (Home, Nearby, Dashboard), mounted into LimeSurvey
+app/api/places.php          Neshan places proxy (server-side, key from .env)
 db/init/                    SQL run on first database start (custom tables only)
 limesurvey/themes/          Child theme (survey and app shell), mounted into LimeSurvey
 scripts/                    validate.sh, backup-db.sh, build-dashboard.py, seed-demo.py
@@ -50,5 +51,7 @@ docker compose up -d
 python3 scripts/seed-demo.py            # about 40 demo responses through the public survey
 python3 scripts/build-dashboard.py --watch   # refresh app/data/dashboard.json every 10 s (leave running)
 ```
+
+Live nearby places: add `NESHAN_API_KEY`, `HOTEL_LAT` and `HOTEL_LNG` to `.env`, run `docker compose up -d limesurvey`, then check `curl -s http://hotelsurvey.localhost/app/api/places.php | head -c 300`. Full steps in `docs/neshan-places.md`.
 
 The dashboard publishes aggregates only (`app/data/dashboard.json`, git-ignored). Steps for the walkthrough and the test flows are in `specs/002-hotel-demo-app/quickstart.md`; results are in `specs/002-hotel-demo-app/evidence.md`.

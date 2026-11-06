@@ -4,7 +4,8 @@
   Every guest-visible string that is NOT survey content (entered per language
   in the LimeSurvey admin) lives here: navigation labels, progress step text,
   the optional marker, the required-answer message, the placeholder notice,
-  the language label, the confirmation-icon label and the brand strings.
+  the language label, the confirmation-icon label and the brand strings
+  (Kowsar Malekshahr Complex, docs/brand.md).
 
   Usage in a view:
       {% import './subviews/hotel/i18n.twig' as i18n %}
@@ -36,13 +37,13 @@
   'question.optional': {'en': 'Optional', 'fa': 'اختیاری'},
   'question.required': {'en': 'Required', 'fa': 'الزامی'},
   'question.required_msg': {'en': 'Please choose an answer to continue.', 'fa': 'لطفاً برای ادامه یک گزینه را انتخاب کنید.'},
-  'notice.placeholder': {'en': 'Development preview – placeholder brand', 'fa': 'پیش‌نمایش توسعه – نام تجاری موقت'},
+  'notice.placeholder': {'en': 'Demo preview', 'fa': 'پیش‌نمایش نسخهٔ نمایشی'},
   'lang.label': {'en': 'Language', 'fa': 'زبان'},
   'nojs.alert': {'en': 'Caution: JavaScript is turned off in your browser. Some parts of the survey may not work. Please turn JavaScript on.', 'fa': 'هشدار: جاوااسکریپت در مرورگر شما خاموش است. ممکن است برخی بخش‌های نظرسنجی کار نکنند. لطفاً جاوااسکریپت را روشن کنید.'},
   'done.icon_label': {'en': 'Feedback received', 'fa': 'نظر شما دریافت شد'},
   'error.title': {'en': 'This page can no longer be shown', 'fa': 'این صفحه دیگر قابل نمایش نیست'},
   'error.message': {'en': 'Your session may have expired, or the request could not be processed. Please open the survey link again to start a new survey.', 'fa': 'ممکن است نشست شما منقضی شده باشد یا درخواست شما پردازش نشده باشد. لطفاً پیوند نظرسنجی را دوباره باز کنید تا نظرسنجی تازه‌ای آغاز شود.'},
-  'error.contact': {'en': 'For further information please contact the hotel:', 'fa': 'برای اطلاعات بیشتر با هتل تماس بگیرید:'},
+  'error.contact': {'en': 'For more information, please contact reception:', 'fa': 'برای اطلاعات بیشتر با پذیرش مجتمع تماس بگیرید:'},
   'error.page_title': {'en': 'Survey unavailable', 'fa': 'نظرسنجی در دسترس نیست'},
   'menu': {'en': 'Menu', 'fa': 'منو'},
   'notifications': {'en': 'Notifications', 'fa': 'اعلان‌ها'},
@@ -60,7 +61,7 @@
   'd.soon': {'en': 'Soon', 'fa': 'به‌زودی'},
   'd.lang': {'en': 'Language', 'fa': 'زبان'},
   'd.langLocked': {'en': 'Locked while the survey is open', 'fa': 'تا پایان نظرسنجی قابل تغییر نیست'},
-  'demo': {'en': 'Demo build · placeholder brand', 'fa': 'نسخهٔ نمایشی · نام تجاری موقت'},
+  'demo': {'en': 'Demo build', 'fa': 'نسخهٔ نمایشی'},
   'soon': {'en': 'Coming soon in the full app', 'fa': 'به‌زودی در نسخهٔ کامل'},
   'lang.en': {'en': 'English', 'fa': 'English'},
   'lang.fa': {'en': 'فارسی', 'fa': 'فارسی'},
@@ -70,8 +71,9 @@
   's.langNote': {'en': 'The survey stays in English once you start.', 'fa': 'پس از شروع، نظرسنجی به فارسی می‌ماند.'},
   's.done.home': {'en': 'Back to home', 'fa': 'بازگشت به خانه'},
   's.done.nearby': {'en': 'Explore nearby', 'fa': 'گشتی در اطراف'},
-  'brand.name_en': {'en': 'Paradise Garden Hotel', 'fa': 'Paradise Garden Hotel'},
-  'brand.name_fa': {'en': 'باغ پردیس', 'fa': 'باغ پردیس'},
+  'brand.name_en': {'en': 'Kowsar Malekshahr Complex', 'fa': 'Kowsar Malekshahr Complex'},
+  'brand.name_fa': {'en': 'مجتمع کوثر ملکشهر', 'fa': 'مجتمع کوثر ملکشهر'},
+  'brand.place': {'en': 'Tourism complex · Malekshahr, Isfahan', 'fa': 'مجتمع گردشگری · ملکشهر، اصفهان'},
   'brand.tagline': {'en': 'Your experience matters', 'fa': 'تجربهٔ شما برای ما ارزشمند است'}
 } -%}
 {%- set l = lang -%}

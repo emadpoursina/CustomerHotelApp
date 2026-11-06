@@ -15,7 +15,7 @@
 <config>
     <metadata>
         <name>hotel-classic</name>
-        <title>Hotel Classic (development placeholder brand)</title>
+        <title>Hotel Classic (Kowsar Malekshahr)</title>
         <type>theme</type>
         <creationDate>04/11/2026</creationDate>
         <author>Hotel Guest Survey (development)</author>
@@ -23,12 +23,11 @@
         <authorUrl></authorUrl>
         <copyright>Copyright (c) Hotel Guest Survey development. Placeholder brand.</copyright>
         <license>GNU General Public License version 2 or later</license>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
         <apiVersion>3</apiVersion>
         <description><![CDATA[Child theme of vanilla for the hotel guest survey (English and Persian).
-        The Paradise Garden Hotel / Bagh-e Pardis brand used here is a DEVELOPMENT PLACEHOLDER
-        and is not cleared for production; replace it before launch (see docs/brand.md).]]></description>
-        <lastUpdate>2026-11-04 22:00:00</lastUpdate>
+        Brand: Kowsar Malekshahr Complex (see docs/brand.md).]]></description>
+        <lastUpdate>2026-11-05 12:00:00</lastUpdate>
         <extends>vanilla</extends>
     </metadata>
 

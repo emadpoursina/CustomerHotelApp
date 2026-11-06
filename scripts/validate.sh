@@ -108,6 +108,9 @@ demo_required=(
   app/js/home.js
   app/js/nearby.js
   app/js/dashboard.js
+  app/js/places.js
+  app/api/places.php
+  app/img/kowsar-hero.jpg
   app/data/places.json
   limesurvey/themes/hotel-classic/css/shell.css
   limesurvey/themes/hotel-classic/scripts/shell.js
@@ -170,6 +173,24 @@ assert d.get('demo') is True, 'demo must be true'
 n = len(d.get('places', []))
 assert 18 <= n <= 24, 'place count %d outside 18-24' % n
 PY
+
+# Places proxy: PHP syntax (host php, else the running LimeSurvey container, else skipped).
+if command -v php >/dev/null 2>&1; then
+  php -l app/api/places.php >/dev/null || { echo "php syntax error: app/api/places.php" >&2; exit 1; }
+elif docker compose ps --status running --services 2>/dev/null | grep -qx limesurvey; then
+  docker compose exec -T limesurvey php -l /var/www/html/app/api/places.php >/dev/null \
+    || { echo "php syntax error: app/api/places.php" >&2; exit 1; }
+else
+  echo "php not found and stack not running: skipping PHP syntax check" >&2
+fi
+
+# Secrets: no Google-format API key (AIza...) in tracked or new files. Keys belong in .env only.
+if git ls-files -co --exclude-standard -z | xargs -0 grep -lE 'AIza[0-9A-Za-z_-]{35}' 2>/dev/null | grep -q .; then
+  git ls-files -co --exclude-standard -z | xargs -0 grep -lE 'AIza[0-9A-Za-z_-]{35}' 2>/dev/null | while IFS= read -r f; do
+    echo "api key in a repository file: $f (move it to .env)" >&2
+  done
+  exit 1
+fi
 
 # Python: every script compiles.
 for f in scripts/*.py; do

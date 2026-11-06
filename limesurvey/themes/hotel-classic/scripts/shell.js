@@ -225,6 +225,26 @@
     closeDrawer(false);
   });
 
+  // Browser chrome colour from the --color-primary token (no hex outside tokens.css).
+  function themeColor() {
+    var value = window.getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim();
+    if (!value) {
+      return;
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'theme-color';
+      document.head.appendChild(meta);
+    }
+    meta.content = value;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', themeColor);
+  } else {
+    themeColor();
+  }
+
   window.HotelShell = {
     getLang: getLang,
     setLang: setLang,

@@ -1,32 +1,48 @@
-/* Hotel Classic design tokens (PRD §5.2–5.4). Single source for colours, type and spacing. */
+/*
+ * Kowsar Malekshahr design tokens. Single source for colours, type and spacing.
+ * Palette from the operator's brand board (docs/brand.md): light cream, sand gold, lapis and sea blue.
+ * Hex values live only in this file (scripts/validate.sh enforces it).
+ */
 
 /*
  * Self-hosted fonts are declared in css/fonts.css (@font-face, WOFF2 files in
  * fonts/<family>/). This file must not reference any remote font service
- * (FR-033): the Google Fonts @import that used to live here was removed in
- * Milestone 2.
+ * (FR-033).
  */
 
 :root {
-  /* Colour */
-  --color-bg: #F8F5EF;            /* Warm Ivory — main background */
-  --color-surface: #FFFFFF;       /* Cards and surfaces */
-  --color-text: #352B25;          /* Deep Espresso — primary text */
-  --color-accent: #B89A65;        /* Champagne Gold — accents, selected states only */
-  --color-border: #DCD2C3;        /* Soft Taupe — borders and dividers */
-  --color-text-muted: #796C60;    /* Muted Brown — secondary text */
-  --color-success: #47765C;
-  --color-warning: #B68A43;
-  --color-error: #A34E45;
+  /* Brand palette (docs/brand.md). The board's written hex codes are used; see brand.md for the swatch note. */
+  --brand-cream: #F4EBDD;         /* کرم روشن · Light cream */
+  --brand-gold: #C6A15B;          /* شنی طلایی · Sand gold */
+  --brand-lapis: #214F72;         /* نیلی / لاجوردی · Indigo, lapis */
+  --brand-sea: #214F68;           /* آبی دریایی · Sea blue */
+
+  /* Colour roles */
+  --color-bg: var(--brand-cream);         /* Page background */
+  --color-surface: #FFFDF9;               /* Cards and sheets (warm white) */
+  --color-primary: var(--brand-lapis);    /* Primary actions, app chrome, selected fills */
+  --color-primary-deep: var(--brand-sea); /* Gradients and pressed states */
+  --color-on-primary: var(--brand-cream); /* Text and icons on primary surfaces */
+  --color-accent: var(--brand-gold);      /* Accents and selected states only (never body text on light) */
+  --color-text: #1B2A3A;                  /* Lapis ink: primary text (12.3:1 on cream) */
+  --color-text-muted: #5A6472;            /* Secondary text (5.1:1 on cream) */
+  --color-border: #E4D8C4;                /* Sand borders and dividers */
+  --color-success: #2E7356;
+  --color-warning: #9A6B1C;
+  --color-error: #B0413A;
+  /* Google Maps text attribution: Google's own grey (Places API policies, 4.5:1 or better on cream and white). */
+  --color-attribution: #5E5E5E;
 
   /* Typography */
-  /* Latin heading stack — the English wordmark always uses this (FR-030). */
+  /* Latin heading stack. The English wordmark always uses this (FR-030). */
   --font-heading-latin: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-heading: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  /* Persian (fa) stacks — applied by :lang(fa) in css/hotel.css (FR-028). */
-  --font-heading-fa: "Noto Naskh Arabic", Tahoma, "Noto Sans Arabic", "Segoe UI", serif;
-  --font-body-fa: "Vazirmatn", Tahoma, "Noto Sans Arabic", "Segoe UI", sans-serif;
+  /* Persian (fa) stacks, applied by :lang(fa). The brand board sets Persian titles in a bold sans.
+     Vazirmatn's @font-face covers Arabic script only, so Latin text inside Persian screens falls to Inter. */
+  --font-heading-fa: "Vazirmatn", "Inter", Tahoma, "Noto Sans Arabic", "Segoe UI", sans-serif;
+  --font-body-fa: "Vazirmatn", "Inter", Tahoma, "Noto Sans Arabic", "Segoe UI", sans-serif;
+  --font-attribution: Roboto, "Helvetica Neue", Arial, sans-serif;
   --size-h1: 32px;
   --size-h2: 24px;
   --size-h3: 18px;
@@ -45,25 +61,31 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-  --radius-card: 12px;
-  --radius-control: 8px;
+  --radius-card: 16px;
+  --radius-control: 12px;
+  --radius-pill: 999px;
   --touch-min: 48px;
   --width-survey: 680px;
   --width-dashboard: 1440px;
 
-  /* Controls and chrome (added in Milestone 2, used by css/hotel.css) */
+  /* Controls and chrome */
   --border-width: 1px;
   --border-width-selected: 2px;
-  --progress-height: 4px;
+  --progress-height: 6px;
   /* Focus ring points at an existing colour token (never a hard-coded value). */
-  --focus-ring: var(--color-text);
+  --focus-ring: var(--color-primary);
 
   /* App shell (demo PRD §3). Derived from the colour tokens above, no new hex values. */
   --appbar-h: 56px;
   --tabbar-h: 64px;
   --width-app: 430px;
-  --shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 8%, transparent),
-            0 4px 16px color-mix(in srgb, var(--color-text) 8%, transparent);
-  --scrim: color-mix(in srgb, var(--color-text) 45%, transparent);
-  --accent-soft: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
+  --shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 6%, transparent),
+            0 6px 20px color-mix(in srgb, var(--color-primary) 9%, transparent);
+  --shadow-raised: 0 2px 4px color-mix(in srgb, var(--color-text) 10%, transparent),
+                   0 12px 32px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  --scrim: color-mix(in srgb, var(--color-text) 50%, transparent);
+  --accent-soft: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
+  --primary-soft: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  --primary-hero: linear-gradient(155deg, var(--color-primary) 0%, var(--color-primary-deep) 55%, color-mix(in srgb, var(--color-primary-deep) 70%, var(--color-text)) 100%);
+  --on-primary-muted: color-mix(in srgb, var(--color-on-primary) 78%, var(--color-primary));
 }

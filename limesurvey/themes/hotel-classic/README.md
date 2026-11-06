@@ -1,6 +1,6 @@
 # hotel-classic: LimeSurvey child theme (Milestone 2, demo app shell)
 
-**Development placeholder brand.** The name "Paradise Garden Hotel" / باغ پردیس and the tagline are placeholders from `docs/brand.md`. They are not cleared for production. Replace them before launch (see "Brand replacement"). Turn the on-page notice off at launch (see "Placeholder notice").
+**Brand: Kowsar Malekshahr Complex (مجتمع کوثر ملکشهر).** Name, palette, mark and photo come from the operator's brand board (`docs/brand.md`). The on-page notice now reads "Demo preview"; turn it off at launch (see "Placeholder notice").
 
 The theme extends the stock `vanilla` theme of LimeSurvey CE 6.17.18. It is mounted into the container at `upload/themes/survey/hotel-classic` by `docker-compose.yml`. No LimeSurvey core file is changed.
 
@@ -72,7 +72,7 @@ The shell and dashboard strings below are proposals until the Persian copy revie
 
 ## Placeholder notice
 
-The notice "Development preview – placeholder brand" appears on every guest page. One setting controls it: in LimeSurvey admin, go to **Configuration → Themes → hotel-classic → Theme options → Placeholder brand → Show the placeholder-brand notice on guest pages**. Set it to **Off** at launch. No layout change is needed, and no empty space is left behind.
+The notice "Demo preview" appears on every guest page. One setting controls it: in LimeSurvey admin, go to **Configuration → Themes → hotel-classic → Theme options → Placeholder brand → Show the placeholder-brand notice on guest pages**. Set it to **Off** at launch. No layout change is needed, and no empty space is left behind.
 
 ## Reset after changing config.xml
 
@@ -80,7 +80,7 @@ LimeSurvey caches the theme manifest in its database. After any change to `confi
 
 ## Brand replacement
 
-1. Edit the `brand.*` keys in `views/subviews/hotel/i18n.twig` (English name, Persian name, tagline). Nothing else holds the brand text.
+1. Edit the `brand.*` keys in `views/subviews/hotel/i18n.twig` (English name, Persian name, place line, tagline) and the matching keys in `app/js/i18n.js` (`scripts/tests/test_shell_strings.py` checks they match). Colours are the `--brand-*` tokens in `css/tokens.css`; the mark is the `mark` icon in `icons.twig` and `app/js/app.js`.
 2. If a logo file is added, change `views/subviews/hotel/brand.twig` and set the `brandlogo` option to `on`.
 3. Turn the placeholder notice off (see above).
 4. Update the survey title and description in the admin, then re-export the structure file.
@@ -108,4 +108,4 @@ Recreate the survey from `limesurvey/survey/hotel-guest-survey.lss` through **Su
 - **Digit style (R-05):** Persian screens use Persian digits (۰–۹), controlled by `persianDigits` in `i18n.twig`, pending review (R3).
 - **Persian typefaces (R5):** Noto Naskh Arabic and Vazirmatn are the proposed choices.
 - **Language scope (R1):** resolved. The survey is Persian and English only (`docs/decisions.md` §1, item 9). `AGENTS.md`, `hotelSurveyPRD.md` FR-03 and `docs/brand.md` already reflect this.
-- **Placeholder brand (R13):** replace the placeholder brand and turn the notice off before any production use.
+- **Brand (R13):** resolved by the operator's brand board (`docs/decisions.md` §1 #13). Turn the demo notice off before production use.

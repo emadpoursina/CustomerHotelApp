@@ -1,6 +1,6 @@
 # Demo PRD: Hotel Guest App (single iteration)
 
-**Version:** Demo 1.0
+**Version:** Demo 1.1 (2026-11-06: Kowsar Malekshahr brand, live nearby places from Neshan)
 **Status:** Active. Replaces `hotelSurveyPRD.md` for the current iteration
 **Goal:** A presentable demo that looks and feels like a mobile app, finished in one iteration
 **Full MVP spec:** `hotelSurveyPRD.md` (kept for later; everything it lists that's not here is deferred, not dropped)
@@ -44,13 +44,14 @@ The app should look like a native mobile app, not a website: a top app bar with 
 
 ### D-04 Nearby places
 
-- List of 18–24 **mock** places, each with: name (en and fa), category, distance (m) and walking time, rating (1–5), price level (1–3), opening hours and open-now flag, a short description (en and fa), and tags.
+- **Live places from the Neshan Maps Platform** (Nearby Search and POI Details) within `PLACES_RADIUS_M` (default 2 km) of the complex, fetched server-side by `app/api/places.php` (key in `.env`, never sent to the browser). Each place has: name, category, distance (m) and walking time, opening hours and open-now (in the complex's time zone), address and phone. Neshan does not provide ratings, price level, tags or reviews, so these are not shown. Setup: `docs/neshan-places.md`.
+- **Fallback:** without a key, or when Neshan fails, the 21 mock places in `app/data/places.json` are shown with a "Demo data" badge. The screen never breaks.
 - Categories: **Restaurants, Cafés, Points of interest**.
-- **Search:** by name and tag, as you type, in the current language.
-- **Filters:** category chips (All / Restaurants / Cafés / Places of interest), "Open now" toggle, sort (Distance / Rating).
-- **Detail view:** bottom sheet with full info and mock buttons (Directions, Call, Save).
+- **Search:** by name and address, as you type.
+- **Filters:** category chips (All / Restaurants / Cafés / Places of interest), "Open now" toggle. Sorted by distance.
+- **Detail view:** bottom sheet with today's hours, address and phone. With Neshan data, Call dials the place when a phone number is listed; Directions and Save are mock buttons.
 - Empty state when nothing matches ("No places match. Clear filters").
-- No maps, photos or third-party APIs. Category icons are inline SVG. Data is a static JSON file clearly marked as demo data.
+- No embedded maps, place photos or reviews. Category icons are inline SVG. Loading and error states (with Retry) are shown.
 
 ### D-05 Dashboard (simple)
 
@@ -76,23 +77,23 @@ The app should look like a native mobile app, not a website: a top app bar with 
 
 ## 3. Design
 
-Keeps the existing tokens (`limesurvey/themes/hotel-classic/css/tokens.css`) and fonts. Classic hotel palette, with gold for accents and selected states only.
+Brand: **Kowsar Malekshahr Complex (مجتمع کوثر ملکشهر)**, `docs/brand.md`. Tokens in `limesurvey/themes/hotel-classic/css/tokens.css`: cream background `#F4EBDD`, lapis primary `#214F72`, sea blue `#214F68`, sand gold `#C6A15B` for accents and selected states only. Brand mark (arch over water) and a photo of the complex on Home and the survey welcome card. Fonts are self-hosted: Cormorant Garamond (Latin headings), Inter, Vazirmatn (Persian).
 
 Changes towards "app, not website":
 
 | Element | Spec |
 |---|---|
-| App bar | 56px, ivory surface, subtle bottom border, title centred on mobile |
-| Bottom tab bar | 64px + safe-area inset, icon + label, active tab in gold, centre "Rate" tab raised |
+| App bar | 56px, cream surface, subtle bottom border, brand mark and lapis title centred |
+| Bottom tab bar | 64px + safe-area inset, icon + label, active tab in lapis with a gold indicator, centre "Rate" tab raised (lapis, gold when active) |
 | Drawer | Slides from the start edge (right in RTL), dimmed backdrop, closes on backdrop tap or Esc |
-| Cards | 12px radius, white surface, soft shadow, 16px padding |
+| Cards | 16px radius, warm white surface, soft shadow, 16–20px padding |
 | Lists | Full-width rows with leading icon, trailing chevron or meta |
-| Chips | 36px visual height, 48px touch target, gold outline when selected |
+| Chips | 36px visual height, 48px touch target, lapis fill with a gold ring when selected |
 | Bottom sheet | Rounded top corners, drag handle (visual), closes on backdrop tap |
 | Toast | Bottom, above tab bar, auto-hides after 2s |
 | Motion | Only drawer, sheet and toast transitions (≤200ms), respects `prefers-reduced-motion` |
 
-Rules that still apply: touch targets ≥ 48px, no horizontal scrolling from 320px, no hex values outside `tokens.css`, no third-party fonts or assets, minimal JavaScript (vanilla, no framework, no build step).
+Rules that still apply: touch targets ≥ 48px, no horizontal scrolling from 320px, no hex values outside `tokens.css`, no third-party fonts or front-end assets, minimal JavaScript (vanilla, no framework, no build step). The only third-party call is the server-side Places request.
 
 ## 4. Technical approach
 
@@ -104,6 +105,7 @@ scripts/build-dashboard.py ── reads (read-only) ────┘ writes app/d
 ```
 
 - **Static app** in `app/` (HTML, CSS, vanilla JS, JSON). Mounted read-only into the LimeSurvey container at `/var/www/html/app`, so it's served by the same Apache with no new container and no Caddy change.
+- **Places proxy:** `app/api/places.php`, the only server-side code, runs on the same Apache/PHP. It calls Neshan with the key from `.env`, caches briefly in the container's temp folder and falls back to `app/data/places.json`.
   - Links must name the file (`/app/index.html`). LimeSurvey's rewrite sends bare directory URLs to `index.php`.
 - **Shared styling:** the app uses the theme's `tokens.css` and `fonts/` (one source of design tokens). The shell markup is duplicated in the theme's Twig header/footer and in the app pages, so it's kept small.
 - **Survey:** LimeSurvey unchanged. Only the `hotel-classic` theme files change.
@@ -118,7 +120,7 @@ From `hotelSurveyPRD.md`, deferred to after the demo:
 - QR codes, room registry, room tokens, token validation, room filter (Milestone 3). The `hotel_rooms` table stays as-is, unused.
 - Exports and full reporting (Milestone 4). LimeSurvey's own admin statistics and export still work if needed.
 - Production deployment, HTTPS, admin IP restriction, backup restore test, GDPR policy, real branding (Milestone 5 and `docs/decisions.md` §2). None are resolved by this demo.
-- Real maps, real place data, photos, booking, any working Services feature.
+- Embedded maps, place photos and reviews, booking, any working Services feature.
 - Dashboard authentication.
 
 ## 6. Acceptance criteria (demo is done when)

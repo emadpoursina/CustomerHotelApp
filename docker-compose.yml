@@ -42,6 +42,14 @@ services:
       ADMIN_NAME: ${LS_ADMIN_NAME}
       ADMIN_EMAIL: ${LS_ADMIN_EMAIL}
       PUBLIC_URL: ${PUBLIC_URL}
+      # Nearby places (app/api/places.php, docs/neshan-places.md). Empty key = bundled demo data.
+      NESHAN_API_KEY: ${NESHAN_API_KEY:-}
+      HOTEL_LAT: ${HOTEL_LAT:-}
+      HOTEL_LNG: ${HOTEL_LNG:-}
+      HOTEL_TIMEZONE: ${HOTEL_TIMEZONE:-Asia/Tehran}
+      PLACES_RADIUS_M: ${PLACES_RADIUS_M:-2000}
+      PLACES_MAX_PER_CATEGORY: ${PLACES_MAX_PER_CATEGORY:-12}
+      PLACES_CACHE_TTL: ${PLACES_CACHE_TTL:-900}
     volumes:
       - limesurvey_upload:/var/www/html/upload
       # Hotel child theme (PRD §6.1 "Survey customization") — kept outside LimeSurvey core.
