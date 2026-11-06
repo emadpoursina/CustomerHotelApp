@@ -8,7 +8,7 @@ Single-hotel guest feedback app. Guests scan a room QR code and complete a short
 
 - LimeSurvey CE is the survey engine. Do not rebuild survey functionality.
 - Customisation lives outside LimeSurvey core: the child theme in `limesurvey/themes/hotel-classic/`, the static demo app in `app/` (Home, Nearby, Dashboard; vanilla HTML/CSS/JS, no build step), custom SQL in `db/init/`, and scripts in `scripts/`.
-- The only server-side custom code is `app/api/places.php` (Google Places proxy, runs on LimeSurvey's Apache/PHP). The Google key lives in `.env` only and never reaches the browser. Keep it parameter-free and cached (`docs/google-places.md`).
+- The only server-side custom code is `app/api/places.php` (Neshan places proxy, runs on LimeSurvey's Apache/PHP). The Neshan key lives in `.env` only and never reaches the browser. Keep it parameter-free and cached (`docs/google-places.md`).
 - The dashboard reads LimeSurvey's response table read-only and publishes aggregates only, never comment text.
 - Never modify LimeSurvey core files or LimeSurvey core database tables.
 - Custom data goes in separate tables (for example `hotel_rooms`).

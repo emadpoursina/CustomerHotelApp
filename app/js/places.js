@@ -1,9 +1,9 @@
 /*
  * Nearby places data for Home and Nearby. Classic script, exposes window.HotelPlaces only.
  *
- * Source order: /app/api/places.php (Google Places through the server, or the demo data when no key is set),
+ * Source order: /app/api/places.php (Neshan through the server, or the demo data when no key is set),
  * then the static demo file if the endpoint itself is unreachable. Both return the same shape:
- *   { source: 'google' | 'demo', timezone, places: [...], highlights: [...], providers?: [...] }
+ *   { source: 'neshan' | 'demo', timezone, places: [...], highlights: [...] }
  * Opening hours are evaluated in the complex's time zone, not the guest phone's.
  */
 (function () {
@@ -69,7 +69,7 @@
     return { day: d.getDay(), min: d.getHours() * 60 + d.getMinutes() };
   }
 
-  // Opening periods for both sources: Google gives p.opening, the demo file gives p.hours = [open, close] in hours.
+  // Opening periods for both sources: Neshan gives p.opening, the demo file gives p.hours = [open, close] in hours.
   function opening(p) {
     if (p.opening && (p.opening.always || Array.isArray(p.opening.periods))) {
       return p.opening;
@@ -142,10 +142,6 @@
     return Math.max(1, Math.round(m / 80));
   }
 
-  function price(p) {
-    return p.price ? new Array(p.price + 1).join('$') : '';
-  }
-
   // Only absolute https links are used as hrefs; anything else is dropped.
   function safeUrl(u) {
     if (typeof u !== 'string') {
@@ -169,18 +165,6 @@
     });
   }
 
-  // Google Maps attribution (Places API policies): not translated, not wrapped, sans-serif 400, grey.
-  // Third-party providers, when Google names any, are credited next to it.
-  function attribution(data) {
-    if (!data || data.source !== 'google') {
-      return '';
-    }
-    var providers = Array.isArray(data.providers) && data.providers.length
-      ? '<span class="app-attrib-providers">' + esc(T('n.dataBy')) + ': ' + data.providers.map(esc).join(', ') + '</span>'
-      : '';
-    return '<p class="app-attrib"><span class="app-attrib-gm" translate="no" lang="en" dir="ltr">Google Maps</span>' + providers + '</p>';
-  }
-
   function byId(data, id) {
     var key = String(id);
     for (var i = 0; i < data.places.length; i++) {
@@ -199,10 +183,8 @@
     todayHours: todayHours,
     distance: distance,
     walkMinutes: walkMinutes,
-    price: price,
     safeUrl: safeUrl,
     safeTel: safeTel,
-    attribution: attribution,
     byId: byId,
     esc: esc
   };

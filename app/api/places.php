@@ -1,18 +1,17 @@
 <?php
 /*
- * Nearby places for the guest app: Google Places API (New), called server-side.
+ * Nearby places for the guest app: Neshan Maps Platform (Nearby + POI Details), called server-side.
  *
- *   GET /app/api/places.php  ->  JSON in the app's places format (see app/data/places.json and
- *                                docs/google-places.md for the fields).
+ *   GET /app/api/places.php  ->  JSON in the app's places format (see docs/neshan-places.md).
  *
- * - The API key comes from the environment (GOOGLE_PLACES_API_KEY in .env, passed by docker-compose.yml).
- *   It is never sent to the browser and never logged.
- * - No key, no hotel location, or a Google failure: the bundled demo data is returned with
+ * - The API key comes from the environment (NESHAN_API_KEY in .env, passed by docker-compose.yml).
+ *   It is sent in the Api-Key header, never sent to the browser and never logged.
+ * - No key, no hotel location, or a Neshan failure: the bundled demo data is returned with
  *   "source": "demo" and a "fallback_reason", so the app never breaks.
- * - The endpoint takes no request parameters. Results are kept in the container's temp directory for
- *   PLACES_CACHE_TTL seconds (default 900, minimum 60), so Google is called at most 6 times per TTL
- *   (3 categories x 2 languages) whatever the traffic.
- * - Only the HTTP status and Google's error status, reason and message are logged (docker compose logs).
+ * - The endpoint takes no request parameters. The result is kept in the container's temp directory for
+ *   PLACES_CACHE_TTL seconds (default 900, minimum 60). One refresh = one Nearby call per category plus
+ *   one POI Details call per place, so the cost per refresh is bounded by PLACES_MAX_PER_CATEGORY.
+ * - Only the HTTP status and Neshan's error message are logged (docker compose logs).
  *
  * Runs under the LimeSurvey container's Apache/PHP (8.x, curl). Also runs from the CLI for checks:
  *   docker compose exec limesurvey php /var/www/html/app/api/places.php
@@ -20,74 +19,30 @@
 
 declare(strict_types=1);
 
-const API_BASE_DEFAULT = 'https://places.googleapis.com/v1';
+const API_BASE_DEFAULT = 'https://api.neshan.org/v1';
 const DEMO_FILE = __DIR__ . '/../data/places.json';
-const LANGS = ['en', 'fa'];
-const DEFAULT_QUERY = 'مجتمع گردشگری کوثر ملکشهر اصفهان';
-const ORIGIN_TTL = 2592000;      // 30 days: the longest Google allows latitude/longitude to be cached.
-const STALE_ON_ERROR = 21600;    // Serve the last good result for up to 6 hours if Google fails.
+const STALE_ON_ERROR = 21600;   // Serve the last good result for up to 6 hours if Neshan fails.
 
-// Table A types per app category (verified against the Places API type list, 2026).
-const CATEGORY_TYPES = [
-    'restaurant' => ['restaurant', 'persian_restaurant', 'middle_eastern_restaurant', 'fast_food_restaurant'],
-    'cafe' => ['cafe', 'coffee_shop', 'tea_house', 'ice_cream_shop', 'dessert_shop'],
-    'poi' => ['tourist_attraction', 'museum', 'park', 'historical_landmark', 'cultural_landmark', 'art_gallery'],
+// App category -> Neshan layer slug. Slugs come from the Nearby docs' examples; confirm each with a live call.
+const CATEGORY_LAYERS = [
+    'restaurant' => 'restaurant',
+    'cafe' => 'cafe',
+    'poi' => 'park',
 ];
 
-// Pro + Enterprise fields only (no Atmosphere fields: no reviews, photos or summaries).
-const FIELD_MASK = 'places.id,places.displayName,places.primaryType,places.types,places.location,'
-    . 'places.rating,places.userRatingCount,places.priceLevel,places.currentOpeningHours,'
-    . 'places.regularOpeningHours,places.nationalPhoneNumber,places.internationalPhoneNumber,'
-    . 'places.googleMapsUri,places.shortFormattedAddress,places.businessStatus,places.attributions';
-
-// Google type -> guest-facing tag, both languages. Types not listed here are not shown as tags.
-const TYPE_TAGS = [
-    'persian_restaurant' => ['Persian', 'ایرانی'],
-    'middle_eastern_restaurant' => ['Middle Eastern', 'خاورمیانه‌ای'],
-    'fast_food_restaurant' => ['Fast food', 'فست‌فود'],
-    'pizza_restaurant' => ['Pizza', 'پیتزا'],
-    'seafood_restaurant' => ['Seafood', 'غذای دریایی'],
-    'italian_restaurant' => ['Italian', 'ایتالیایی'],
-    'vegetarian_restaurant' => ['Vegetarian', 'گیاهی'],
-    'breakfast_restaurant' => ['Breakfast', 'صبحانه'],
-    'buffet_restaurant' => ['Buffet', 'بوفه'],
-    'fine_dining_restaurant' => ['Fine dining', 'رستوران مجلل'],
-    'sandwich_shop' => ['Sandwiches', 'ساندویچ'],
-    'coffee_shop' => ['Coffee', 'قهوه'],
-    'cafe' => ['Café', 'کافه'],
-    'tea_house' => ['Tea house', 'چایخانه'],
-    'ice_cream_shop' => ['Ice cream', 'بستنی'],
-    'dessert_shop' => ['Desserts', 'دسر'],
-    'bakery' => ['Bakery', 'شیرینی‌پزی'],
-    'museum' => ['Museum', 'موزه'],
-    'park' => ['Park', 'پارک'],
-    'garden' => ['Garden', 'باغ'],
-    'historical_landmark' => ['Historic', 'تاریخی'],
-    'cultural_landmark' => ['Cultural', 'فرهنگی'],
-    'art_gallery' => ['Gallery', 'نگارخانه'],
-    'tourist_attraction' => ['Attraction', 'جاذبهٔ گردشگری'],
-    'mosque' => ['Mosque', 'مسجد'],
-    'market' => ['Market', 'بازار'],
-    'shopping_mall' => ['Shopping', 'مرکز خرید'],
+// Neshan day names -> index in the app's week (0 = Sunday, as JavaScript's Date.getDay()).
+const DAY_INDEX = [
+    'sunday' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6,
 ];
 
-const PRICE = [
-    'PRICE_LEVEL_INEXPENSIVE' => 1,
-    'PRICE_LEVEL_MODERATE' => 2,
-    'PRICE_LEVEL_EXPENSIVE' => 3,
-    'PRICE_LEVEL_VERY_EXPENSIVE' => 4,
-];
-
-final class GoogleError extends RuntimeException
+final class NeshanError extends RuntimeException
 {
     public string $status;
-    public string $reason;
 
-    public function __construct(string $status, string $reason = '', int $code = 0)
+    public function __construct(string $status, int $code = 0)
     {
         parent::__construct($status, $code);
         $this->status = $status;
-        $this->reason = $reason;
     }
 }
 
@@ -119,25 +74,19 @@ function config(): array
     if (!in_array($tz, timezone_identifiers_list(), true)) {
         $tz = 'Asia/Tehran';
     }
-    $region = strtoupper(env_value('PLACES_REGION_CODE', 'IR'));
-    if (!preg_match('/^[A-Z]{2}$/', $region)) {
-        $region = 'IR';
-    }
-    $base = rtrim(env_value('PLACES_API_BASE', API_BASE_DEFAULT), '/');
+    $base = rtrim(env_value('NESHAN_API_BASE', API_BASE_DEFAULT), '/');
     if (!preg_match('#^https?://#', $base)) {
         $base = API_BASE_DEFAULT;
     }
     return [
-        'key' => env_value('GOOGLE_PLACES_API_KEY'),
+        'key' => env_value('NESHAN_API_KEY'),
         'base' => $base,
         'lat' => $hasCoords ? (float) $lat : null,
         'lng' => $hasCoords ? (float) $lng : null,
-        'query' => env_value('HOTEL_PLACE_QUERY', DEFAULT_QUERY),
         'radius' => env_int('PLACES_RADIUS_M', 2000, 100, 50000),
         'ttl' => env_int('PLACES_CACHE_TTL', 900, 60, 86400),
         'max' => env_int('PLACES_MAX_PER_CATEGORY', 12, 1, 20),
         'tz' => $tz,
-        'region' => $region,
     ];
 }
 
@@ -167,56 +116,28 @@ function write_json_file(string $path, array $data): void
     }
 }
 
-function log_google(string $what, int $http, ?array $body = null): void
-{
-    $err = is_array($body) && isset($body['error']) && is_array($body['error']) ? $body['error'] : [];
-    $status = (string) ($err['status'] ?? '');
-    $message = preg_replace('/\s+/', ' ', (string) ($err['message'] ?? ''));
-    error_log(sprintf('places.php: %s failed: http=%d status=%s message=%s', $what, $http, $status, mb_substr($message, 0, 300)));
-}
+/** Neshan error codes from the docs (HTTP status in the 4xx/5xx range, sometimes 470-485). */
+const NESHAN_CODES = [
+    400 => 'INVALID_ARGUMENT', 404 => 'NOT_FOUND', 470 => 'COORDINATE_PARSE_ERROR',
+    480 => 'KEY_NOT_FOUND', 481 => 'LIMIT_EXCEEDED', 482 => 'RATE_EXCEEDED',
+    483 => 'KEY_TYPE_ERROR', 484 => 'KEY_SCOPE_ERROR', 485 => 'SERVICE_NOT_ENABLED', 500 => 'GENERIC_ERROR',
+];
 
-function google_error_from(int $http, ?array $body, string $curlError): GoogleError
-{
-    if ($curlError !== '') {
-        return new GoogleError('NETWORK_ERROR', '', $http);
-    }
-    $err = is_array($body) && isset($body['error']) && is_array($body['error']) ? $body['error'] : [];
-    $reason = '';
-    foreach (($err['details'] ?? []) as $d) {
-        if (is_array($d) && isset($d['reason']) && is_string($d['reason'])) {
-            $reason = $d['reason'];
-            break;
-        }
-    }
-    $status = is_string($err['status'] ?? null) ? $err['status'] : ('HTTP_' . $http);
-    return new GoogleError($status, $reason, $http);
-}
-
-/** One POST handle for the Places API. */
-function google_handle(array $cfg, string $path, string $fieldMask, array $body)
-{
-    $ch = curl_init($cfg['base'] . $path);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CONNECTTIMEOUT => 5,
-        CURLOPT_TIMEOUT => 10,
-        CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json',
-            'X-Goog-Api-Key: ' . $cfg['key'],
-            'X-Goog-FieldMask: ' . $fieldMask,
-        ],
-        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
-    ]);
-    return $ch;
-}
-
-/** Runs the handles in parallel. Returns [label => decoded body]; throws the first Google error. */
-function google_run(array $handles): array
+/** GET request, runs in parallel with the others. Returns [label => decoded body or null]. */
+function neshan_get_all(array $cfg, array $requests): array
 {
     $multi = curl_multi_init();
-    foreach ($handles as $ch) {
+    $handles = [];
+    foreach ($requests as $label => [$path, $query]) {
+        $ch = curl_init($cfg['base'] . $path . '?' . http_build_query($query));
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_HTTPHEADER => ['Api-Key: ' . $cfg['key'], 'Accept: application/json'],
+        ]);
         curl_multi_add_handle($multi, $ch);
+        $handles[$label] = $ch;
     }
     do {
         $status = curl_multi_exec($multi, $running);
@@ -238,52 +159,22 @@ function google_run(array $handles): array
             $results[$label] = $body;
             continue;
         }
-        log_google((string) $label, $http, is_array($body) ? $body : null);
         if ($curlError !== '') {
             error_log('places.php: ' . $label . ' network error: ' . $curlError);
+            $first = $first ?? new NeshanError('NETWORK_ERROR', $http);
+        } else {
+            $msg = is_array($body) ? preg_replace('/\s+/', ' ', (string) ($body['message'] ?? $body['error'] ?? '')) : '';
+            error_log(sprintf('places.php: %s failed: http=%d message=%s', $label, $http, mb_substr((string) $msg, 0, 200)));
+            $first = $first ?? new NeshanError(NESHAN_CODES[$http] ?? ('HTTP_' . $http), $http);
         }
-        $first = $first ?? google_error_from($http, is_array($body) ? $body : null, $curlError);
         $results[$label] = null;
     }
     curl_multi_close($multi);
+    // Throw only when every request failed; a partial result is still useful.
     if ($first !== null && !array_filter($results)) {
         throw $first;
     }
     return $results;
-}
-
-/** Hotel location: HOTEL_LAT/HOTEL_LNG, else a Text Search for HOTEL_PLACE_QUERY (cached up to 30 days). */
-function resolve_origin(array $cfg): array
-{
-    if ($cfg['lat'] !== null) {
-        return ['id' => null, 'name' => null, 'lat' => $cfg['lat'], 'lng' => $cfg['lng'], 'resolved_by' => 'env'];
-    }
-    $path = cache_path('origin-' . substr(md5($cfg['query']), 0, 12) . '.json');
-    $cached = read_json_file($path);
-    if ($cached && (time() - (int) ($cached['at'] ?? 0)) < ORIGIN_TTL && isset($cached['origin'])) {
-        return $cached['origin'];
-    }
-    $ch = google_handle($cfg, '/places:searchText', 'places.id,places.displayName,places.location,places.formattedAddress', [
-        'textQuery' => $cfg['query'],
-        'languageCode' => 'fa',
-        'regionCode' => $cfg['region'],
-        'pageSize' => 1,
-    ]);
-    $body = google_run(['origin' => $ch])['origin'];
-    $place = $body['places'][0] ?? null;
-    if (!is_array($place) || !isset($place['location']['latitude'], $place['location']['longitude'])) {
-        throw new GoogleError('ORIGIN_NOT_FOUND');
-    }
-    $origin = [
-        'id' => is_string($place['id'] ?? null) ? $place['id'] : null,
-        'name' => (string) ($place['displayName']['text'] ?? ''),
-        'address' => (string) ($place['formattedAddress'] ?? ''),
-        'lat' => (float) $place['location']['latitude'],
-        'lng' => (float) $place['location']['longitude'],
-        'resolved_by' => 'text_search',
-    ];
-    write_json_file($path, ['at' => time(), 'origin' => $origin]);
-    return $origin;
 }
 
 function distance_m(float $lat1, float $lng1, float $lat2, float $lng2): int
@@ -296,202 +187,190 @@ function distance_m(float $lat1, float $lng1, float $lat2, float $lng2): int
     return (int) (round($m / 10) * 10);
 }
 
-/** Opening periods as minutes of the week (Sunday 00:00 = 0), the close may pass 10080. */
+/** "HH:MM" -> minutes after midnight, or null. */
+function clock_minutes($value): ?int
+{
+    if (!is_string($value) || !preg_match('/^(\d{1,2}):(\d{2})$/', trim($value), $m)) {
+        return null;
+    }
+    $h = (int) $m[1];
+    $min = (int) $m[2];
+    return ($h > 24 || $min > 59) ? null : $h * 60 + $min;
+}
+
+/**
+ * Neshan workHours: [{ day, ranges: [{ start, end }] }]. An empty ranges list means closed that day.
+ * Returns opening periods in minutes of the week (Sunday 00:00 = 0), or null when no hours are listed.
+ */
 function opening(array $p): ?array
 {
-    $hours = $p['currentOpeningHours'] ?? $p['regularOpeningHours'] ?? null;
-    if (!is_array($hours) || empty($hours['periods']) || !is_array($hours['periods'])) {
+    $hours = $p['workHours'] ?? null;
+    if (!is_array($hours) || !$hours) {
         return null;
     }
     $periods = [];
-    foreach ($hours['periods'] as $per) {
-        $open = $per['open'] ?? null;
-        if (!is_array($open) || !isset($open['day'])) {
+    foreach ($hours as $entry) {
+        if (!is_array($entry)) {
             continue;
         }
-        $o = (int) $open['day'] * 1440 + (int) ($open['hour'] ?? 0) * 60 + (int) ($open['minute'] ?? 0);
-        $close = $per['close'] ?? null;
-        if (!is_array($close) || !isset($close['day'])) {
-            // An open with no close is Google's "open 24 hours, every day".
-            return ['always' => true, 'periods' => []];
+        $day = $entry['day'] ?? null;
+        $dayIndex = is_string($day) ? (DAY_INDEX[strtolower(trim($day))] ?? null) : null;
+        if ($dayIndex === null) {
+            continue;
         }
-        $c = (int) $close['day'] * 1440 + (int) ($close['hour'] ?? 0) * 60 + (int) ($close['minute'] ?? 0);
-        if ($c <= $o) {
-            $c += 10080;
+        foreach (($entry['ranges'] ?? []) as $r) {
+            $o = clock_minutes($r['start'] ?? null);
+            $c = clock_minutes($r['end'] ?? null);
+            if ($o === null || $c === null) {
+                continue;
+            }
+            $base = $dayIndex * 1440;
+            if ($c <= $o) {
+                $c += 1440;   // Closes after midnight.
+            }
+            $periods[] = [$base + $o, $base + $c];
         }
-        $periods[] = [$o, $c];
-    }
-    if (!$periods) {
-        return null;
     }
     usort($periods, fn($a, $b) => $a[0] <=> $b[0]);
     return ['always' => false, 'periods' => $periods];
 }
 
-function safe_https(?string $url): ?string
+/** Guest-facing phone: digits and a leading plus only, or null. */
+function phone_tel(?string $raw): ?string
 {
-    if (!is_string($url) || !preg_match('#^https://[^\s"<>]+$#', $url)) {
+    if (!is_string($raw)) {
         return null;
     }
-    return $url;
+    $tel = preg_replace('/[^0-9+]/', '', $raw);
+    return ($tel !== '' && preg_match('/^\+?[0-9]{5,16}$/', $tel)) ? $tel : null;
 }
 
-function normalize(array $cfg, array $origin, array $results): array
+function text_or_null($v): ?string
 {
-    $byId = [];
-    $assigned = [];
-    $providers = [];
-    foreach ($results as $label => $body) {
+    $s = is_string($v) ? trim(preg_replace('/\s+/', ' ', $v)) : '';
+    return $s === '' ? null : $s;
+}
+
+/**
+ * Builds the places list from the Nearby results and the POI Details results.
+ * Neshan returns Persian names only, so the English fields repeat the Persian text.
+ */
+function normalize(array $cfg, array $lists, array $details): array
+{
+    $places = [];
+    $seen = [];
+    foreach ($lists as $cat => $body) {
         if (!is_array($body)) {
             continue;
         }
-        [$cat, $lang] = explode('|', (string) $label);
-        foreach (($body['places'] ?? []) as $p) {
-            $id = $p['id'] ?? null;
-            if (!is_string($id) || $id === '' || $id === $origin['id']) {
+        foreach (($body['layerPoints']['nearestPoints'] ?? []) as $pt) {
+            $hash = is_string($pt['poiHash'] ?? null) ? $pt['poiHash'] : '';
+            $name = text_or_null($pt['name'] ?? null);
+            $loc = $pt['location'] ?? null;
+            if ($hash === '' || $name === null || isset($seen[$hash]) || !is_array($loc)
+                || !isset($loc['latitude'], $loc['longitude'])) {
                 continue;
             }
-            $status = $p['businessStatus'] ?? 'OPERATIONAL';
-            if ($status === 'CLOSED_PERMANENTLY' || $status === 'CLOSED_TEMPORARILY') {
-                continue;
-            }
-            if (!isset($p['location']['latitude'], $p['location']['longitude'])) {
-                continue;
-            }
-            $name = trim((string) ($p['displayName']['text'] ?? ''));
-            if (!isset($byId[$id])) {
-                $byId[$id] = ['raw' => $p, 'name' => [], 'address' => []];
-                $assigned[$id] = $cat;
-            } elseif (in_array($p['primaryType'] ?? '', CATEGORY_TYPES[$cat], true)) {
-                // Listed by two categories: the one that holds the primary type wins.
-                $assigned[$id] = $cat;
-            }
-            if ($name !== '') {
-                $byId[$id]['name'][$lang] = $name;
-            }
-            $addr = trim((string) ($p['shortFormattedAddress'] ?? ''));
-            if ($addr !== '') {
-                $byId[$id]['address'][$lang] = $addr;
-            }
-            // Third-party data providers must be credited next to "Google Maps" (Places API policies).
-            foreach (($p['attributions'] ?? []) as $a) {
-                if (is_array($a) && is_string($a['provider'] ?? null) && trim($a['provider']) !== '') {
-                    $providers[trim($a['provider'])] = true;
-                }
-            }
+            $seen[$hash] = true;
+            $d = is_array($details[$hash] ?? null) ? $details[$hash] : [];
+            $address = text_or_null($d['address'] ?? null);
+            $phoneRaw = text_or_null($d['phoneNumber'] ?? null);
+            $places[] = [
+                'id' => $hash,
+                'category' => $cat,
+                'name' => ['en' => $name, 'fa' => $name],
+                'address' => $address ? ['en' => $address, 'fa' => $address] : null,
+                'distance_m' => (int) ($pt['distance'] ?? 0),
+                'duration_s' => isset($pt['duration']) ? (int) $pt['duration'] : null,
+                'opening' => opening($d),
+                'phone' => phone_tel($phoneRaw),
+                'phone_display' => $phoneRaw,
+            ];
         }
-    }
-
-    $places = [];
-    foreach ($byId as $id => $entry) {
-        $p = $entry['raw'];
-        $names = $entry['name'];
-        if (!$names) {
-            continue;
-        }
-        $names += ['en' => $names['fa'] ?? '', 'fa' => $names['en'] ?? ''];
-        $address = $entry['address'];
-        if ($address) {
-            $address += ['en' => $address['fa'] ?? '', 'fa' => $address['en'] ?? ''];
-        }
-        $lat = (float) $p['location']['latitude'];
-        $lng = (float) $p['location']['longitude'];
-        $tags = ['en' => [], 'fa' => []];
-        foreach (($p['types'] ?? []) as $t) {
-            if (isset(TYPE_TAGS[$t]) && count($tags['en']) < 3) {
-                $tags['en'][] = TYPE_TAGS[$t][0];
-                $tags['fa'][] = TYPE_TAGS[$t][1];
-            }
-        }
-        $phone = (string) ($p['internationalPhoneNumber'] ?? $p['nationalPhoneNumber'] ?? '');
-        $tel = preg_replace('/[^0-9+]/', '', $phone);
-        $places[] = [
-            'id' => $id,
-            'category' => $assigned[$id],
-            'name' => ['en' => $names['en'], 'fa' => $names['fa']],
-            'address' => $address ? ['en' => $address['en'], 'fa' => $address['fa']] : null,
-            'distance_m' => distance_m($origin['lat'], $origin['lng'], $lat, $lng),
-            'rating' => isset($p['rating']) ? round((float) $p['rating'], 1) : null,
-            'rating_count' => isset($p['userRatingCount']) ? (int) $p['userRatingCount'] : null,
-            'price' => PRICE[$p['priceLevel'] ?? ''] ?? null,
-            'opening' => opening($p),
-            'tags' => $tags,
-            'phone' => $tel !== '' ? $tel : null,
-            'phone_display' => (string) ($p['nationalPhoneNumber'] ?? $phone) ?: null,
-            'maps_url' => safe_https($p['googleMapsUri'] ?? null),
-            'directions_url' => 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($lat . ',' . $lng)
-                . '&destination_place_id=' . rawurlencode($id),
-        ];
     }
     usort($places, fn($a, $b) => $a['distance_m'] <=> $b['distance_m']);
 
     return [
-        'source' => 'google',
+        'source' => 'neshan',
         'demo' => false,
         'generatedAt' => gmdate('Y-m-d\TH:i:s\Z'),
         'timezone' => $cfg['tz'],
         'radius_m' => $cfg['radius'],
-        'origin' => [
-            'name' => $origin['name'] ?? null,
-            'lat' => round($origin['lat'], 6),
-            'lng' => round($origin['lng'], 6),
-            'resolved_by' => $origin['resolved_by'],
-        ],
-        'attribution' => 'Google Maps',
-        'providers' => array_keys($providers),
-        'partial' => in_array(null, $results, true),
+        'origin' => ['lat' => round($cfg['lat'], 6), 'lng' => round($cfg['lng'], 6), 'resolved_by' => 'env'],
+        'partial' => in_array(null, $lists, true),
         'highlights' => highlights($places),
         'places' => $places,
     ];
 }
 
-/** One highlight per category: best rating weighted by review count, else the nearest. */
+/** One highlight per category: the nearest place. */
 function highlights(array $places): array
 {
     $best = [];
     foreach ($places as $p) {
-        $score = $p['rating'] !== null ? $p['rating'] * log10(($p['rating_count'] ?? 0) + 10) : -1 / (1 + $p['distance_m']);
-        $cat = $p['category'];
-        if (!isset($best[$cat]) || $score > $best[$cat][0]) {
-            $best[$cat] = [$score, $p['id']];
+        if (!isset($best[$p['category']])) {
+            $best[$p['category']] = $p['id'];
         }
     }
     $out = [];
-    foreach (['restaurant', 'cafe', 'poi'] as $cat) {
+    foreach (array_keys(CATEGORY_LAYERS) as $cat) {
         if (isset($best[$cat])) {
-            $out[] = $best[$cat][1];
+            $out[] = $best[$cat];
         }
     }
     return $out;
 }
 
-function fetch_google(array $cfg): array
+function fetch_neshan(array $cfg): array
 {
-    $origin = resolve_origin($cfg);
-    $handles = [];
-    foreach (CATEGORY_TYPES as $cat => $types) {
-        foreach (LANGS as $lang) {
-            $handles[$cat . '|' . $lang] = google_handle($cfg, '/places:searchNearby', FIELD_MASK, [
-                'includedTypes' => $types,
-                'maxResultCount' => $cfg['max'],
-                'locationRestriction' => ['circle' => [
-                    'center' => ['latitude' => $origin['lat'], 'longitude' => $origin['lng']],
-                    'radius' => (float) $cfg['radius'],
-                ]],
-                'rankPreference' => 'POPULARITY',
-                'languageCode' => $lang,
-                'regionCode' => $cfg['region'],
-            ]);
+    // 1. Nearby search, one call per category.
+    $requests = [];
+    foreach (CATEGORY_LAYERS as $cat => $layer) {
+        $requests[$cat] = ['/nearby', [
+            'location' => $cfg['lat'] . ',' . $cfg['lng'],
+            'layer' => $layer,
+            'searchRadius' => $cfg['radius'],
+        ]];
+    }
+    $lists = neshan_get_all($cfg, $requests);
+    if (!array_filter($lists)) {
+        throw new NeshanError('NO_RESULTS');
+    }
+
+    // 2. POI Details for each place (phone, hours, address). Capped per category.
+    $hashes = [];
+    foreach ($lists as $body) {
+        foreach (array_slice($body['layerPoints']['nearestPoints'] ?? [], 0, $cfg['max']) as $pt) {
+            if (is_string($pt['poiHash'] ?? null) && $pt['poiHash'] !== '') {
+                $hashes[$pt['poiHash']] = true;
+            }
         }
     }
-    $data = normalize($cfg, $origin, google_run($handles));
-    if (!$data['places']) {
-        throw new GoogleError('NO_RESULTS');
+    $detailRequests = [];
+    foreach (array_keys($hashes) as $hash) {
+        $detailRequests[$hash] = ['/point', ['hash' => $hash]];
     }
-    return $data;
+    // Details are optional: a failed chunk leaves those places without phone and hours.
+    $details = [];
+    foreach (array_chunk($detailRequests, 12, true) as $chunk) {
+        try {
+            $details += neshan_get_all($cfg, $chunk);
+        } catch (NeshanError $e) {
+            continue;
+        }
+    }
+    $details = array_filter($details, 'is_array');
+
+    // Keep only the top PLACES_MAX_PER_CATEGORY results per category.
+    foreach ($lists as $cat => $body) {
+        if (is_array($body)) {
+            $lists[$cat]['layerPoints']['nearestPoints'] = array_slice($body['layerPoints']['nearestPoints'] ?? [], 0, $cfg['max']);
+        }
+    }
+    return normalize($cfg, $lists, $details);
 }
 
-function demo(array $cfg, string $reason, ?GoogleError $err = null): array
+function demo(array $cfg, string $reason, ?NeshanError $err = null): array
 {
     $data = read_json_file(DEMO_FILE) ?? ['places' => [], 'highlights' => []];
     $data['source'] = 'demo';
@@ -499,10 +378,7 @@ function demo(array $cfg, string $reason, ?GoogleError $err = null): array
     $data['timezone'] = $cfg['tz'];
     $data['fallback_reason'] = $reason;
     if ($err !== null) {
-        $data['google_status'] = $err->status;
-        if ($err->reason !== '') {
-            $data['google_reason'] = $err->reason;
-        }
+        $data['neshan_status'] = $err->status;
     }
     return $data;
 }
@@ -512,8 +388,13 @@ function places(array $cfg): array
     if ($cfg['key'] === '') {
         return demo($cfg, 'not_configured');
     }
-    $sig = substr(sha1(json_encode([$cfg, CATEGORY_TYPES, FIELD_MASK])), 0, 16);
-    $path = cache_path('nearby-' . $sig . '.json');
+    if ($cfg['lat'] === null || $cfg['lng'] === null) {
+        return demo($cfg, 'no_location');
+    }
+    $sigCfg = $cfg;
+    unset($sigCfg['key']);   // The key never goes into a file name.
+    $sig = substr(sha1(json_encode([$sigCfg, CATEGORY_LAYERS])), 0, 16);
+    $path = cache_path('neshan-' . $sig . '.json');
     $fresh = function () use ($path, $cfg): ?array {
         $c = read_json_file($path);
         return ($c && (time() - (int) ($c['at'] ?? 0)) < $cfg['ttl']) ? $c['data'] : null;
@@ -532,17 +413,16 @@ function places(array $cfg): array
             return $hit;
         }
         try {
-            $data = fetch_google($cfg);
+            $data = fetch_neshan($cfg);
             write_json_file($path, ['at' => time(), 'data' => $data]);
             return $data;
-        } catch (GoogleError $e) {
+        } catch (NeshanError $e) {
             $old = read_json_file($path);
             if ($old && (time() - (int) ($old['at'] ?? 0)) < STALE_ON_ERROR) {
                 $old['data']['stale'] = true;
                 return $old['data'];
             }
-            $reason = $e->status === 'ORIGIN_NOT_FOUND' ? 'origin_not_found' : 'google_error';
-            return demo($cfg, $reason, $e);
+            return demo($cfg, 'neshan_error', $e);
         }
     } finally {
         if ($lock) {

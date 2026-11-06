@@ -174,7 +174,7 @@ n = len(d.get('places', []))
 assert 18 <= n <= 24, 'place count %d outside 18-24' % n
 PY
 
-# Google Places proxy: PHP syntax (host php, else the running LimeSurvey container, else skipped).
+# Places proxy: PHP syntax (host php, else the running LimeSurvey container, else skipped).
 if command -v php >/dev/null 2>&1; then
   php -l app/api/places.php >/dev/null || { echo "php syntax error: app/api/places.php" >&2; exit 1; }
 elif docker compose ps --status running --services 2>/dev/null | grep -qx limesurvey; then
@@ -184,10 +184,10 @@ else
   echo "php not found and stack not running: skipping PHP syntax check" >&2
 fi
 
-# Secrets: no Google API key (AIza...) in tracked or new files. Keys belong in .env only.
+# Secrets: no Google-format API key (AIza...) in tracked or new files. Keys belong in .env only.
 if git ls-files -co --exclude-standard -z | xargs -0 grep -lE 'AIza[0-9A-Za-z_-]{35}' 2>/dev/null | grep -q .; then
   git ls-files -co --exclude-standard -z | xargs -0 grep -lE 'AIza[0-9A-Za-z_-]{35}' 2>/dev/null | while IFS= read -r f; do
-    echo "google api key in a repository file: $f (move it to .env)" >&2
+    echo "api key in a repository file: $f (move it to .env)" >&2
   done
   exit 1
 fi

@@ -1,6 +1,6 @@
 /*
  * Nearby screen (contracts/app-screens.md §3, data-model.md §4 and §7, research R-11 and R-12).
- * Classic script. Data: HotelPlaces (Google Places through /app/api/places.php, or demo data).
+ * Classic script. Data: HotelPlaces (Neshan through /app/api/places.php, or demo data).
  * Text is escaped before insertion; links are https or tel only.
  */
 (function () {
@@ -15,7 +15,7 @@
 
   var data = null;
   var status = 'loading';   // loading | ready | error
-  var state = { q: '', cat: 'all', open: false, sort: 'dist', sheetId: null };
+  var state = { q: '', cat: 'all', open: false, sheetId: null };
   var sheet = null;
   var CATS = ['all', 'restaurant', 'cafe', 'poi'];
 
@@ -24,7 +24,7 @@
   }
 
   function live() {
-    return !!data && data.source === 'google';
+    return !!data && data.source === 'neshan';
   }
 
   function matches(p) {
@@ -39,9 +39,6 @@
       return true;
     }
     var fields = [p.name.en, p.name.fa];
-    if (p.tags) {
-      fields = fields.concat(p.tags.en || [], p.tags.fa || []);
-    }
     if (p.address) {
       fields.push(p.address.en || '', p.address.fa || '');
     }
@@ -53,17 +50,9 @@
   }
 
   function sorted(list) {
-    var out = list.slice();
-    if (state.sort === 'rating') {
-      out.sort(function (a, b) {
-        return ((b.rating || 0) - (a.rating || 0)) || (a.distance_m - b.distance_m) || tie(a, b);
-      });
-    } else {
-      out.sort(function (a, b) {
-        return (a.distance_m - b.distance_m) || tie(a, b);
-      });
-    }
-    return out;
+    return list.slice().sort(function (a, b) {
+      return (a.distance_m - b.distance_m) || tie(a, b);
+    });
   }
 
   function pill(p) {
@@ -76,14 +65,7 @@
 
   function meta(p) {
     var bits = [];
-    if (p.rating) {
-      bits.push('<span class="app-star">' + icon('star') + num(p.rating, 1) + '</span>');
-    }
     bits.push('<span>' + esc(P.distance(p.distance_m)) + '</span>');
-    var price = P.price(p);
-    if (price) {
-      bits.push('<span dir="ltr">' + esc(price) + '</span>');
-    }
     return bits.join('<span class="app-dot" aria-hidden="true"></span>') + pill(p);
   }
 
@@ -132,7 +114,7 @@
         '<span class="app-chev hs-flip">' + icon('chev') + '</span>' +
         '</button>';
     }).join('');
-    return countLine(list.length) + '<div class="app-list">' + rows + '</div>' + P.attribution(data);
+    return countLine(list.length) + '<div class="app-list">' + rows + '</div>';
   }
 
   function updateResults() {
@@ -145,9 +127,6 @@
   function syncControls() {
     document.querySelectorAll('[data-cat]').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === state.cat));
-    });
-    document.querySelectorAll('[data-sort]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-sort') === state.sort));
     });
     var sw = document.getElementById('openT');
     if (sw) {
@@ -165,10 +144,6 @@
       }).join('') + '</div>' +
       '<div class="app-toolbar">' +
         '<button class="app-toggle" type="button" id="openT" role="switch" aria-checked="' + state.open + '"><span class="app-switch"></span>' + esc(T('n.open')) + '</button>' +
-        '<div class="app-seg" role="group" aria-label="' + esc(T('n.sort.dist')) + '">' +
-          '<button type="button" data-sort="dist" aria-pressed="' + (state.sort === 'dist') + '">' + esc(T('n.sort.dist')) + '</button>' +
-          '<button type="button" data-sort="rating" aria-pressed="' + (state.sort === 'rating') + '">' + esc(T('n.sort.rating')) + '</button>' +
-        '</div>' +
       '</div>' +
       '<div id="results" aria-live="polite">' + resultsHTML() + '</div>';
   }
@@ -216,8 +191,6 @@
 
   function sheetHTML(p) {
     var l = lang();
-    var tags = p.tags && p.tags[l] ? p.tags[l].map(function (t) { return '<span class="app-pill">' + esc(t) + '</span>'; }).join('') : '';
-    var about = p.description && p.description[l] ? '<p class="app-sheet-desc">' + esc(p.description[l]) + '</p>' : '';
     var rows = '<div class="app-info-row">' + icon('clock') + '<span><b>' + esc(T('n.today')) + '</b> ' + esc(P.todayHours(p, data)) + '</span></div>';
     if (p.address && p.address[l]) {
       rows += '<div class="app-info-row">' + icon('pin') + '<span>' + esc(p.address[l]) + '</span></div>';
@@ -225,21 +198,14 @@
     if (live() && p.phone_display && P.safeTel(p.phone)) {
       rows += '<div class="app-info-row">' + icon('phone') + '<span dir="ltr">' + esc(p.phone_display) + '</span></div>';
     }
-    var reviews = p.rating_count ? '<span class="app-muted">(' + esc(T('n.reviews', num(p.rating_count))) + ')</span>' : '';
-    var rating = p.rating ? '<span class="app-star">' + icon('star') + num(p.rating, 1) + ' ' + reviews + '</span>' : '';
-    var price = P.price(p);
     return '<div class="app-handle"></div>' +
       '<div class="app-sheet-head"><span class="app-ic-square">' + icon(P.CAT_ICON[p.category]) + '</span>' +
         '<div><div class="app-label">' + esc(T(P.CAT_KEY[p.category])) + '</div>' +
         '<h2 id="hs-sheet-title">' + esc(p.name[l]) + '</h2></div></div>' +
-      '<div class="app-meta app-sheet-meta">' + rating +
-        '<span>' + icon('walk') + esc(T('n.min', num(P.walkMinutes(p.distance_m)))) + '</span>' +
-        (price ? '<span dir="ltr">' + esc(price) + '</span>' : '') + pill(p) + '</div>' +
-      about +
+      '<div class="app-meta app-sheet-meta">' +
+        '<span>' + icon('walk') + esc(T('n.min', num(P.walkMinutes(p.distance_m)))) + '</span>' + pill(p) + '</div>' +
       '<div class="app-info">' + rows + '</div>' +
-      (tags ? '<div class="app-tags">' + tags + '</div>' : '') +
-      '<div class="app-sheet-actions">' + actions(p) + '</div>' +
-      P.attribution(data);
+      '<div class="app-sheet-actions">' + actions(p) + '</div>';
   }
 
   function showSheet(id, rebuildOnly) {
@@ -284,13 +250,6 @@
     var catBtn = t.closest('[data-cat]');
     if (catBtn) {
       state.cat = catBtn.getAttribute('data-cat');
-      syncControls();
-      updateResults();
-      return;
-    }
-    var sortBtn = t.closest('[data-sort]');
-    if (sortBtn) {
-      state.sort = sortBtn.getAttribute('data-sort');
       syncControls();
       updateResults();
       return;

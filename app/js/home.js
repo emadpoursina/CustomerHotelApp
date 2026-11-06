@@ -1,6 +1,6 @@
 /*
  * Home screen (contracts/app-screens.md §2). Classic script, vanilla DOM.
- * Data: HotelPlaces (Google Places through /app/api/places.php, or demo data). Text is escaped before insertion.
+ * Data: HotelPlaces (Neshan through /app/api/places.php, or demo data). Text is escaped before insertion.
  */
 (function () {
   'use strict';
@@ -44,14 +44,13 @@
       items = places.places.slice(0, 3);
     }
     return '<div class="app-hscroll">' + items.map(function (p) {
-      var rating = p.rating ? '<span class="app-star">' + icon('star') + num(p.rating, 1) + '</span>' : '';
       return '<a class="app-card app-mini" href="/app/nearby.html#place=' + encodeURIComponent(String(p.id)) + '">' +
         '<span class="app-mini-top"><span class="app-ic-square sm">' + icon(P.CAT_ICON[p.category]) + '</span>' +
         '<span class="app-label">' + esc(T(P.CAT_KEY[p.category])) + '</span></span>' +
         '<h3>' + esc(p.name[lang()]) + '</h3>' +
-        '<span class="app-meta">' + rating + '<span>' + esc(P.distance(p.distance_m)) + '</span>' + pill(p) + '</span>' +
+        '<span class="app-meta"><span>' + esc(P.distance(p.distance_m)) + '</span>' + pill(p) + '</span>' +
         '</a>';
-    }).join('') + '</div>' + P.attribution(places);
+    }).join('') + '</div>';
   }
 
   var SERVICES = [['sparkle', 'qa.room'], ['bed', 'qa.house'], ['wifi', 'qa.wifi'], ['clock', 'qa.late'], ['key', 'qa.concierge'], ['leaf', 'qa.spa']];

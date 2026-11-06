@@ -1,6 +1,6 @@
 {
   "demo": true,
-  "note": "The places below are fictional demo data (names, ratings, distances and hours are invented) and are not real businesses.",
+  "note": "The places below are fictional demo data (names, distances and hours are invented) and are not real businesses.",
   "highlights": [
     8,
     1,
@@ -15,28 +15,10 @@
         "fa": "باغ شهرزاد"
       },
       "distance_m": 350,
-      "rating": 4.6,
-      "price": 2,
       "hours": [
         12,
         23
-      ],
-      "tags": {
-        "en": [
-          "Persian",
-          "Kebab",
-          "Garden seating"
-        ],
-        "fa": [
-          "ایرانی",
-          "کباب",
-          "فضای باغ"
-        ]
-      },
-      "description": {
-        "en": "Charcoal kebabs and slow-cooked stews under old plane trees.",
-        "fa": "کباب ذغالی و خورش‌های جاافتاده زیر چنارهای کهن."
-      }
+      ]
     },
     {
       "id": 2,
@@ -46,26 +28,10 @@
         "fa": "خانهٔ زعفران"
       },
       "distance_m": 600,
-      "rating": 4.4,
-      "price": 2,
       "hours": [
         11,
         22
-      ],
-      "tags": {
-        "en": [
-          "Persian",
-          "Family"
-        ],
-        "fa": [
-          "ایرانی",
-          "خانوادگی"
-        ]
-      },
-      "description": {
-        "en": "Home-style dishes, tahdig and saffron desserts.",
-        "fa": "غذاهای خانگی، ته‌دیگ و دسرهای زعفرانی."
-      }
+      ]
     },
     {
       "id": 3,
@@ -75,26 +41,10 @@
         "fa": "زیتون و آویشن"
       },
       "distance_m": 900,
-      "rating": 4.3,
-      "price": 3,
       "hours": [
         18,
         24
-      ],
-      "tags": {
-        "en": [
-          "Mediterranean",
-          "Dinner"
-        ],
-        "fa": [
-          "مدیترانه‌ای",
-          "شام"
-        ]
-      },
-      "description": {
-        "en": "Grilled fish, mezze and a quiet terrace.",
-        "fa": "ماهی کبابی، پیش‌غذاهای مدیترانه‌ای و تراسی آرام."
-      }
+      ]
     },
     {
       "id": 4,
@@ -104,26 +54,10 @@
         "fa": "کباب کوهستان"
       },
       "distance_m": 1200,
-      "rating": 4.5,
-      "price": 1,
       "hours": [
         12,
         24
-      ],
-      "tags": {
-        "en": [
-          "Kebab",
-          "Quick"
-        ],
-        "fa": [
-          "کباب",
-          "سریع"
-        ]
-      },
-      "description": {
-        "en": "Busy, cheap and famous for its koobideh.",
-        "fa": "شلوغ، ارزان و معروف به کوبیده‌اش."
-      }
+      ]
     },
     {
       "id": 5,
@@ -133,26 +67,10 @@
         "fa": "نودل‌بار لوتوس"
       },
       "distance_m": 750,
-      "rating": 4.1,
-      "price": 2,
       "hours": [
         12,
         22
-      ],
-      "tags": {
-        "en": [
-          "Asian",
-          "Vegetarian options"
-        ],
-        "fa": [
-          "آسیایی",
-          "گزینهٔ گیاهی"
-        ]
-      },
-      "description": {
-        "en": "Hand-pulled noodles and dumplings.",
-        "fa": "نودل دست‌ساز و دامپلینگ."
-      }
+      ]
     },
     {
       "id": 6,
@@ -162,26 +80,10 @@
         "fa": "ماهی‌سرای کاسپین"
       },
       "distance_m": 1600,
-      "rating": 4.2,
-      "price": 3,
       "hours": [
         12,
         23
-      ],
-      "tags": {
-        "en": [
-          "Seafood",
-          "Northern cuisine"
-        ],
-        "fa": [
-          "غذای دریایی",
-          "غذای شمالی"
-        ]
-      },
-      "description": {
-        "en": "Fresh fish, herb rice and northern specialities.",
-        "fa": "ماهی تازه، سبزی‌پلو و غذاهای شمالی."
-      }
+      ]
     },
     {
       "id": 7,
@@ -191,26 +93,10 @@
         "fa": "کبابی بازار شب"
       },
       "distance_m": 1100,
-      "rating": 4.0,
-      "price": 1,
       "hours": [
         18,
         26
-      ],
-      "tags": {
-        "en": [
-          "Street food",
-          "Late"
-        ],
-        "fa": [
-          "غذای خیابانی",
-          "تا دیروقت"
-        ]
-      },
-      "description": {
-        "en": "Skewers, grilled corn and late-night crowds.",
-        "fa": "سیخ‌های کباب، بلال کبابی و شب‌زنده‌داران."
-      }
+      ]
     },
     {
       "id": 8,
@@ -220,26 +106,10 @@
         "fa": "کافه گوشه"
       },
       "distance_m": 200,
-      "rating": 4.7,
-      "price": 1,
       "hours": [
         8,
         22
-      ],
-      "tags": {
-        "en": [
-          "Coffee",
-          "Pastries"
-        ],
-        "fa": [
-          "قهوه",
-          "شیرینی"
-        ]
-      },
-      "description": {
-        "en": "Small, bright and two minutes from the lobby.",
-        "fa": "کوچک، روشن و دو دقیقه تا لابی."
-      }
+      ]
     },
     {
       "id": 9,
@@ -249,26 +119,10 @@
         "fa": "چای‌خانهٔ رومی"
       },
       "distance_m": 450,
-      "rating": 4.8,
-      "price": 1,
       "hours": [
         10,
         23
-      ],
-      "tags": {
-        "en": [
-          "Tea",
-          "Traditional"
-        ],
-        "fa": [
-          "چای",
-          "سنتی"
-        ]
-      },
-      "description": {
-        "en": "Samovar tea, dates and live music on Thursdays.",
-        "fa": "چای سماوری، خرما و موسیقی زنده در پنجشنبه‌ها."
-      }
+      ]
     },
     {
       "id": 10,
@@ -278,28 +132,10 @@
         "fa": "کافه کتاب و قهوه"
       },
       "distance_m": 650,
-      "rating": 4.5,
-      "price": 2,
       "hours": [
         9,
         21
-      ],
-      "tags": {
-        "en": [
-          "Coffee",
-          "Books",
-          "Wi-Fi"
-        ],
-        "fa": [
-          "قهوه",
-          "کتاب",
-          "وای‌فای"
-        ]
-      },
-      "description": {
-        "en": "A quiet reading room with good espresso.",
-        "fa": "اتاق مطالعه‌ای آرام با اسپرسوی خوب."
-      }
+      ]
     },
     {
       "id": 11,
@@ -309,26 +145,10 @@
         "fa": "کافه شیرینی گلستان"
       },
       "distance_m": 300,
-      "rating": 4.3,
-      "price": 1,
       "hours": [
         7,
         20
-      ],
-      "tags": {
-        "en": [
-          "Pastries",
-          "Breakfast"
-        ],
-        "fa": [
-          "شیرینی",
-          "صبحانه"
-        ]
-      },
-      "description": {
-        "en": "Fresh pastries from seven in the morning.",
-        "fa": "شیرینی تازه از ساعت هفت صبح."
-      }
+      ]
     },
     {
       "id": 12,
@@ -338,24 +158,10 @@
         "fa": "رُست‌خانهٔ مهتاب"
       },
       "distance_m": 1000,
-      "rating": 4.6,
-      "price": 2,
       "hours": [
         9,
         22
-      ],
-      "tags": {
-        "en": [
-          "Specialty coffee"
-        ],
-        "fa": [
-          "قهوهٔ تخصصی"
-        ]
-      },
-      "description": {
-        "en": "Beans roasted in-house, pour-over bar.",
-        "fa": "دانه‌های برشته در محل و بار دم‌آوری."
-      }
+      ]
     },
     {
       "id": 13,
@@ -365,26 +171,10 @@
         "fa": "کافه تراس باغ"
       },
       "distance_m": 150,
-      "rating": 4.2,
-      "price": 2,
       "hours": [
         10,
         23
-      ],
-      "tags": {
-        "en": [
-          "Terrace",
-          "Desserts"
-        ],
-        "fa": [
-          "تراس",
-          "دسر"
-        ]
-      },
-      "description": {
-        "en": "Rooftop seats with a view over the garden.",
-        "fa": "نشیمن روی بام با چشم‌انداز باغ."
-      }
+      ]
     },
     {
       "id": 14,
@@ -394,26 +184,10 @@
         "fa": "کافه جغد شب"
       },
       "distance_m": 1300,
-      "rating": 4.0,
-      "price": 1,
       "hours": [
         16,
         25
-      ],
-      "tags": {
-        "en": [
-          "Late",
-          "Board games"
-        ],
-        "fa": [
-          "تا دیروقت",
-          "بازی‌های رومیزی"
-        ]
-      },
-      "description": {
-        "en": "Open late, with board games and hot chocolate.",
-        "fa": "تا دیروقت باز است، با بازی رومیزی و شکلات داغ."
-      }
+      ]
     },
     {
       "id": 15,
@@ -423,26 +197,10 @@
         "fa": "موزهٔ ارگ قدیم"
       },
       "distance_m": 1800,
-      "rating": 4.8,
-      "price": 1,
       "hours": [
         9,
         17
-      ],
-      "tags": {
-        "en": [
-          "Museum",
-          "History"
-        ],
-        "fa": [
-          "موزه",
-          "تاریخ"
-        ]
-      },
-      "description": {
-        "en": "Mirrored halls and a garden courtyard.",
-        "fa": "تالارهای آینه‌کاری و حیاطی باغ‌مانند."
-      }
+      ]
     },
     {
       "id": 16,
@@ -452,26 +210,10 @@
         "fa": "بازار سرپوشیده"
       },
       "distance_m": 2100,
-      "rating": 4.6,
-      "price": 1,
       "hours": [
         9,
         18
-      ],
-      "tags": {
-        "en": [
-          "Shopping",
-          "Crafts"
-        ],
-        "fa": [
-          "خرید",
-          "صنایع دستی"
-        ]
-      },
-      "description": {
-        "en": "Spices, carpets and copperware under brick domes.",
-        "fa": "ادویه، فرش و مس زیر گنبدهای آجری."
-      }
+      ]
     },
     {
       "id": 17,
@@ -481,26 +223,10 @@
         "fa": "پارک باغ گل سرخ"
       },
       "distance_m": 500,
-      "rating": 4.4,
-      "price": 1,
       "hours": [
         6,
         23
-      ],
-      "tags": {
-        "en": [
-          "Park",
-          "Walk"
-        ],
-        "fa": [
-          "پارک",
-          "پیاده‌روی"
-        ]
-      },
-      "description": {
-        "en": "Fountains and rose beds, lovely at sunset.",
-        "fa": "فواره‌ها و باغچه‌های گل سرخ، زیبا در غروب."
-      }
+      ]
     },
     {
       "id": 18,
@@ -510,26 +236,10 @@
         "fa": "چشم‌انداز تپه"
       },
       "distance_m": 3200,
-      "rating": 4.7,
-      "price": 1,
       "hours": [
         0,
         24
-      ],
-      "tags": {
-        "en": [
-          "View",
-          "Sunset"
-        ],
-        "fa": [
-          "چشم‌انداز",
-          "غروب"
-        ]
-      },
-      "description": {
-        "en": "The best view of the city lights.",
-        "fa": "بهترین منظره از چراغ‌های شهر."
-      }
+      ]
     },
     {
       "id": 19,
@@ -539,26 +249,10 @@
         "fa": "نگارخانهٔ فرش و صنایع دستی"
       },
       "distance_m": 950,
-      "rating": 4.5,
-      "price": 1,
       "hours": [
         10,
         19
-      ],
-      "tags": {
-        "en": [
-          "Gallery",
-          "Crafts"
-        ],
-        "fa": [
-          "نگارخانه",
-          "صنایع دستی"
-        ]
-      },
-      "description": {
-        "en": "Hand-woven carpets and live weaving demos.",
-        "fa": "فرش‌های دست‌باف و نمایش زندهٔ بافت."
-      }
+      ]
     },
     {
       "id": 20,
@@ -568,26 +262,10 @@
         "fa": "پیاده‌راه کنار رود"
       },
       "distance_m": 700,
-      "rating": 4.3,
-      "price": 1,
       "hours": [
         0,
         24
-      ],
-      "tags": {
-        "en": [
-          "Walk",
-          "Outdoors"
-        ],
-        "fa": [
-          "پیاده‌روی",
-          "فضای باز"
-        ]
-      },
-      "description": {
-        "en": "A shaded path along the river, with tea stalls.",
-        "fa": "مسیری سایه‌دار کنار رود، با دکه‌های چای."
-      }
+      ]
     },
     {
       "id": 21,
@@ -597,26 +275,10 @@
         "fa": "سینمای خانهٔ هنر"
       },
       "distance_m": 1400,
-      "rating": 4.2,
-      "price": 2,
       "hours": [
         14,
         24
-      ],
-      "tags": {
-        "en": [
-          "Cinema",
-          "Culture"
-        ],
-        "fa": [
-          "سینما",
-          "فرهنگ"
-        ]
-      },
-      "description": {
-        "en": "Independent films, some with English subtitles.",
-        "fa": "فیلم‌های مستقل، برخی با زیرنویس انگلیسی."
-      }
+      ]
     }
   ]
 }
