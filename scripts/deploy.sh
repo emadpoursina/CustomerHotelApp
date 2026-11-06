@@ -3,6 +3,7 @@
 #   1. validates the scaffold
 #   2. syncs the project files with rsync (never .env, backups, scratch, or database data)
 #   3. runs `docker compose up -d --build` on the server
+#   4. pushes survey titles and texts to LimeSurvey (scripts/sync-survey-text.py); never questions or responses
 #
 # Required in .env (or the environment):
 #   DEPLOY_HOST=user@server.example      SSH target
@@ -54,5 +55,22 @@ rsync -az --delete \
 
 ssh -p "$DEPLOY_PORT" "$DEPLOY_HOST" \
   "cd '${DEPLOY_PATH}' && docker compose up -d --build && docker compose ps"
+
+# Titles and texts only (never questions or responses). Runs on the server with its own .env.
+ssh -p "$DEPLOY_PORT" "$DEPLOY_HOST" \
+  "cd '${DEPLOY_PATH}' && set -a && . ./.env && set +a && python3 scripts/sync-survey-text.py"
+
+# Theme check (read-only): the guest survey must render the hotel shell. If it does not, the server's LimeSurvey
+# still uses the stock theme. Fix in the LimeSurvey admin: install hotel-classic (Theme options) and apply it to the survey.
+# The check never changes the server, and a failure only makes the deploy exit non-zero.
+SURVEY_ID="${SURVEY_ID:-420001}"
+if ssh -n -p "$DEPLOY_PORT" "$DEPLOY_HOST" \
+  "cd '${DEPLOY_PATH}' && set -a && . ./.env && set +a && curl -s -m 10 \"http://localhost:\${SURVEY_PORT:-8090}/index.php/${SURVEY_ID}\" | grep -q 'hs-appbar'"; then
+  echo "theme check ok: survey ${SURVEY_ID} renders hotel-classic"
+else
+  echo "theme check FAILED: survey ${SURVEY_ID} on ${DEPLOY_HOST} does not render hotel-classic (stock theme in use)." >&2
+  echo "Install hotel-classic in the LimeSurvey admin (Theme options) and apply it to survey ${SURVEY_ID}, then re-run the check." >&2
+  exit 1
+fi
 
 echo "deployed to ${DEPLOY_HOST}:${DEPLOY_PATH}"
