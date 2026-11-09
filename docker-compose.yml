@@ -25,7 +25,11 @@ services:
       - backend
 
   limesurvey:
-    image: ${LIMESURVEY_IMAGE:-martialblog/limesurvey:6-apache}
+    # Built from docker/limesurvey/Dockerfile: pinned upstream image plus the
+    # RPCInterface default the deploy scripts need (see that file).
+    build:
+      context: ./docker/limesurvey
+    image: ${LIMESURVEY_IMAGE:-hotel-survey/limesurvey:6-apache}
     restart: unless-stopped
     depends_on:
       db:
@@ -56,10 +60,11 @@ services:
       - ./limesurvey/themes/hotel-classic:/var/www/html/upload/themes/survey/hotel-classic:ro
       # Static demo app (demo PRD §4), served by the same Apache.
       - ./app:/var/www/html/app:ro
-    # Published on the host so the shared Caddy can reach it at host.docker.internal:8090.
+    # Published on the host loopback only: Caddy (host service) proxies to 127.0.0.1:8090.
+    # Loopback binding keeps the container port out of UFW's blind spot (Docker DNAT bypasses UFW).
     # The martialblog image's Apache listens on 8080 (see /etc/apache2/ports.conf), not 80.
     ports:
-      - "${SURVEY_PORT:-8090}:8080"
+      - "127.0.0.1:${SURVEY_PORT:-8090}:8080"
     networks:
       - backend
       - frontend

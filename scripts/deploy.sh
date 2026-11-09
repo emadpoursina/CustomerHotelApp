@@ -34,8 +34,14 @@ ssh -n -p "$DEPLOY_PORT" -o BatchMode=yes "$DEPLOY_HOST" \
   || { echo "preflight failed: ${DEPLOY_PATH} on ${DEPLOY_HOST} needs docker-compose.yml and .env (nothing was changed)" >&2; exit 1; }
 
 echo "Deploy to ${DEPLOY_HOST}:${DEPLOY_PATH} (SSH port ${DEPLOY_PORT})."
-read -r -p "Type 'deploy' to continue: " answer
-[[ "$answer" == "deploy" ]] || { echo "aborted"; exit 1; }
+# Non-interactive: --yes / -y or DEPLOY_ASSUME_YES=1 (piping into the script is not reliable,
+# because the validation step reads stdin).
+if [[ "${1:-}" == "--yes" || "${1:-}" == "-y" || "${DEPLOY_ASSUME_YES:-}" == "1" ]]; then
+  echo "Confirmed by flag; continuing."
+else
+  read -r -p "Type 'deploy' to continue: " answer
+  [[ "$answer" == "deploy" ]] || { echo "aborted"; exit 1; }
+fi
 
 rsync -az --delete \
   -e "ssh -p ${DEPLOY_PORT}" \
@@ -48,7 +54,8 @@ rsync -az --delete \
   --exclude '.specify/' \
   --exclude 'specs/' \
   --exclude 'prototype/' \
-  --exclude 'app/data/' \
+  --exclude 'app/data/dashboard.json' \
+  --exclude 'app/data/*.tmp' \
   --exclude '__pycache__/' \
   --exclude '.DS_Store' \
   ./ "${DEPLOY_HOST}:${DEPLOY_PATH}/"

@@ -8,7 +8,7 @@ Guest app and feedback survey for **Kowsar Malekshahr Complex** (مجتمع کو
 
 | Milestone (PRD §8) | Status |
 |---|---|
-| 1. Infrastructure | Local only. Production VPS, public domain, admin IP restriction and tested restore are open (`docs/decisions.md` §2) |
+| 1. Infrastructure | **Deployed to the production VPS** at `https://server-86b945f7-6e9e-4bf1-a25a-16786fbb6e62.ir-southwest1-a.arvancompute.ir` (Caddy + Let's Encrypt, Docker stack, nightly backups). Admin IP restriction still open (`docs/decisions.md` §2). See `docs/deployment.md` |
 | 2. Design and survey | Complete. Branded bilingual survey (fa/en), committed in `79c28c7` |
 | 3. QR-code management | Not started. `hotel_rooms` table exists and is empty |
 | 4. Management and reporting | Not started |
@@ -27,7 +27,7 @@ scripts/                    validate.sh, backup-db.sh, build-dashboard.py, seed-
 docs/decisions.md           Decisions and open questions
 ```
 
-Routing is handled by the shared Caddy in `~/docker-infrastructure/caddy`. It serves `http://hotelsurvey.localhost` and proxies to LimeSurvey on host port 8090.
+Routing is handled by the shared Caddy in `~/docker-infrastructure/caddy` locally. It serves `http://hotelsurvey.localhost` and proxies to LimeSurvey on host port 8090. Production uses the Caddy installed on the VPS; deployment and operations are documented in `docs/deployment.md`.
 
 ## Setup
 
