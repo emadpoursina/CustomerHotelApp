@@ -74,10 +74,12 @@
         '<span class="app-rate-body"><h2>' + esc(T('home.rate.t')) + '</h2><p>' + esc(T('home.rate.d')) + '</p></span>' +
         '<span class="app-go hs-flip">' + icon('arrow') + '</span>' +
       '</a>' +
-      '<div class="app-section-head"><h2>' + esc(T('home.services')) + '</h2></div>' +
-      '<div class="app-qa-grid">' + SERVICES.map(function (s) {
-        return '<button class="app-qa" type="button" data-soon><span class="app-qa-ic">' + icon(s[0]) + '</span>' + esc(T(s[1])) + '</button>';
-      }).join('') + '</div>' +
+      '<div class="app-section-head"><h2>' + esc(T('home.stories.t')) + '</h2></div>' +
+      '<a class="app-card app-teaser" href="/app/stories.html">' +
+        '<span class="app-ic-round">' + icon('grid') + '</span>' +
+        '<span class="app-teaser-body"><h2>' + esc(T('home.stories.t')) + '</h2><p>' + esc(T('home.stories.d')) + '</p></span>' +
+        '<span class="app-go hs-flip">' + icon('arrow') + '</span>' +
+      '</a>' +
       (failed ? '' :
         '<div class="app-section-head"><h2>' + esc(T('home.nearby')) + '</h2>' +
           '<a class="app-link" href="/app/nearby.html">' + esc(T('seeAll')) + '</a></div>' +

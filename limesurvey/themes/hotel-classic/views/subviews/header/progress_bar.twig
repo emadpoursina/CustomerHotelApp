@@ -6,10 +6,13 @@
 #}
 {% import './subviews/hotel/i18n.twig' as i18n %}
 {% set lang = aSurveyInfo.languagecode %}
-{# currentstep may be null on the welcome screen, and null >= 0 is true, so the welcome screen is excluded by name and total must be positive. #}
-{% if aSurveyInfo.showprogress == 'Y' and aSurveyInfo.format != 'A' and not aSurveyInfo.aCompleted and aSurveyInfo.include_content != 'firstpage' and aSurveyInfo.progress.total > 0 and aSurveyInfo.progress.currentstep is not null %}
-    {% set stepNo = aSurveyInfo.progress.currentstep + 1 %}
-    {% set stepTotal = aSurveyInfo.progress.total %}
+{#
+  Hide progress on welcome (firstpage / null), thank-you (completed), and QDEPT (currentstep === 0).
+  Q1-Q9 (currentstep 1..9) display "Question N of 9" (department does not count, T015).
+#}
+{% if aSurveyInfo.showprogress == 'Y' and aSurveyInfo.format != 'A' and not aSurveyInfo.aCompleted and aSurveyInfo.include_content != 'firstpage' and aSurveyInfo.progress.total > 1 and aSurveyInfo.progress.currentstep is not null and aSurveyInfo.progress.currentstep > 0 %}
+    {% set stepNo = aSurveyInfo.progress.currentstep %}
+    {% set stepTotal = 9 %}
     {% set pct = ((stepNo / stepTotal) * 100)|round %}
     {% set stepText = i18n.t('progress.step', lang)|replace({
         '%1': i18n.digits(stepNo, lang),

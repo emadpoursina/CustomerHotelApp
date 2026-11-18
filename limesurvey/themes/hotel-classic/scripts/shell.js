@@ -221,8 +221,49 @@
     closeDrawer(true);
   });
 
+  // Unread badge for feedback inbox
+  function updateInboxBadge() {
+    var dot = document.querySelector('.hs-appbar .hs-dot');
+    if (!dot) {
+      return;
+    }
+    dot.style.display = 'none';
+    if (typeof fetch !== 'function') {
+      return;
+    }
+    fetch('/app/api/inbox.php?view=meta', { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('HTTP ' + res.status); }
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.ids)) { return; }
+        var readMap = {};
+        try {
+          var raw = window.localStorage.getItem('hotel.inbox.read');
+          var readArr = JSON.parse(raw || '[]');
+          if (Array.isArray(readArr)) {
+            for (var i = 0; i < readArr.length; i++) {
+              readMap[readArr[i]] = true;
+            }
+          }
+        } catch (e) {}
+        var unread = 0;
+        for (var j = 0; j < data.ids.length; j++) {
+          if (!readMap[data.ids[j]]) {
+            unread++;
+          }
+        }
+        dot.style.display = unread > 0 ? 'block' : 'none';
+      })
+      .catch(function () {
+        dot.style.display = 'none';
+      });
+  }
+
   document.addEventListener('pjax:scriptcomplete', function () {
     closeDrawer(false);
+    updateInboxBadge();
   });
 
   // Browser chrome colour from the --color-primary token (no hex outside tokens.css).
@@ -240,9 +281,13 @@
     meta.content = value;
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', themeColor);
+    document.addEventListener('DOMContentLoaded', function () {
+      themeColor();
+      updateInboxBadge();
+    });
   } else {
     themeColor();
+    updateInboxBadge();
   }
 
   window.HotelShell = {

@@ -87,8 +87,8 @@
     top.innerHTML =
       '<header class="hs-appbar">' +
         '<button class="hs-icon-btn" id="hs-menu" type="button" aria-controls="hs-drawer" aria-expanded="' + (drawerWasOpen ? 'true' : 'false') + '" aria-label="' + T('menu') + '">' + icon('menu') + '</button>' +
-        '<h1 class="hs-title"><span class="hs-mark">' + icon('mark') + '</span><span class="hs-title-text">' + T({ home: 'title.home', nearby: 'title.nearby', rate: 'title.rate', dash: 'title.dash' }[state.route]) + '</span></h1>' +
-        '<button class="hs-icon-btn" type="button" data-soon aria-label="' + T('notifications') + '">' + icon('bell') + '<span class="hs-dot"></span></button>' +
+        '<h1 class="hs-title"><span class="hs-mark">' + icon('mark') + '</span><span class="hs-title-text">' + T({ home: 'title.home', nearby: 'title.nearby', rate: 'title.rate', dash: 'title.dash', inbox: 'title.inbox', stories: 'title.stories' }[state.route] || '') + '</span></h1>' +
+        '<a class="hs-icon-btn" href="/app/inbox.html" aria-label="' + T('notifications') + '"' + cur('inbox') + '>' + icon('bell') + '<span class="hs-dot"></span></a>' +
       '</header>';
 
     foot.innerHTML =
@@ -104,6 +104,7 @@
           '<a class="hs-d-item" href="' + SURVEY_URL + '"' + cur('rate') + '>' + icon('star') + T('title.rate') + '</a>' +
           '<a class="hs-d-item" href="/app/nearby.html"' + cur('nearby') + '>' + icon('pin') + T('tab.nearby') + '</a>' +
           '<a class="hs-d-item" href="/app/dashboard.html"' + cur('dash') + '>' + icon('chart') + T('tab.dash') + '</a>' +
+          '<a class="hs-d-item" href="/app/stories.html"' + cur('stories') + '>' + icon('grid') + T('tab.stories') + '</a>' +
           '<div class="hs-d-sep"></div>' +
           '<button class="hs-d-item" type="button" data-soon>' + icon('bed') + T('d.mystay') + '<span class="hs-soon">' + T('d.soon') + '</span></button>' +
           '<button class="hs-d-item" type="button" data-soon>' + icon('sparkle') + T('d.room') + '<span class="hs-soon">' + T('d.soon') + '</span></button>' +
@@ -125,7 +126,7 @@
         '<a class="hs-tab" href="/app/nearby.html"' + cur('nearby') + '>' + icon('pin') + T('tab.nearby') + '</a>' +
         '<a class="hs-tab hs-tab-center" href="' + SURVEY_URL + '"' + cur('rate') + '><span class="hs-bubble">' + icon('star') + '</span>' + T('tab.rate') + '</a>' +
         '<a class="hs-tab" href="/app/dashboard.html"' + cur('dash') + '>' + icon('chart') + T('tab.dash') + '</a>' +
-        '<button class="hs-tab" type="button" data-soon>' + icon('grid') + T('tab.services') + '</button>' +
+        '<a class="hs-tab" href="/app/stories.html"' + cur('stories') + '>' + icon('grid') + T('tab.stories') + '</a>' +
       '</nav>' +
       '<div class="hs-toast" id="hs-toast" role="status" aria-live="polite" data-soon-text="' + T('soon') + '">' + icon('info') + '<span class="hs-toast-text"></span></div>';
 
@@ -133,6 +134,46 @@
       var again = foot.querySelector('[data-lang="' + focusLang + '"]');
       if (again) { again.focus(); }
     }
+    updateInboxBadge();
+  }
+
+  function updateInboxBadge() {
+    var dot = document.querySelector('.hs-icon-btn[href*="inbox"] .hs-dot');
+    if (!dot) {
+      return;
+    }
+    dot.style.display = 'none';
+    if (typeof fetch !== 'function') {
+      return;
+    }
+    fetch('/app/api/inbox.php?view=meta', { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('HTTP ' + res.status); }
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.ids)) { return; }
+        var readMap = {};
+        try {
+          var raw = window.localStorage.getItem('hotel.inbox.read');
+          var readArr = JSON.parse(raw || '[]');
+          if (Array.isArray(readArr)) {
+            for (var i = 0; i < readArr.length; i++) {
+              readMap[readArr[i]] = true;
+            }
+          }
+        } catch (e) {}
+        var unread = 0;
+        for (var j = 0; j < data.ids.length; j++) {
+          if (!readMap[data.ids[j]]) {
+            unread++;
+          }
+        }
+        dot.style.display = unread > 0 ? 'block' : 'none';
+      })
+      .catch(function () {
+        dot.style.display = 'none';
+      });
   }
 
   function applyLang(lang) {

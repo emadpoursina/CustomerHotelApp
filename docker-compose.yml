@@ -54,6 +54,10 @@ services:
       PLACES_RADIUS_M: ${PLACES_RADIUS_M:-2000}
       PLACES_MAX_PER_CATEGORY: ${PLACES_MAX_PER_CATEGORY:-12}
       PLACES_CACHE_TTL: ${PLACES_CACHE_TTL:-900}
+      # Manager notifications (app/api/inbox.php, contracts/bale-message.md). Empty = skip send.
+      BALE_BOT_TOKEN: ${BALE_BOT_TOKEN:-}
+      BALE_CHAT_ID: ${BALE_CHAT_ID:-}
+      BALE_API_BASE: ${BALE_API_BASE:-https://tapi.bale.ai}
     volumes:
       - limesurvey_upload:/var/www/html/upload
       # Hotel child theme (PRD §6.1 "Survey customization") — kept outside LimeSurvey core.

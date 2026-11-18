@@ -102,14 +102,20 @@ demo_required=(
   app/index.html
   app/nearby.html
   app/dashboard.html
+  app/inbox.html
+  app/stories.html
   app/css/app.css
   app/js/i18n.js
   app/js/app.js
   app/js/home.js
   app/js/nearby.js
   app/js/dashboard.js
+  app/js/inbox.js
+  app/js/stories.js
   app/js/places.js
   app/api/places.php
+  app/api/inbox.php
+  app/api/stories.php
   app/img/kowsar-hero.jpg
   app/data/places.json
   limesurvey/themes/hotel-classic/css/shell.css
@@ -175,13 +181,43 @@ assert 18 <= n <= 24, 'place count %d outside 18-24' % n
 PY
 
 # Places proxy: PHP syntax (host php, else the running LimeSurvey container, else skipped).
-if command -v php >/dev/null 2>&1; then
-  php -l app/api/places.php >/dev/null || { echo "php syntax error: app/api/places.php" >&2; exit 1; }
-elif docker compose ps --status running --services 2>/dev/null | grep -qx limesurvey; then
-  docker compose exec -T limesurvey php -l /var/www/html/app/api/places.php >/dev/null \
-    || { echo "php syntax error: app/api/places.php" >&2; exit 1; }
-else
-  echo "php not found and stack not running: skipping PHP syntax check" >&2
+check_php() {
+  local f="$1"
+  if [[ -f "$f" ]]; then
+    if command -v php >/dev/null 2>&1; then
+      php -l "$f" >/dev/null || { echo "php syntax error: $f" >&2; exit 1; }
+    elif docker compose ps --status running --services 2>/dev/null | grep -qx limesurvey; then
+      docker compose exec -T limesurvey php -l "/var/www/html/$f" >/dev/null \
+        || { echo "php syntax error: $f" >&2; exit 1; }
+    else
+      echo "php not found and stack not running: skipping PHP syntax check for $f" >&2
+    fi
+  fi
+}
+check_php app/api/places.php
+check_php app/api/inbox.php
+check_php app/api/stories.php
+
+# Feedback queue table check (spec 003)
+if [[ ! -f db/init/002_hotel_feedback_queue.sql ]]; then
+  echo "missing: db/init/002_hotel_feedback_queue.sql" >&2
+  exit 1
+fi
+if grep -iE 'lime_' db/init/002_hotel_feedback_queue.sql >/dev/null 2>&1; then
+  echo "forbidden lime_ identifier in 002_hotel_feedback_queue.sql" >&2
+  exit 1
+fi
+
+# Telegram forbidden: Bale only (spec 003)
+if grep -rnE --exclude='validate.sh' 'api\.telegram\.org' app scripts >/dev/null 2>&1; then
+  echo "api.telegram.org forbidden in app/ or scripts/" >&2
+  exit 1
+fi
+
+# Secrets: BALE_BOT_TOKEN and NESHAN_API_KEY must not appear in client scripts
+if grep -rnE 'BALE_BOT_TOKEN|NESHAN_API_KEY' app/js "$THEME/scripts" >/dev/null 2>&1; then
+  echo "server secret name in client scripts" >&2
+  exit 1
 fi
 
 # Secrets: no Google-format API key (AIza...) in tracked or new files. Keys belong in .env only.
@@ -213,6 +249,26 @@ if grep -nE 'Q8|Q9|LIKED|IMPROVE|X8|X9' scripts/build-dashboard.py >/dev/null 2>
   echo "comment guard: build-dashboard.py names a comment question" >&2
   exit 1
 fi
+
+# Comment guard: Bale send path must never name comment questions or log comments
+python3 - <<'PY' || { echo "comment guard: Bale send path or error_log names comments" >&2; exit 1; }
+import re
+with open('app/api/inbox.php', encoding='utf-8') as f:
+    inbox_content = f.read()
+with open('app/api/stories.php', encoding='utf-8') as f:
+    stories_content = f.read()
+
+# send_bale_notification must not reference comment fields in inbox.php or stories.php
+for content in [inbox_content, stories_content]:
+    m = re.search(r'function send_bale_notification\b.*?\n\}', content, re.DOTALL)
+    if m and re.search(r'Q8|Q9|LIKED|IMPROVE|\$praise|\$complaint', m.group(0)):
+        raise SystemExit(1)
+
+# error_log must never log praise or complaint in inbox.php or stories.php
+for content in [inbox_content, stories_content]:
+    if re.search(r'error_log\s*\(.*(\$praise|\$complaint)', content):
+        raise SystemExit(1)
+PY
 
 # Git hygiene: the generated snapshot is ignored.
 git check-ignore -q app/data/dashboard.json || { echo "app/data/dashboard.json must be git-ignored" >&2; exit 1; }

@@ -344,6 +344,38 @@
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
    </row>
+   <row>
+    <aid><![CDATA[42]]></aid>
+    <qid><![CDATA[10]]></qid>
+    <code><![CDATA[restaurant]]></code>
+    <sortorder><![CDATA[0]]></sortorder>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <aid><![CDATA[43]]></aid>
+    <qid><![CDATA[10]]></qid>
+    <code><![CDATA[reception]]></code>
+    <sortorder><![CDATA[1]]></sortorder>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <aid><![CDATA[44]]></aid>
+    <qid><![CDATA[10]]></qid>
+    <code><![CDATA[facilities]]></code>
+    <sortorder><![CDATA[2]]></sortorder>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <aid><![CDATA[45]]></aid>
+    <qid><![CDATA[10]]></qid>
+    <code><![CDATA[housekeeping]]></code>
+    <sortorder><![CDATA[3]]></sortorder>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
   </rows>
  </answers>
  <answer_l10ns>
@@ -846,6 +878,54 @@
     <answer><![CDATA[۱۰]]></answer>
     <language><![CDATA[fa]]></language>
    </row>
+   <row>
+    <id><![CDATA[83]]></id>
+    <aid><![CDATA[42]]></aid>
+    <answer><![CDATA[Restaurant]]></answer>
+    <language><![CDATA[en]]></language>
+   </row>
+   <row>
+    <id><![CDATA[84]]></id>
+    <aid><![CDATA[42]]></aid>
+    <answer><![CDATA[رستوران]]></answer>
+    <language><![CDATA[fa]]></language>
+   </row>
+   <row>
+    <id><![CDATA[85]]></id>
+    <aid><![CDATA[43]]></aid>
+    <answer><![CDATA[Reception]]></answer>
+    <language><![CDATA[en]]></language>
+   </row>
+   <row>
+    <id><![CDATA[86]]></id>
+    <aid><![CDATA[43]]></aid>
+    <answer><![CDATA[پذیرش]]></answer>
+    <language><![CDATA[fa]]></language>
+   </row>
+   <row>
+    <id><![CDATA[87]]></id>
+    <aid><![CDATA[44]]></aid>
+    <answer><![CDATA[Facilities]]></answer>
+    <language><![CDATA[en]]></language>
+   </row>
+   <row>
+    <id><![CDATA[88]]></id>
+    <aid><![CDATA[44]]></aid>
+    <answer><![CDATA[تاسیسات]]></answer>
+    <language><![CDATA[fa]]></language>
+   </row>
+   <row>
+    <id><![CDATA[89]]></id>
+    <aid><![CDATA[45]]></aid>
+    <answer><![CDATA[Housekeeping]]></answer>
+    <language><![CDATA[en]]></language>
+   </row>
+   <row>
+    <id><![CDATA[90]]></id>
+    <aid><![CDATA[45]]></aid>
+    <answer><![CDATA[خانه‌داری]]></answer>
+    <language><![CDATA[fa]]></language>
+   </row>
   </rows>
  </answer_l10ns>
  <groups>
@@ -925,6 +1005,25 @@
   </fields>
   <rows>
    <row>
+    <qid><![CDATA[10]]></qid>
+    <parent_qid><![CDATA[0]]></parent_qid>
+    <sid><![CDATA[420001]]></sid>
+    <gid><![CDATA[1]]></gid>
+    <type><![CDATA[L]]></type>
+    <title><![CDATA[QDEPT]]></title>
+    <preg/>
+    <other><![CDATA[N]]></other>
+    <mandatory><![CDATA[Y]]></mandatory>
+    <encrypted><![CDATA[N]]></encrypted>
+    <question_order><![CDATA[0]]></question_order>
+    <scale_id><![CDATA[0]]></scale_id>
+    <same_default><![CDATA[0]]></same_default>
+    <relevance/>
+    <question_theme_name><![CDATA[listradio]]></question_theme_name>
+    <modulename/>
+    <same_script><![CDATA[0]]></same_script>
+   </row>
+   <row>
     <qid><![CDATA[1]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[420001]]></sid>
@@ -935,7 +1034,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[0]]></question_order>
+    <question_order><![CDATA[1]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -954,7 +1053,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[1]]></question_order>
+    <question_order><![CDATA[2]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -973,7 +1072,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[2]]></question_order>
+    <question_order><![CDATA[3]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -992,7 +1091,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[3]]></question_order>
+    <question_order><![CDATA[4]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1011,7 +1110,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[4]]></question_order>
+    <question_order><![CDATA[5]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1030,7 +1129,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[5]]></question_order>
+    <question_order><![CDATA[6]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1049,7 +1148,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[6]]></question_order>
+    <question_order><![CDATA[7]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1068,7 +1167,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[7]]></question_order>
+    <question_order><![CDATA[8]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1087,7 +1186,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[8]]></question_order>
+    <question_order><![CDATA[9]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1251,6 +1350,22 @@
     <script/>
     <language><![CDATA[fa]]></language>
    </row>
+   <row>
+    <id><![CDATA[19]]></id>
+    <qid><![CDATA[10]]></qid>
+    <question><![CDATA[Which department is this feedback about?]]></question>
+    <help/>
+    <script/>
+    <language><![CDATA[en]]></language>
+   </row>
+   <row>
+    <id><![CDATA[20]]></id>
+    <qid><![CDATA[10]]></qid>
+    <question><![CDATA[این بازخورد مربوط به کدام بخش است؟]]></question>
+    <help/>
+    <script/>
+    <language><![CDATA[fa]]></language>
+   </row>
   </rows>
  </question_l10ns>
  <question_attributes>
@@ -1313,6 +1428,12 @@
     <qid><![CDATA[9]]></qid>
     <attribute><![CDATA[cssclass]]></attribute>
     <value><![CDATA[hotel-comment]]></value>
+    <language/>
+   </row>
+   <row>
+    <qid><![CDATA[10]]></qid>
+    <attribute><![CDATA[cssclass]]></attribute>
+    <value><![CDATA[hotel-dept]]></value>
     <language/>
    </row>
   </rows>

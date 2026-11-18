@@ -11,14 +11,15 @@ TWIG = os.path.join(ROOT, 'limesurvey', 'themes', 'hotel-classic', 'views', 'sub
 APP_JS = glob.glob(os.path.join(ROOT, 'app', 'js', '*.js'))
 
 # data-model.md §5 shared keys (shell) and survey-only keys (both files must carry them).
-SHARED = ['menu', 'notifications', 'tab.home', 'tab.nearby', 'tab.rate', 'tab.dash', 'tab.services', 'nav.main',
-          'title.rate', 'd.mystay', 'd.room', 'd.wifi', 'd.settings', 'd.soon', 'd.lang', 'd.langLocked',
-          'demo', 'soon', 'lang.en', 'lang.fa', 'brand.en', 'brand.fa', 'brand.place', 'tagline']
+SHARED = ['menu', 'notifications', 'tab.home', 'tab.nearby', 'tab.rate', 'tab.dash', 'tab.services', 'tab.stories', 'nav.main',
+          'title.rate', 'd.mystay', 'd.room', 'd.wifi', 'd.settings', 'd.soon', 'd.stories', 'd.lang', 'd.langLocked',
+          'demo', 'soon', 'lang.en', 'lang.fa', 'brand.en', 'brand.fa', 'brand.place', 'tagline',
+          'dept.restaurant', 'dept.reception', 'dept.facilities', 'dept.housekeeping']
 SURVEY_ONLY = ['s.time', 's.anon', 's.q9', 's.langNote', 's.done.home', 's.done.nearby']
 # The Twig macro names its brand keys brand.name_en / brand.name_fa / brand.tagline (data-model §5).
 TWIG_NAME = {'brand.en': 'brand.name_en', 'brand.fa': 'brand.name_fa', 'tagline': 'brand.tagline'}
 KEY_PREFIXES = ('n', 's', 'd', 'db', 'tab', 'title', 'greet', 'home', 'qa', 'lang', 'brand', 'nav', 'seeAll',
-                'menu', 'notifications', 'demo', 'soon', 'tagline')
+                'menu', 'notifications', 'demo', 'soon', 'tagline', 'dept', 'inbox', 'stories', 'time')
 
 
 def parse_js_tables():

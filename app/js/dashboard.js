@@ -14,9 +14,16 @@
   var STALE_S = 60;
   var LOW_SAMPLE = 10;
   var RANGES = [['7d', 'db.7'], ['30d', 'db.30'], ['all', 'db.all']];
+  var DEPTS = [
+    ['all', 'inbox.all'],
+    ['restaurant', 'dept.restaurant'],
+    ['reception', 'dept.reception'],
+    ['facilities', 'dept.facilities'],
+    ['housekeeping', 'dept.housekeeping']
+  ];
   var CATS = ['db.cat.overall', 'db.cat.cleanliness', 'db.cat.comfort', 'db.cat.staff', 'db.cat.breakfast', 'db.cat.facilities'];
 
-  var state = { range: '30d', data: null, error: false, key: null };
+  var state = { range: '30d', dept: 'all', data: null, error: false, key: null };
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -51,11 +58,19 @@
   }
 
   function chips() {
-    return '<div class="app-range" role="group" aria-label="' + esc(T('db.view')) + '">' +
+    var rangeChips = '<div class="app-range" role="group" aria-label="' + esc(T('db.view')) + '">' +
       '<span class="app-label">' + esc(T('db.view')) + '</span>' +
       '<div class="app-seg">' + RANGES.map(function (r) {
         return '<button type="button" data-range="' + r[0] + '" aria-pressed="' + (state.range === r[0]) + '">' + esc(T(r[1])) + '</button>';
       }).join('') + '</div></div>';
+
+    var deptChips = '<div class="app-range" role="group" aria-label="Department">' +
+      '<div class="app-chips">' + DEPTS.map(function (d) {
+        var act = state.dept === d[0] ? ' is-active' : '';
+        return '<button class="app-chip' + act + '" type="button" data-dept="' + d[0] + '">' + esc(T(d[1])) + '</button>';
+      }).join('') + '</div></div>';
+
+    return '<div class="app-chips-wrap">' + rangeChips + deptChips + '</div>';
   }
 
   function note(text) {
@@ -121,7 +136,12 @@
     if (state.error || !state.data) {
       html = unavailable();
     } else {
-      var r = state.data.ranges[state.range];
+      var r;
+      if (state.dept === 'all') {
+        r = state.data.ranges[state.range];
+      } else if (state.data.byDepartment && state.data.byDepartment[state.dept]) {
+        r = state.data.byDepartment[state.dept][state.range];
+      }
       if (!r || r.total === 0) {
         html = chips() + '<div class="app-card app-empty">' + icon('chart') + '<p class="app-muted">' + esc(T('db.none')) + '</p></div>';
       } else {
@@ -178,6 +198,12 @@
     var b = t.closest('[data-range]');
     if (b && document.getElementById('hs-main').contains(b)) {
       state.range = b.getAttribute('data-range');
+      render(document.getElementById('hs-main'));
+      return;
+    }
+    var d = t.closest('[data-dept]');
+    if (d && document.getElementById('hs-main').contains(d)) {
+      state.dept = d.getAttribute('data-dept');
       render(document.getElementById('hs-main'));
     }
   });

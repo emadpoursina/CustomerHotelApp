@@ -26,6 +26,7 @@ DEFAULT_BASE = 'http://hotelsurvey.localhost'
 DEFAULT_SURVEY = 420001
 ANSWER_RE = re.compile(r'^\d+X\d+X\d+$')
 TIMEOUT = 20
+DEPARTMENTS = ('restaurant', 'reception', 'facilities', 'housekeeping')
 
 
 class SeedStepError(Exception):
@@ -89,18 +90,20 @@ def _clamp(v, lo, hi):
 
 
 def plan_answers(count, seed, fa_share):
-    """Deterministic plan. Q1-Q6 in 1-5 with per-question bias, Q7 in 0-10 tied to Q1, Q8/Q9 empty in most."""
+    """Deterministic plan. Q1-Q6 in 1-5 with per-question bias, Q7 in 0-10 tied to Q1, Q8/Q9 empty in most.
+    Departments are distributed evenly across the four codes."""
     rng = random.Random(seed)
     bias = [0.4, 0.5, 0.2, 0.7, -0.5, 0.0]
     plan = []
     for i in range(1, count + 1):
         lang = 'fa' if rng.random() < fa_share else 'en'
+        dept = DEPARTMENTS[(i - 1) % len(DEPARTMENTS)]
         q = [int(_clamp(round(3.6 + b + rng.gauss(0, 0.9)), 1, 5)) for b in bias]
         q7 = int(_clamp(round(q[0] * 2 + rng.gauss(0, 1.5)), 0, 10))
         comments = []
         for _ in range(2):
             comments.append('[demo seed %d] synthetic comment' % i if rng.random() < 0.3 else None)
-        plan.append({'lang': lang, 'q': q + [q7], 'comments': comments})
+        plan.append({'lang': lang, 'dept': dept, 'q': q + [q7], 'comments': comments})
     return plan
 
 
@@ -143,6 +146,24 @@ def submit_one(base, sid, item, index):
         page_url, html = _open(opener, post_url, data)
     except (urllib.error.URLError, OSError):
         raise SeedStepError('welcome')
+
+    # Step 1 after welcome: QDEPT (first question)
+    form = parse_form(html)
+    if not form['answer_fields']:
+        raise SeedStepError('QDEPT')
+    dept_field = form['answer_fields'][0]
+    data = dict(form['hidden'])
+    data[dept_field] = item['dept']
+    data['move'] = 'movenext'
+    post_url = urllib.parse.urljoin(page_url, form['action'] or start_url)
+    try:
+        page_url, html = _open(opener, post_url, data)
+    except (urllib.error.URLError, OSError):
+        raise SeedStepError('QDEPT')
+    nxt = parse_form(html)['answer_fields']
+    if nxt and nxt[0] == dept_field:
+        raise SeedStepError('QDEPT')
+
     for qi in range(1, 10):
         form = parse_form(html)
         if not form['answer_fields']:
@@ -172,6 +193,8 @@ def dry_run_report(plan, out):
     en = sum(1 for x in plan if x['lang'] == 'en')
     fa = n - en
     print('seed: dry run, %d responses planned (en=%d, fa=%d), nothing submitted' % (n, en, fa), file=out)
+    dept_counts = {d: sum(1 for x in plan if x['dept'] == d) for d in DEPARTMENTS}
+    print('seed: departments: ' + ', '.join('%s=%d' % (d, dept_counts[d]) for d in DEPARTMENTS), file=out)
     for qi in range(7):
         mean = sum(x['q'][qi] for x in plan) / float(n) if n else 0.0
         print('seed: mean Q%d = %.1f' % (qi + 1, mean), file=out)
