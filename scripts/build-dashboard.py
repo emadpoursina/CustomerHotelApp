@@ -27,7 +27,7 @@ DEFAULT_SURVEY = 420001
 DEFAULT_INTERVAL = 10
 MIN_INTERVAL = 2
 
-# Category order and keys are fixed (dashboard-data.md §2). Only these seven question codes are read.
+# Category order and keys are fixed (dashboard-data.md §2). Only these question codes are read.
 CATEGORIES = [
     ('overall', 'Q1OVERALL'),
     ('cleanliness', 'Q2CLEAN'),
@@ -37,7 +37,9 @@ CATEGORIES = [
     ('facilities', 'Q6FACILITIES'),
 ]
 RECOMMEND = 'Q7RECOMMEND'
-CODES = [code for _, code in CATEGORIES] + [RECOMMEND]
+DEPT_QUESTION = 'QDEPT'
+DEPARTMENTS = ['restaurant', 'reception', 'facilities', 'housekeeping']
+CODES = [code for _, code in CATEGORIES] + [RECOMMEND, DEPT_QUESTION]
 RANGES = [('7d', 7), ('30d', 30), ('all', None)]
 SCORE_VALUES = ("'1','2','3','4','5'")
 NPS_VALUES = ("'0','1','2','3','4','5','6','7','8','9','10'")
@@ -129,12 +131,13 @@ def shape_range_map(rows_by_label):
     return {label: shape_range(rows_by_label[label]) for label, _ in RANGES}
 
 
-def build_snapshot(ranges, survey_id, generated_at):
+def build_snapshot(ranges, by_department, survey_id, generated_at):
     doc = {
-        'schemaVersion': 1,
+        'schemaVersion': 2,
         'generatedAt': generated_at,
         'surveyId': survey_id,
         'ranges': {label: ranges[label] for label, _ in RANGES},
+        'byDepartment': {dept: {label: by_department[dept][label] for label, _ in RANGES} for dept in DEPARTMENTS},
     }
     validate_snapshot(doc)
     return doc
@@ -149,26 +152,34 @@ def validate_snapshot(doc):
     def count(x):
         return isinstance(x, int) and not isinstance(x, bool) and x >= 0
 
-    need(set(doc) == {'schemaVersion', 'generatedAt', 'surveyId', 'ranges'}, 'top keys')
-    need(doc['schemaVersion'] == 1, 'schemaVersion')
+    need(set(doc) == {'schemaVersion', 'generatedAt', 'surveyId', 'ranges', 'byDepartment'}, 'top keys')
+    need(doc['schemaVersion'] == 2, 'schemaVersion')
     need(re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$', doc['generatedAt']) is not None, 'generatedAt')
     need(set(doc['ranges']) == {'7d', '30d', 'all'}, 'range keys')
-    for label, r in doc['ranges'].items():
-        need(set(r) == {'total', 'languages', 'categories', 'nps'}, 'range keys ' + label)
-        need(count(r['total']), 'total')
-        need(set(r['languages']) == {'en', 'fa', 'other'}, 'language keys')
-        need(all(count(x) for x in r['languages'].values()), 'language counts')
-        need(sum(r['languages'].values()) == r['total'], 'languages sum to total')
-        need(len(r['categories']) == 6, 'six categories')
-        for c, (key, code) in zip(r['categories'], CATEGORIES):
-            need(set(c) == {'key', 'code', 'n', 'sum', 'avg'}, 'category keys')
-            need(c['key'] == key and c['code'] == code, 'category order')
-            need(count(c['n']) and count(c['sum']), 'category counts')
-            need(c['avg'] is None or 1 <= c['avg'] <= 5, 'avg range')
-        nps = r['nps']
-        need(set(nps) == {'n', 'promoters', 'passives', 'detractors', 'score'}, 'nps keys')
-        need(nps['promoters'] + nps['passives'] + nps['detractors'] == nps['n'], 'nps parts sum to n')
-        need(nps['score'] is None or -100 <= nps['score'] <= 100, 'nps score range')
+    need(set(doc['byDepartment']) == set(DEPARTMENTS), 'byDepartment keys')
+
+    def check_range_map(r_map, prefix):
+        need(set(r_map) == {'7d', '30d', 'all'}, prefix + ' range keys')
+        for label, r in r_map.items():
+            need(set(r) == {'total', 'languages', 'categories', 'nps'}, prefix + ' keys ' + label)
+            need(count(r['total']), 'total')
+            need(set(r['languages']) == {'en', 'fa', 'other'}, 'language keys')
+            need(all(count(x) for x in r['languages'].values()), 'language counts')
+            need(sum(r['languages'].values()) == r['total'], 'languages sum to total')
+            need(len(r['categories']) == 6, 'six categories')
+            for c, (key, code) in zip(r['categories'], CATEGORIES):
+                need(set(c) == {'key', 'code', 'n', 'sum', 'avg'}, 'category keys')
+                need(c['key'] == key and c['code'] == code, 'category order')
+                need(count(c['n']) and count(c['sum']), 'category counts')
+                need(c['avg'] is None or 1 <= c['avg'] <= 5, 'avg range')
+            nps = r['nps']
+            need(set(nps) == {'n', 'promoters', 'passives', 'detractors', 'score'}, 'nps keys')
+            need(nps['promoters'] + nps['passives'] + nps['detractors'] == nps['n'], 'nps parts sum to n')
+            need(nps['score'] is None or -100 <= nps['score'] <= 100, 'nps score range')
+
+    check_range_map(doc['ranges'], 'ranges')
+    for dept in DEPARTMENTS:
+        check_range_map(doc['byDepartment'][dept], 'byDepartment.' + dept)
 
 
 # ---------------------------------------------------------------- SQL
@@ -193,6 +204,7 @@ def ranges_sql(now, survey_id, columns):
     lines = ["SET @now = CAST('%s' AS DATETIME);" % now]
     score_cols = columns[:6]
     rec = columns[6]
+    dept_col = columns[7]
     for _, days in RANGES:
         exprs = ["COUNT(*)",
                  "COALESCE(SUM(startlanguage = 'en'), 0)",
@@ -209,6 +221,27 @@ def ranges_sql(now, survey_id, columns):
         if days is not None:
             where += " AND submitdate >= @now - INTERVAL %d DAY" % days
         lines.append("SELECT %s FROM lime_survey_%d WHERE %s;" % (", ".join(exprs), survey_id, where))
+
+    for dept in DEPARTMENTS:
+        for _, days in RANGES:
+            exprs = ["COUNT(*)",
+                     "COALESCE(SUM(startlanguage = 'en'), 0)",
+                     "COALESCE(SUM(startlanguage = 'fa'), 0)"]
+            for col in score_cols:
+                exprs.extend(_count_expr(col))
+            exprs.extend([
+                "COALESCE(SUM(`%s` IN (%s)), 0)" % (rec, NPS_VALUES),
+                "COALESCE(SUM(`%s` IN ('9','10')), 0)" % rec,
+                "COALESCE(SUM(`%s` IN ('7','8')), 0)" % rec,
+                "COALESCE(SUM(`%s` IN ('0','1','2','3','4','5','6')), 0)" % rec,
+            ])
+            where = "submitdate IS NOT NULL"
+            if days is not None:
+                where += " AND submitdate >= @now - INTERVAL %d DAY" % days
+            dept_prefix = dept[:5]
+            where += " AND (`%s` = '%s' OR `%s` = '%s')" % (dept_col, dept, dept_col, dept_prefix)
+            lines.append("SELECT %s FROM lime_survey_%d WHERE %s;" % (", ".join(exprs), survey_id, where))
+
     return "\n".join(lines)
 
 
@@ -267,7 +300,7 @@ def atomic_write(path, text):
 
 
 def run_cycle(run_sql, survey_id, out_path):
-    """One refresh: read NOW, resolve columns, read the three ranges, validate, write. Returns the snapshot."""
+    """One refresh: read NOW, resolve columns, read ranges and departments, validate, write. Returns snapshot."""
     now_lines = [line for line in run_sql(now_sql()).splitlines() if line.strip()]
     if not now_lines or not NOW_RE.match(now_lines[0].strip()):
         raise DatabaseError('clock value not readable')
@@ -277,13 +310,27 @@ def run_cycle(run_sql, survey_id, out_path):
     columns = resolve_columns(rows, survey_id)
 
     out_lines = [line for line in run_sql(ranges_sql(now, survey_id, columns)).splitlines() if line.strip()]
-    if len(out_lines) != len(RANGES):
+    expected_count = len(RANGES) * (1 + len(DEPARTMENTS))
+    if len(out_lines) != expected_count:
         raise DatabaseError('unexpected aggregate result count')
-    values = {label: out_lines[i].split('\t') for i, (label, _) in enumerate(RANGES)}
+
+    idx = 0
+    values = {}
+    for label, _ in RANGES:
+        values[label] = out_lines[idx].split('\t')
+        idx += 1
     ranges = shape_range_map(values)
 
+    by_dept = {}
+    for dept in DEPARTMENTS:
+        dept_values = {}
+        for label, _ in RANGES:
+            dept_values[label] = out_lines[idx].split('\t')
+            idx += 1
+        by_dept[dept] = shape_range_map(dept_values)
+
     generated_at = now.replace(' ', 'T') + 'Z'
-    doc = build_snapshot(ranges, survey_id, generated_at)
+    doc = build_snapshot(ranges, by_dept, survey_id, generated_at)
     atomic_write(out_path, json.dumps(doc, ensure_ascii=False, indent=2, sort_keys=False) + '\n')
     return doc
 

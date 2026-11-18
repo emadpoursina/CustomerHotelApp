@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hotel-survey/inbox-detail.schema.json",
+  "title": "Inbox detail (comments allowed)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ok", "id", "department", "overall", "nps", "submittedAt", "state", "praise", "complaint"],
+  "properties": {
+    "ok": { "const": true },
+    "id": { "type": "integer", "minimum": 1 },
+    "department": {
+      "type": "string",
+      "enum": ["restaurant", "reception", "facilities", "housekeeping", ""]
+    },
+    "overall": { "type": ["integer", "null"], "minimum": 1, "maximum": 5 },
+    "nps": { "type": ["integer", "null"], "minimum": 0, "maximum": 10 },
+    "submittedAt": { "type": "string", "minLength": 10 },
+    "state": { "enum": ["pending", "published", "private"] },
+    "praise": { "type": "string" },
+    "complaint": { "type": "string" }
+  }
+}

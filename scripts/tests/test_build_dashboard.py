@@ -46,6 +46,8 @@ def fake_sql(questions_name='questions.tsv', ranges_fail=False, now='2026-11-04 
         if 'NOW()' in sql and 'submitdate' not in sql:
             return now + '\n'
         lines = [ranges[k] for k in ('7d', '30d', 'all')]
+        for _ in bd.DEPARTMENTS:
+            lines.extend([ranges[k] for k in ('7d', '30d', 'all')])
         return '\n'.join('\t'.join(v) for v in lines) + '\n'
     return run_sql
 
@@ -84,13 +86,21 @@ class TF_U02_NPS(unittest.TestCase):
 
 class TF_U03_Schema(unittest.TestCase):
     def snapshot(self):
-        return bd.build_snapshot(bd.shape_range_map(range_values()), 420001, '2026-11-04T21:00:00Z')
+        ranges = bd.shape_range_map(range_values())
+        by_dept = {dept: bd.shape_range_map(range_values()) for dept in bd.DEPARTMENTS}
+        return bd.build_snapshot(ranges, by_dept, 420001, '2026-11-04T21:00:00Z')
 
     def test_snapshot_matches_schema(self):
         schema_validate(self.snapshot())
 
+    def test_schema_version_1_fails(self):
+        doc = self.snapshot()
+        doc['schemaVersion'] = 1
+        with self.assertRaises(ValueError):
+            schema_validate(doc)
+
     def test_extra_key_rejected_at_every_level(self):
-        for where in ['top', 'range', 'category', 'nps']:
+        for where in ['top', 'range', 'category', 'nps', 'byDepartment']:
             doc = self.snapshot()
             if where == 'top':
                 doc['comments'] = []
@@ -98,6 +108,8 @@ class TF_U03_Schema(unittest.TestCase):
                 doc['ranges']['7d']['comments'] = []
             elif where == 'category':
                 doc['ranges']['7d']['categories'][0]['comments'] = []
+            elif where == 'byDepartment':
+                doc['byDepartment']['restaurant']['7d']['comments'] = []
             else:
                 doc['ranges']['7d']['nps']['comments'] = []
             with self.assertRaises(ValueError, msg=where):
@@ -143,7 +155,8 @@ def empty_sql(now='2026-11-04 21:00:00'):
             return questions
         if 'NOW()' in sql and 'submitdate' not in sql:
             return now + '\n'
-        return '\n'.join([zero_row] * len(bd.RANGES)) + '\n'
+        count = len(bd.RANGES) * (1 + len(bd.DEPARTMENTS))
+        return '\n'.join([zero_row] * count) + '\n'
     return run_sql
 
 
@@ -158,13 +171,13 @@ class TF_D1_EmptyTable(unittest.TestCase):
                 written = json.load(f)
         self.assertEqual(written, doc)
         for label in ('7d', '30d', 'all'):
-            r = written['ranges'][label]
-            self.assertEqual(r['total'], 0, label)
-            self.assertEqual(r['languages'], {'en': 0, 'fa': 0, 'other': 0}, label)
-            self.assertTrue(all(c['n'] == 0 and c['sum'] == 0 for c in r['categories']), label)
-            self.assertTrue(all(c['avg'] is None for c in r['categories']), label)
-            self.assertEqual(r['nps']['n'], 0, label)
-            self.assertIsNone(r['nps']['score'], label)
+            for r in [written['ranges'][label]] + [written['byDepartment'][dept][label] for dept in bd.DEPARTMENTS]:
+                self.assertEqual(r['total'], 0, label)
+                self.assertEqual(r['languages'], {'en': 0, 'fa': 0, 'other': 0}, label)
+                self.assertTrue(all(c['n'] == 0 and c['sum'] == 0 for c in r['categories']), label)
+                self.assertTrue(all(c['avg'] is None for c in r['categories']), label)
+                self.assertEqual(r['nps']['n'], 0, label)
+                self.assertIsNone(r['nps']['score'], label)
         schema_validate(written)
 
     def test_empty_cycle_one_line_output(self):
@@ -176,10 +189,38 @@ class TF_D1_EmptyTable(unittest.TestCase):
         self.assertEqual(out.getvalue().strip(), 'dashboard: all=0 30d=0 7d=0 at 2026-11-04T21:00:00Z')
 
 
+class TF_U04_DepartmentSlicing(unittest.TestCase):
+    def test_restaurant_matches_and_untagged_in_ranges_only(self):
+        ranges = range_values()
+        questions = '\n'.join('\t'.join(r) for r in read_rows('questions.tsv')) + '\n'
+
+        def dept_sql(sql):
+            if 'lime_questions' in sql:
+                return questions
+            if 'NOW()' in sql and 'submitdate' not in sql:
+                return '2026-11-04 21:00:00\n'
+            lines = [ranges[k] for k in ('7d', '30d', 'all')]
+            zero_row = ['0'] * bd.RANGE_VALUE_COUNT
+            rest_row = ['5', '2', '3'] + ['5', '20'] * 6 + ['5', '3', '1', '1']
+            for dept in bd.DEPARTMENTS:
+                if dept == 'restaurant':
+                    lines.extend([rest_row, rest_row, rest_row])
+                else:
+                    lines.extend([zero_row, zero_row, zero_row])
+            return '\n'.join('\t'.join(v) for v in lines) + '\n'
+
+        with tempfile.TemporaryDirectory() as d:
+            out = os.path.join(d, 'dash.json')
+            doc = bd.run_cycle(dept_sql, 420001, out)
+            self.assertEqual(doc['ranges']['7d']['total'], 20)
+            self.assertEqual(doc['byDepartment']['restaurant']['7d']['total'], 5)
+            self.assertEqual(doc['byDepartment']['reception']['7d']['total'], 0)
+
+
 class TF_U05_Columns(unittest.TestCase):
     def test_codes_resolve_in_order_and_q8_q9_ignored(self):
         cols = bd.resolve_columns(read_rows('questions.tsv'), 420001)
-        self.assertEqual(cols, ['420001X1X%d' % i for i in range(1, 8)])
+        self.assertEqual(cols, ['420001X1X%d' % i for i in range(1, 8)] + ['420001X1X10'])
 
     def test_missing_question_is_not_found(self):
         with self.assertRaises(bd.QuestionNotFound):

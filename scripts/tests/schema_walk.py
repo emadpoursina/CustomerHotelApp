@@ -7,7 +7,7 @@ import json
 import os
 import re
 
-SCHEMA_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'specs', '002-hotel-demo-app', 'contracts', 'dashboard.schema.json')
+SCHEMA_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'specs', '003-department-feedback-inbox', 'contracts', 'dashboard.schema.json')
 
 
 def load_schema(path=SCHEMA_PATH):

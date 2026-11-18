@@ -43,4 +43,15 @@
             <a class="hotel-done-btn" href="/app/nearby.html" data-pjax="false">{{ ic.icon('compass') }}{{ i18n.t('s.done.nearby', lang) }}</a>
         </div>
     </div>
+    <script>
+    (function() {
+        try {
+            fetch('/app/api/inbox.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({op: 'sync'})
+            }).catch(function() {});
+        } catch (e) {}
+    })();
+    </script>
 </form> <!-- main form -->

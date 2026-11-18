@@ -33,6 +33,12 @@
   /* Google Maps text attribution: Google's own grey (Places API policies, 4.5:1 or better on cream and white). */
   --color-attribution: #5E5E5E;
 
+  /* Department stripe tokens (spec 003). Derived from existing palette; gold stays selected chrome */
+  --dept-restaurant: var(--color-warning);
+  --dept-reception: var(--brand-lapis);
+  --dept-facilities: var(--brand-sea);
+  --dept-housekeeping: var(--color-success);
+
   /* Typography */
   /* Latin heading stack. The English wordmark always uses this (FR-030). */
   --font-heading-latin: "Cormorant Garamond", Georgia, "Times New Roman", serif;

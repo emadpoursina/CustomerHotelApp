@@ -7,12 +7,20 @@ from _load import load
 
 sd = load('seed-demo')
 FIX = os.path.join(os.path.dirname(__file__), 'fixtures', 'survey_page.html')
+DEPT_FIX = os.path.join(os.path.dirname(__file__), 'fixtures', 'dept_page.html')
 
 
 class TF_U07_Seed(unittest.TestCase):
     def setUp(self):
         with open(FIX, encoding='utf-8') as f:
             self.html = f.read()
+        with open(DEPT_FIX, encoding='utf-8') as f:
+            self.dept_html = f.read()
+
+    def test_dept_form_parse_finds_qdept_before_q1(self):
+        dept_form = sd.parse_form(self.dept_html)
+        self.assertEqual(dept_form['action'], '/index.php/420001')
+        self.assertEqual(dept_form['answer_fields'], ['420001X1X10'])
 
     def test_form_parse_returns_hidden_inputs_action_and_answer_field(self):
         form = sd.parse_form(self.html)
@@ -40,10 +48,13 @@ class TF_U07_Seed(unittest.TestCase):
             self.assertEqual(len(item['q']), 7)
             self.assertTrue(all(1 <= v <= 5 for v in item['q'][:6]))
             self.assertTrue(0 <= item['q'][6] <= 10)
+            self.assertIn(item['dept'], ('restaurant', 'reception', 'facilities', 'housekeeping'))
             for text in item['comments']:
                 self.assertTrue(text is None or re.match(r'^\[demo seed \d+\] synthetic comment$', text))
         langs = [x['lang'] for x in a]
         self.assertTrue('en' in langs and 'fa' in langs)
+        depts = {x['dept'] for x in a}
+        self.assertEqual(depts, {'restaurant', 'reception', 'facilities', 'housekeeping'})
         empty = sum(1 for x in a for t in x['comments'] if t is None)
         self.assertGreater(empty, 0)
 

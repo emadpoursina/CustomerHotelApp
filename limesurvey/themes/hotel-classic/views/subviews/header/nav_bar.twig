@@ -21,7 +21,7 @@
     <header class="hs-appbar" id="survey-nav" lang="{{ lang }}" dir="{{ dir }}">
         <button class="hs-icon-btn" id="hs-menu" type="button" aria-controls="hs-drawer" aria-expanded="false" aria-label="{{ i18n.t('menu', lang) }}" data-pjax="false">{{ ic.icon('menu') }}</button>
         <h1 class="hs-title"><span class="hs-mark">{{ ic.icon('mark') }}</span><span class="hs-title-text">{{ title }}</span></h1>
-        <button class="hs-icon-btn" type="button" data-soon aria-label="{{ i18n.t('notifications', lang) }}">{{ ic.icon('bell') }}<span class="hs-dot"></span></button>
+        <a class="hs-icon-btn" href="/app/inbox.html" data-pjax="false" aria-label="{{ i18n.t('notifications', lang) }}">{{ ic.icon('bell') }}<span class="hs-dot"></span></a>
     </header>
 
     <div class="hs-scrim" id="hs-scrim" hidden></div>
@@ -39,6 +39,7 @@
             <a class="hs-d-item" href="{{ rateHref }}" data-pjax="false" aria-current="page">{{ ic.icon('star') }}{{ i18n.t('title.rate', lang) }}</a>
             <a class="hs-d-item" href="/app/nearby.html" data-pjax="false">{{ ic.icon('pin') }}{{ i18n.t('tab.nearby', lang) }}</a>
             <a class="hs-d-item" href="/app/dashboard.html" data-pjax="false">{{ ic.icon('chart') }}{{ i18n.t('tab.dash', lang) }}</a>
+            <a class="hs-d-item" href="/app/stories.html" data-pjax="false">{{ ic.icon('grid') }}{{ i18n.t('tab.stories', lang) }}</a>
             <div class="hs-d-sep"></div>
             <button class="hs-d-item" type="button" data-soon>{{ ic.icon('bed') }}{{ i18n.t('d.mystay', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>
             <button class="hs-d-item" type="button" data-soon>{{ ic.icon('sparkle') }}{{ i18n.t('d.room', lang) }}<span class="hs-soon">{{ i18n.t('d.soon', lang) }}</span></button>

@@ -32,9 +32,49 @@
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', align);
-  } else {
+  function initDeptCards() {
+    var deptContainer = document.querySelector('.hotel-dept, [id^="question"][class*="hotel-dept"], [id*="QDEPT"]');
+    if (!deptContainer) {
+      return;
+    }
+    var submitBtn = document.getElementById('ls-button-submit');
+    var radios = deptContainer.querySelectorAll('input[type="radio"]');
+    if (!radios.length) {
+      return;
+    }
+
+    function updateBtn() {
+      var isChecked = false;
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          isChecked = true;
+          break;
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = !isChecked;
+        if (!isChecked) {
+          submitBtn.setAttribute('aria-disabled', 'true');
+        } else {
+          submitBtn.removeAttribute('aria-disabled');
+        }
+      }
+    }
+
+    for (var i = 0; i < radios.length; i++) {
+      radios[i].addEventListener('change', updateBtn);
+    }
+    updateBtn();
+  }
+
+  function onReady() {
     align();
+    initDeptCards();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
   }
 })();

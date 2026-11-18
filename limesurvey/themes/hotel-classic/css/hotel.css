@@ -875,6 +875,110 @@ html:lang(fa) #limesurvey .question-text {
   text-align: center;
 }
 
+/* ==========================================================================
+   Department cards (spec 003, US1)
+   ========================================================================== */
+
+.hotel-dept .list-radio,
+.hotel-dept li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hotel-dept ul,
+.hotel-dept .answer-container ul {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .hotel-dept ul,
+  .hotel-dept .answer-container ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hotel-dept input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.hotel-dept label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: var(--space-4) var(--space-5);
+  padding-inline-start: var(--space-5);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-inline-start-width: 6px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-size: var(--size-body);
+  font-weight: 500;
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.hotel-dept input[type="radio"]:not(:checked) + label:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  background: var(--primary-soft);
+}
+
+/* Department stripes */
+.hotel-dept input[value="restaurant"] + label {
+  border-inline-start-color: var(--dept-restaurant);
+}
+.hotel-dept input[value="reception"] + label {
+  border-inline-start-color: var(--dept-reception);
+}
+.hotel-dept input[value="facilities"] + label {
+  border-inline-start-color: var(--dept-facilities);
+}
+.hotel-dept input[value="housekeeping"] + label {
+  border-inline-start-color: var(--dept-housekeeping);
+}
+
+/* Selected state: gold border ring + check mark, never gold department colour */
+.hotel-dept input[type="radio"]:checked + label {
+  border-color: var(--color-accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+/* Check mark drawn on inline-end */
+.hotel-dept input[type="radio"]:checked + label::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: var(--space-4);
+  width: 6px;
+  height: 12px;
+  margin-block-start: -7px;
+  border: solid var(--color-primary);
+  border-width: 0 var(--border-width-selected) var(--border-width-selected) 0;
+  transform: rotate(45deg);
+}
+
+.hotel-dept input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 /* ---- Comment fields ---- */
 #limesurvey .hotel-comment .answer-container {
   margin-block-start: var(--space-4);

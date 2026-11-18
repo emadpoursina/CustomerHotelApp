@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hotel-survey/stories.schema.json",
+  "title": "Guest stories wall (anonymous published excerpts)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ok", "items"],
+  "properties": {
+    "ok": { "const": true },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/card" }
+    }
+  },
+  "$defs": {
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["department", "praise", "complaint", "submittedAt"],
+      "properties": {
+        "department": {
+          "type": "string",
+          "enum": ["restaurant", "reception", "facilities", "housekeeping"]
+        },
+        "praise": { "type": "string" },
+        "complaint": { "type": "string" },
+        "submittedAt": { "type": "string", "minLength": 10 }
+      }
+    }
+  }
+}
