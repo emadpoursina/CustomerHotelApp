@@ -32,6 +32,8 @@ Brand: Kowsar Malekshahr Complex (`docs/brand.md`). Colours, fonts and spacing a
 - Validate the scaffold: `./scripts/validate.sh`
 - Start the stack: `docker compose up -d` (requires `.env`). Served at `http://hotelsurvey.localhost` via the shared Caddy.
 - Back up the database: `./scripts/backup-db.sh`
+- After a demo wipe, restore survey 420001 (QDEPT included): `python3 scripts/reimport-survey.py --yes` then `python3 scripts/sync-survey-text.py`
+- Put a few published comments on the guest stories wall: `python3 scripts/seed-stories.py --base-url http://127.0.0.1:8090`
 
 ## Secrets and data
 

@@ -23,7 +23,7 @@ app/                        Guest app (Home, Nearby, Dashboard), mounted into Li
 app/api/places.php          Neshan places proxy (server-side, key from .env)
 db/init/                    SQL run on first database start (custom tables only)
 limesurvey/themes/          Child theme (survey and app shell), mounted into LimeSurvey
-scripts/                    validate.sh, backup-db.sh, build-dashboard.py, seed-demo.py
+scripts/                    validate.sh, backup-db.sh, build-dashboard.py, seed-demo.py, reimport-survey.py
 docs/decisions.md           Decisions and open questions
 ```
 

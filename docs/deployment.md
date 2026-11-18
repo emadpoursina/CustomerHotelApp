@@ -91,17 +91,25 @@ To restore in place, stop the stack, load the dump into the real database, and s
 
 ## Rebuilding the survey on an empty database
 
-The database volume starts empty; LimeSurvey has no survey. Import the structure export and register the theme:
+The database volume starts empty; LimeSurvey has no survey. Demo data on this host may be wiped. After a wipe, put survey **420001** back from the repo `.lss` (this is what adds **QDEPT** and the four department cards):
 
-1. Import `limesurvey/survey/hotel-guest-survey.lss` as survey **420001** through RemoteControl (`import_survey(..., desiredSurveyId=420001)`). The app and scripts hard-code 420001.
-2. Register the child theme in LimeSurvey's theme registry (the `templates` table), otherwise it cannot be assigned:
+```bash
+cd /opt/hotel-survey && set -a && . ./.env && set +a
+python3 scripts/reimport-survey.py --yes
+python3 scripts/sync-survey-text.py
+# optional demo responses: python3 scripts/seed-demo.py --base-url http://localhost:8090 --survey-id 420001 --count 40
+python3 scripts/seed-stories.py --base-url http://127.0.0.1:8090
+```
+
+`reimport-survey.py` deletes 420001, imports `limesurvey/survey/hotel-guest-survey.lss` as 420001, activates it, applies `hotel-classic`, widens `lime_answers.code` (LimeSurvey's default is VARCHAR(5)), and inserts the four QDEPT answers (import still drops those long codes). If the cards are missing but the survey exists, `python3 scripts/reimport-survey.py --answers-only` is enough. Then:
+
+1. If the child theme is missing from LimeSurvey's theme registry, register it:
    ```bash
    # inside the limesurvey container, one-off Yii command
    php application/commands/console.php installtheme hotel-classic
    ```
    (The theme directory is already mounted; the registry row is what makes it selectable.)
-3. Set `template = hotel-classic` on survey 420001 and activate it (`set_survey_properties`, `activate_survey`).
-4. Run `python3 scripts/sync-survey-text.py` and `python3 scripts/seed-demo.py --base-url http://localhost:8090 --survey-id 420001 --count 40`.
+2. Confirm Rate shows the four department cards after Start survey.
 
 ## Host baseline
 
