@@ -117,11 +117,11 @@ def publish(response_id, item):
     sql(
         "INSERT INTO hotel_feedback_queue "
         "(survey_id, response_id, department, overall, nps, submitted_at, state, decided_at) "
-        "SELECT %d, id, '%s', %d, %d, submitdate, 'published', NOW() "
+        "SELECT %d, id, '%s', NULL, NULL, submitdate, 'published', NOW() "
         "FROM lime_survey_%d WHERE id=%d "
         "ON DUPLICATE KEY UPDATE state='published', decided_at=NOW(), "
-        "department=VALUES(department), overall=VALUES(overall), nps=VALUES(nps);"
-        % (SID, item["dept"], item["q"][0], item["q"][6], SID, response_id)
+        "department=VALUES(department);"
+        % (SID, item["dept"], SID, response_id)
     )
 
 

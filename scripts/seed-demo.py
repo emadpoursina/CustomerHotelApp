@@ -3,8 +3,8 @@
 
 No database access, no RemoteControl API, no clock change (FR-035, FR-036). Each response uses a new
 cookie jar and the same steps a browser takes: GET the survey, leave the welcome screen, answer
-Q1-Q9 (field names read from the form), submit. Refuses any host other than localhost, *.localhost
-and 127.0.0.1. Python 3 standard library only.
+department then comment (field names read from the form), submit. Refuses any host other than
+localhost, *.localhost and 127.0.0.1. Python 3 standard library only.
 
   python3 scripts/seed-demo.py [--count N] [--base-url URL] [--survey-id ID] [--seed N] [--fa-share F] [--dry-run]
 
@@ -85,25 +85,15 @@ def host_allowed(url):
     return host in ('localhost', '127.0.0.1') or host.endswith('.localhost')
 
 
-def _clamp(v, lo, hi):
-    return max(lo, min(hi, v))
-
-
 def plan_answers(count, seed, fa_share):
-    """Deterministic plan. Q1-Q6 in 1-5 with per-question bias, Q7 in 0-10 tied to Q1, Q8/Q9 empty in most.
-    Departments are distributed evenly across the four codes."""
+    """Deterministic plan. Department round-robin; comment present on about 30% of rows."""
     rng = random.Random(seed)
-    bias = [0.4, 0.5, 0.2, 0.7, -0.5, 0.0]
     plan = []
     for i in range(1, count + 1):
         lang = 'fa' if rng.random() < fa_share else 'en'
         dept = DEPARTMENTS[(i - 1) % len(DEPARTMENTS)]
-        q = [int(_clamp(round(3.6 + b + rng.gauss(0, 0.9)), 1, 5)) for b in bias]
-        q7 = int(_clamp(round(q[0] * 2 + rng.gauss(0, 1.5)), 0, 10))
-        comments = []
-        for _ in range(2):
-            comments.append('[demo seed %d] synthetic comment' % i if rng.random() < 0.3 else None)
-        plan.append({'lang': lang, 'dept': dept, 'q': q + [q7], 'comments': comments})
+        comment = '[demo seed %d] synthetic comment' % i if rng.random() < 0.3 else None
+        plan.append({'lang': lang, 'dept': dept, 'comment': comment})
     return plan
 
 
@@ -164,26 +154,21 @@ def submit_one(base, sid, item, index):
     if nxt and nxt[0] == dept_field:
         raise SeedStepError('QDEPT')
 
-    for qi in range(1, 10):
-        form = parse_form(html)
-        if not form['answer_fields']:
-            raise SeedStepError('Q%d' % qi)
-        field = form['answer_fields'][0]
-        data = dict(form['hidden'])
-        if qi <= 7:
-            data[field] = str(item['q'][qi - 1])
-        else:
-            data[field] = item['comments'][qi - 8] or ''
-        data['move'] = 'movesubmit' if qi == 9 else 'movenext'
-        post_url = urllib.parse.urljoin(page_url, form['action'] or start_url)
-        try:
-            page_url, html = _open(opener, post_url, data)
-        except (urllib.error.URLError, OSError):
-            raise SeedStepError('Q%d' % qi)
-        if qi < 9:
-            nxt = parse_form(html)['answer_fields']
-            if nxt and nxt[0] == field:
-                raise SeedStepError('Q%d' % qi)
+    form = parse_form(html)
+    if not form['answer_fields']:
+        raise SeedStepError('QCOMMENT')
+    field = form['answer_fields'][0]
+    data = dict(form['hidden'])
+    comment = item.get('comment')
+    if comment is None and item.get('comments'):
+        comment = ' '.join(t for t in item['comments'] if t) or ''
+    data[field] = comment or ''
+    data['move'] = 'movesubmit'
+    post_url = urllib.parse.urljoin(page_url, form['action'] or start_url)
+    try:
+        page_url, html = _open(opener, post_url, data)
+    except (urllib.error.URLError, OSError):
+        raise SeedStepError('QCOMMENT')
     if 'hotel-done' not in html:
         raise SeedStepError('submit')
 
@@ -195,9 +180,8 @@ def dry_run_report(plan, out):
     print('seed: dry run, %d responses planned (en=%d, fa=%d), nothing submitted' % (n, en, fa), file=out)
     dept_counts = {d: sum(1 for x in plan if x['dept'] == d) for d in DEPARTMENTS}
     print('seed: departments: ' + ', '.join('%s=%d' % (d, dept_counts[d]) for d in DEPARTMENTS), file=out)
-    for qi in range(7):
-        mean = sum(x['q'][qi] for x in plan) / float(n) if n else 0.0
-        print('seed: mean Q%d = %.1f' % (qi + 1, mean), file=out)
+    with_comment = sum(1 for x in plan if x.get('comment'))
+    print('seed: with comment = %d' % with_comment, file=out)
 
 
 def parse_args(argv):

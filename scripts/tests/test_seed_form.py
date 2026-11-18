@@ -45,17 +45,13 @@ class TF_U07_Seed(unittest.TestCase):
         b = sd.plan_answers(40, seed=42, fa_share=0.55)
         self.assertEqual(a, b)
         for item in a:
-            self.assertEqual(len(item['q']), 7)
-            self.assertTrue(all(1 <= v <= 5 for v in item['q'][:6]))
-            self.assertTrue(0 <= item['q'][6] <= 10)
             self.assertIn(item['dept'], ('restaurant', 'reception', 'facilities', 'housekeeping'))
-            for text in item['comments']:
-                self.assertTrue(text is None or re.match(r'^\[demo seed \d+\] synthetic comment$', text))
+            self.assertTrue(item['comment'] is None or re.match(r'^\[demo seed \d+\] synthetic comment$', item['comment']))
         langs = [x['lang'] for x in a]
         self.assertTrue('en' in langs and 'fa' in langs)
         depts = {x['dept'] for x in a}
         self.assertEqual(depts, {'restaurant', 'reception', 'facilities', 'housekeeping'})
-        empty = sum(1 for x in a for t in x['comments'] if t is None)
+        empty = sum(1 for x in a if x['comment'] is None)
         self.assertGreater(empty, 0)
 
 

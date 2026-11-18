@@ -20,7 +20,7 @@ Single-hotel guest feedback app. Guests scan a room QR code and complete a short
 
 - Guests need no account. Surveys are anonymous by default. Do not collect names or emails.
 - Languages: Persian and English (operator decision, Milestone 2; replaces German and English). Every string is translated, and the language stays fixed for the whole survey.
-- Required questions: 1–6 (1–5 rating) and 7 (0–10). Questions 8 and 9 are optional text.
+- Required: department (restaurant / reception / facilities / housekeeping). Optional: one comment. No rating scales.
 - Mobile-first. Touch targets are at least 48px. No horizontal scrolling. Keep JavaScript minimal.
 
 ## Design tokens

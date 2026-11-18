@@ -11,7 +11,7 @@
 
 A guest opens the hotel app on their phone and can:
 
-1. **Rate their stay.** This is the existing nine-question LimeSurvey survey (Milestone 2), now inside the app shell.
+1. **Leave feedback.** Two-step LimeSurvey: pick a department, then an optional comment.
 2. **Browse nearby places.** Restaurants, cafés and points of interest, with search and filters.
 3. **See a simple dashboard.** Live satisfaction numbers from submitted surveys (the manager view, shown in the same app for the demo).
 
@@ -31,13 +31,13 @@ The app should look like a native mobile app, not a website: a top app bar with 
 ### D-02 Home screen
 
 - Welcome card with the hotel name and tagline.
-- Primary card: "Rate your stay, 2 minutes" → starts the survey.
+- Primary card: "Rate your stay, 1 minute" → starts the survey.
 - Quick-action grid (mock): Room service, Housekeeping, Wi-Fi, Late checkout, Concierge, Spa.
 - "Nearby highlights" strip: three places from the Nearby data → opens Nearby.
 
 ### D-03 Survey (existing, re-skinned)
 
-- The current LimeSurvey survey, questions and rules unchanged: Q1–Q6 rated 1–5, Q7 0–10, Q8–Q9 optional text. Required validation, progress bar, Back/Continue, thank-you screen.
+- Two-step LimeSurvey: required department cards, then one optional comment. Progress bar, Back/Continue, thank-you screen.
 - Only the theme changes: app bar, drawer and bottom tab bar added. Question screens are restyled as app cards.
 - The thank-you screen gets two buttons: "Back to home" and "Explore nearby".
 - No room token or QR code.
@@ -55,8 +55,7 @@ The app should look like a native mobile app, not a website: a top app bar with 
 
 ### D-05 Dashboard (simple)
 
-- **KPI tiles:** total completed responses, average overall stay (Q1), NPS (Q7: % promoters 9–10 minus % detractors 0–6).
-- **Category bars:** average of Q1–Q6 on a 1–5 scale, each with its response count.
+- **KPI tiles:** total completed responses (by date range and department). Score tiles are omitted while the survey has no ratings.
 - **Language split:** en vs fa share.
 - **Date filter:** chips for Last 7 days / Last 30 days / All.
 - **Small-sample note:** when n < 10, show "Low sample, treat with care".

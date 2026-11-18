@@ -200,6 +200,22 @@ def questions_sql(survey_id):
             "WHERE sid = %d AND parent_qid = 0 AND title IN (%s);" % (survey_id, titles))
 
 
+def _score_exprs(score_cols, rec):
+    exprs = []
+    for col in score_cols:
+        exprs.extend(_count_expr(col) if col else ("0", "0"))
+    if rec:
+        exprs.extend([
+            "COALESCE(SUM(`%s` IN (%s)), 0)" % (rec, NPS_VALUES),
+            "COALESCE(SUM(`%s` IN ('9','10')), 0)" % rec,
+            "COALESCE(SUM(`%s` IN ('7','8')), 0)" % rec,
+            "COALESCE(SUM(`%s` IN ('0','1','2','3','4','5','6')), 0)" % rec,
+        ])
+    else:
+        exprs.extend(["0", "0", "0", "0"])
+    return exprs
+
+
 def ranges_sql(now, survey_id, columns):
     lines = ["SET @now = CAST('%s' AS DATETIME);" % now]
     score_cols = columns[:6]
@@ -209,14 +225,7 @@ def ranges_sql(now, survey_id, columns):
         exprs = ["COUNT(*)",
                  "COALESCE(SUM(startlanguage = 'en'), 0)",
                  "COALESCE(SUM(startlanguage = 'fa'), 0)"]
-        for col in score_cols:
-            exprs.extend(_count_expr(col))
-        exprs.extend([
-            "COALESCE(SUM(`%s` IN (%s)), 0)" % (rec, NPS_VALUES),
-            "COALESCE(SUM(`%s` IN ('9','10')), 0)" % rec,
-            "COALESCE(SUM(`%s` IN ('7','8')), 0)" % rec,
-            "COALESCE(SUM(`%s` IN ('0','1','2','3','4','5','6')), 0)" % rec,
-        ])
+        exprs.extend(_score_exprs(score_cols, rec))
         where = "submitdate IS NOT NULL"
         if days is not None:
             where += " AND submitdate >= @now - INTERVAL %d DAY" % days
@@ -227,14 +236,7 @@ def ranges_sql(now, survey_id, columns):
             exprs = ["COUNT(*)",
                      "COALESCE(SUM(startlanguage = 'en'), 0)",
                      "COALESCE(SUM(startlanguage = 'fa'), 0)"]
-            for col in score_cols:
-                exprs.extend(_count_expr(col))
-            exprs.extend([
-                "COALESCE(SUM(`%s` IN (%s)), 0)" % (rec, NPS_VALUES),
-                "COALESCE(SUM(`%s` IN ('9','10')), 0)" % rec,
-                "COALESCE(SUM(`%s` IN ('7','8')), 0)" % rec,
-                "COALESCE(SUM(`%s` IN ('0','1','2','3','4','5','6')), 0)" % rec,
-            ])
+            exprs.extend(_score_exprs(score_cols, rec))
             where = "submitdate IS NOT NULL"
             if days is not None:
                 where += " AND submitdate >= @now - INTERVAL %d DAY" % days
@@ -246,7 +248,11 @@ def ranges_sql(now, survey_id, columns):
 
 
 def resolve_columns(rows, survey_id):
-    """rows: [title, sid, gid, qid] per question. Returns the seven column names in code order."""
+    """rows: [title, sid, gid, qid] per question.
+
+    Returns eight slots: Q1–Q6, Q7, QDEPT. Score columns may be None after the
+    two-step survey (department + comment only). QDEPT is required.
+    """
     found = {}
     for title, sid, gid, qid in rows:
         if title not in CODES:
@@ -257,10 +263,9 @@ def resolve_columns(rows, survey_id):
         if not COLUMN_RE.match(col):
             raise BadQuestionColumn(title)
         found[title] = col
-    missing = [code for code in CODES if code not in found]
-    if missing:
-        raise QuestionNotFound(missing[0])
-    return [found[code] for code in CODES]
+    if DEPT_QUESTION not in found:
+        raise QuestionNotFound(DEPT_QUESTION)
+    return [found.get(code) for code in CODES]
 
 
 # ---------------------------------------------------------------- DB access

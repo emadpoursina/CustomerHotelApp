@@ -21,7 +21,7 @@ The theme extends the stock `vanilla` theme of LimeSurvey CE 6.17.18. It is moun
 | `views/subviews/hotel/brand.twig` | Wordmark, bilingual names and tagline macros |
 | `views/subviews/header/nav_bar.twig` | App bar, drawer, scrim and toast. The drawer language switch depends on the screen (see below) |
 | `views/subviews/footer/footer.twig` | Vanilla footer comment kept, plus the placeholder notice and the five-tab bar (Rate current) |
-| `views/subviews/header/progress_bar.twig` | Thin progress bar and "Question N of 9" text |
+| `views/subviews/header/progress_bar.twig` | Thin progress bar and "Question N of 2" text |
 | `views/subviews/navigation/navigator.twig` | Start, Back (not on Q1), Continue and Submit labels |
 | `views/subviews/navigation/language_changer_first_page.twig` | Unused since the demo app shell. Kept for history; the language is chosen in the drawer |
 | `views/subviews/content/firstpage.twig` | Welcome card: star icon, tagline, admin welcome text, facts row, Start, language note |

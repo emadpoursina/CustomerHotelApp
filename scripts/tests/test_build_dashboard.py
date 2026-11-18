@@ -222,6 +222,10 @@ class TF_U05_Columns(unittest.TestCase):
         cols = bd.resolve_columns(read_rows('questions.tsv'), 420001)
         self.assertEqual(cols, ['420001X1X%d' % i for i in range(1, 8)] + ['420001X1X10'])
 
+    def test_score_questions_optional_when_only_department_exists(self):
+        cols = bd.resolve_columns([['QDEPT', '420001', '1', '10']], 420001)
+        self.assertEqual(cols, [None] * 7 + ['420001X1X10'])
+
     def test_missing_question_is_not_found(self):
         with self.assertRaises(bd.QuestionNotFound):
             bd.resolve_columns(read_rows('questions_missing.tsv'), 420001)

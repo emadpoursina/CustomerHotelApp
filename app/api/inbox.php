@@ -76,13 +76,8 @@ function normalize_department(?string $raw): string
     return '';
 }
 
-function send_bale_notification(string $dept, ?int $overall, ?int $nps): string
+function send_bale_notification(string $dept): string
 {
-    if ($overall === null || $nps === null) {
-        error_log('bale: skipped');
-        return 'skipped';
-    }
-
     $token = env_value('BALE_BOT_TOKEN');
     $chatId = env_value('BALE_CHAT_ID');
     $apiBase = rtrim(env_value('BALE_API_BASE', 'https://tapi.bale.ai'), '/');
@@ -103,8 +98,6 @@ function send_bale_notification(string $dept, ?int $overall, ?int $nps): string
     $whenFa = 'اکنون';
 
     $text = "بازخورد جدید · {$deptFa}\n"
-          . "امتیاز کلی: {$overall}/5\n"
-          . "NPS: {$nps}\n"
           . "{$hotelFa}\n"
           . "{$whenFa}";
 
@@ -164,20 +157,12 @@ function run_inbox_sync(PDO $pdo, int $surveyId = 420001): array
 {
     $cols = resolve_survey_columns($pdo, $surveyId);
     $deptCol = $cols['QDEPT'] ?? null;
-    $q1Col = $cols['Q1OVERALL'] ?? null;
-    $q7Col = $cols['Q7RECOMMEND'] ?? null;
 
     $surveyTable = "lime_survey_{$surveyId}";
 
     $selectFields = ['id', 'submitdate'];
     if ($deptCol !== null) {
         $selectFields[] = "`{$deptCol}` AS dept_raw";
-    }
-    if ($q1Col !== null) {
-        $selectFields[] = "`{$q1Col}` AS q1_raw";
-    }
-    if ($q7Col !== null) {
-        $selectFields[] = "`{$q7Col}` AS q7_raw";
     }
 
     $sql = "SELECT " . implode(', ', $selectFields) . " FROM `{$surveyTable}` WHERE submitdate IS NOT NULL ORDER BY id ASC";
@@ -195,13 +180,11 @@ function run_inbox_sync(PDO $pdo, int $surveyId = 420001): array
         $responseId = (int) $row['id'];
         $submitDate = (string) $row['submitdate'];
         $dept = normalize_department($row['dept_raw'] ?? null);
-        $overall = isset($row['q1_raw']) && is_numeric($row['q1_raw']) ? (int) $row['q1_raw'] : null;
-        $nps = isset($row['q7_raw']) && is_numeric($row['q7_raw']) ? (int) $row['q7_raw'] : null;
 
-        $insertStmt->execute([$surveyId, $responseId, $dept, $overall, $nps, $submitDate]);
+        $insertStmt->execute([$surveyId, $responseId, $dept, null, null, $submitDate]);
         if ($insertStmt->rowCount() > 0) {
             $inserted++;
-            $lastBale = send_bale_notification($dept, $overall, $nps);
+            $lastBale = send_bale_notification($dept);
         }
     }
 

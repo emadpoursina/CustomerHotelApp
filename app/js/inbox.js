@@ -166,9 +166,11 @@
       bodyHtml = '<div class="app-inbox-list">' + filtered.map(function (it) {
         var isUnread = !readMap[it.id];
         var dLabel = deptLabel(it.department) || T('inbox.all');
-        var scoreStr = T('inbox.score', it.overall != null ? num(it.overall) : '-', it.nps != null ? num(it.nps) : '-');
         var timeStr = formatRelativeTime(it.submittedAt);
         var deptClass = it.department ? ' dept-' + it.department : '';
+        var scoreHtml = (it.overall != null || it.nps != null)
+          ? '<div class="app-inbox-scores">' + esc(T('inbox.score', it.overall != null ? num(it.overall) : '-', it.nps != null ? num(it.nps) : '-')) + '</div>'
+          : '';
         return '<a class="app-inbox-row' + deptClass + (isUnread ? ' is-unread' : '') + '" href="/app/inbox.html?id=' + it.id + '">' +
           '<div class="app-inbox-stripe"></div>' +
           '<div class="app-inbox-content">' +
@@ -177,7 +179,7 @@
               (isUnread ? '<span class="app-inbox-dot" aria-label="' + esc(T('inbox.unread')) + '"></span>' : '') +
               '<span class="app-inbox-time">' + esc(timeStr) + '</span>' +
             '</div>' +
-            '<div class="app-inbox-scores">' + esc(scoreStr) + '</div>' +
+            scoreHtml +
           '</div>' +
           '<span class="app-go hs-flip">' + icon('arrow') + '</span>' +
         '</a>';
@@ -249,8 +251,11 @@
 
     var it = state.detailItem;
     var dLabel = deptLabel(it.department) || T('inbox.all');
-    var scoreStr = T('inbox.score', it.overall != null ? num(it.overall) : '-', it.nps != null ? num(it.nps) : '-');
+    var scoreStr = (it.overall != null || it.nps != null)
+      ? T('inbox.score', it.overall != null ? num(it.overall) : '-', it.nps != null ? num(it.nps) : '-')
+      : '';
     var timeStr = T('inbox.submitted', formatRelativeTime(it.submittedAt));
+    var comment = (it.praise || '') + ((it.praise && it.complaint) ? '\n\n' : '') + (it.complaint || '');
     var deptClass = it.department ? ' dept-' + it.department : '';
 
     var actionsHtml = '';
@@ -280,14 +285,10 @@
           '<span class="app-detail-dept">' + esc(dLabel) + '</span>' +
           '<span class="app-detail-time">' + esc(timeStr) + '</span>' +
         '</div>' +
-        '<div class="app-detail-scores">' + esc(scoreStr) + '</div>' +
+        (scoreStr ? '<div class="app-detail-scores">' + esc(scoreStr) + '</div>' : '') +
         '<div class="app-detail-section">' +
-          '<h3>' + esc(T('inbox.praise')) + '</h3>' +
-          '<div class="app-comment-body">' + (it.praise ? esc(it.praise) : '<span class="app-text-muted">' + esc(T('inbox.noComment')) + '</span>') + '</div>' +
-        '</div>' +
-        '<div class="app-detail-section">' +
-          '<h3>' + esc(T('inbox.complaint')) + '</h3>' +
-          '<div class="app-comment-body">' + (it.complaint ? esc(it.complaint) : '<span class="app-text-muted">' + esc(T('inbox.noComment')) + '</span>') + '</div>' +
+          '<h3>' + esc(T('inbox.comment')) + '</h3>' +
+          '<div class="app-comment-body">' + (comment ? esc(comment) : '<span class="app-text-muted">' + esc(T('inbox.noComment')) + '</span>') + '</div>' +
         '</div>' +
         actionsHtml +
       '</div>' +

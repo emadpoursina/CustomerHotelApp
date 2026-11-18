@@ -15,336 +15,7 @@
    <fieldname>assessment_value</fieldname>
    <fieldname>scale_id</fieldname>
   </fields>
-  <rows>
-   <row>
-    <aid><![CDATA[31]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[0]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[26]]></aid>
-    <qid><![CDATA[6]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[21]]></aid>
-    <qid><![CDATA[5]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[16]]></aid>
-    <qid><![CDATA[4]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[11]]></aid>
-    <qid><![CDATA[3]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[6]]></aid>
-    <qid><![CDATA[2]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[1]]></aid>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[0]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[32]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[1]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[27]]></aid>
-    <qid><![CDATA[6]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[22]]></aid>
-    <qid><![CDATA[5]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[17]]></aid>
-    <qid><![CDATA[4]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[12]]></aid>
-    <qid><![CDATA[3]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[7]]></aid>
-    <qid><![CDATA[2]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[2]]></aid>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[1]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[8]]></aid>
-    <qid><![CDATA[2]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[3]]></aid>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[33]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[2]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[28]]></aid>
-    <qid><![CDATA[6]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[23]]></aid>
-    <qid><![CDATA[5]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[18]]></aid>
-    <qid><![CDATA[4]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[13]]></aid>
-    <qid><![CDATA[3]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[2]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[24]]></aid>
-    <qid><![CDATA[5]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[19]]></aid>
-    <qid><![CDATA[4]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[14]]></aid>
-    <qid><![CDATA[3]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[9]]></aid>
-    <qid><![CDATA[2]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[4]]></aid>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[34]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[3]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[29]]></aid>
-    <qid><![CDATA[6]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[3]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[35]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[4]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[30]]></aid>
-    <qid><![CDATA[6]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[25]]></aid>
-    <qid><![CDATA[5]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[20]]></aid>
-    <qid><![CDATA[4]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[15]]></aid>
-    <qid><![CDATA[3]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[10]]></aid>
-    <qid><![CDATA[2]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[5]]></aid>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[4]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[36]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[5]]></code>
-    <sortorder><![CDATA[5]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[37]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[6]]></code>
-    <sortorder><![CDATA[6]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[38]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[7]]></code>
-    <sortorder><![CDATA[7]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[39]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[8]]></code>
-    <sortorder><![CDATA[8]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[40]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[9]]></code>
-    <sortorder><![CDATA[9]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <aid><![CDATA[41]]></aid>
-    <qid><![CDATA[7]]></qid>
-    <code><![CDATA[10]]></code>
-    <sortorder><![CDATA[10]]></sortorder>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
+  <rows><row>
     <aid><![CDATA[42]]></aid>
     <qid><![CDATA[10]]></qid>
     <code><![CDATA[restaurant]]></code>
@@ -352,7 +23,7 @@
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
    </row>
-   <row>
+<row>
     <aid><![CDATA[43]]></aid>
     <qid><![CDATA[10]]></qid>
     <code><![CDATA[reception]]></code>
@@ -360,7 +31,7 @@
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
    </row>
-   <row>
+<row>
     <aid><![CDATA[44]]></aid>
     <qid><![CDATA[10]]></qid>
     <code><![CDATA[facilities]]></code>
@@ -368,7 +39,7 @@
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
    </row>
-   <row>
+<row>
     <aid><![CDATA[45]]></aid>
     <qid><![CDATA[10]]></qid>
     <code><![CDATA[housekeeping]]></code>
@@ -385,542 +56,49 @@
    <fieldname>answer</fieldname>
    <fieldname>language</fieldname>
   </fields>
-  <rows>
-   <row>
-    <id><![CDATA[1]]></id>
-    <aid><![CDATA[1]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[2]]></id>
-    <aid><![CDATA[1]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[11]]></id>
-    <aid><![CDATA[6]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[12]]></id>
-    <aid><![CDATA[6]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[21]]></id>
-    <aid><![CDATA[11]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[22]]></id>
-    <aid><![CDATA[11]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[31]]></id>
-    <aid><![CDATA[16]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[32]]></id>
-    <aid><![CDATA[16]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[41]]></id>
-    <aid><![CDATA[21]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[42]]></id>
-    <aid><![CDATA[21]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[51]]></id>
-    <aid><![CDATA[26]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[52]]></id>
-    <aid><![CDATA[26]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[61]]></id>
-    <aid><![CDATA[31]]></aid>
-    <answer><![CDATA[0]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[62]]></id>
-    <aid><![CDATA[31]]></aid>
-    <answer><![CDATA[۰]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[3]]></id>
-    <aid><![CDATA[2]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[4]]></id>
-    <aid><![CDATA[2]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[13]]></id>
-    <aid><![CDATA[7]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[14]]></id>
-    <aid><![CDATA[7]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[23]]></id>
-    <aid><![CDATA[12]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[24]]></id>
-    <aid><![CDATA[12]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[33]]></id>
-    <aid><![CDATA[17]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[34]]></id>
-    <aid><![CDATA[17]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[43]]></id>
-    <aid><![CDATA[22]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[44]]></id>
-    <aid><![CDATA[22]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[53]]></id>
-    <aid><![CDATA[27]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[54]]></id>
-    <aid><![CDATA[27]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[63]]></id>
-    <aid><![CDATA[32]]></aid>
-    <answer><![CDATA[1]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[64]]></id>
-    <aid><![CDATA[32]]></aid>
-    <answer><![CDATA[۱]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[5]]></id>
-    <aid><![CDATA[3]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[6]]></id>
-    <aid><![CDATA[3]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[15]]></id>
-    <aid><![CDATA[8]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[16]]></id>
-    <aid><![CDATA[8]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[25]]></id>
-    <aid><![CDATA[13]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[26]]></id>
-    <aid><![CDATA[13]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[35]]></id>
-    <aid><![CDATA[18]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[36]]></id>
-    <aid><![CDATA[18]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[45]]></id>
-    <aid><![CDATA[23]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[46]]></id>
-    <aid><![CDATA[23]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[55]]></id>
-    <aid><![CDATA[28]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[56]]></id>
-    <aid><![CDATA[28]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[65]]></id>
-    <aid><![CDATA[33]]></aid>
-    <answer><![CDATA[2]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[66]]></id>
-    <aid><![CDATA[33]]></aid>
-    <answer><![CDATA[۲]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[7]]></id>
-    <aid><![CDATA[4]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[8]]></id>
-    <aid><![CDATA[4]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[17]]></id>
-    <aid><![CDATA[9]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[18]]></id>
-    <aid><![CDATA[9]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[27]]></id>
-    <aid><![CDATA[14]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[28]]></id>
-    <aid><![CDATA[14]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[37]]></id>
-    <aid><![CDATA[19]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[38]]></id>
-    <aid><![CDATA[19]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[47]]></id>
-    <aid><![CDATA[24]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[48]]></id>
-    <aid><![CDATA[24]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[57]]></id>
-    <aid><![CDATA[29]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[58]]></id>
-    <aid><![CDATA[29]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[67]]></id>
-    <aid><![CDATA[34]]></aid>
-    <answer><![CDATA[3]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[68]]></id>
-    <aid><![CDATA[34]]></aid>
-    <answer><![CDATA[۳]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[9]]></id>
-    <aid><![CDATA[5]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[10]]></id>
-    <aid><![CDATA[5]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[19]]></id>
-    <aid><![CDATA[10]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[20]]></id>
-    <aid><![CDATA[10]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[29]]></id>
-    <aid><![CDATA[15]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[30]]></id>
-    <aid><![CDATA[15]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[39]]></id>
-    <aid><![CDATA[20]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[40]]></id>
-    <aid><![CDATA[20]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[49]]></id>
-    <aid><![CDATA[25]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[50]]></id>
-    <aid><![CDATA[25]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[59]]></id>
-    <aid><![CDATA[30]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[60]]></id>
-    <aid><![CDATA[30]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[69]]></id>
-    <aid><![CDATA[35]]></aid>
-    <answer><![CDATA[4]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[70]]></id>
-    <aid><![CDATA[35]]></aid>
-    <answer><![CDATA[۴]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[71]]></id>
-    <aid><![CDATA[36]]></aid>
-    <answer><![CDATA[5]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[72]]></id>
-    <aid><![CDATA[36]]></aid>
-    <answer><![CDATA[۵]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[73]]></id>
-    <aid><![CDATA[37]]></aid>
-    <answer><![CDATA[6]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[74]]></id>
-    <aid><![CDATA[37]]></aid>
-    <answer><![CDATA[۶]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[75]]></id>
-    <aid><![CDATA[38]]></aid>
-    <answer><![CDATA[7]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[76]]></id>
-    <aid><![CDATA[38]]></aid>
-    <answer><![CDATA[۷]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[77]]></id>
-    <aid><![CDATA[39]]></aid>
-    <answer><![CDATA[8]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[78]]></id>
-    <aid><![CDATA[39]]></aid>
-    <answer><![CDATA[۸]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[79]]></id>
-    <aid><![CDATA[40]]></aid>
-    <answer><![CDATA[9]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[80]]></id>
-    <aid><![CDATA[40]]></aid>
-    <answer><![CDATA[۹]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[81]]></id>
-    <aid><![CDATA[41]]></aid>
-    <answer><![CDATA[10]]></answer>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[82]]></id>
-    <aid><![CDATA[41]]></aid>
-    <answer><![CDATA[۱۰]]></answer>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
+  <rows><row>
     <id><![CDATA[83]]></id>
     <aid><![CDATA[42]]></aid>
     <answer><![CDATA[Restaurant]]></answer>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[84]]></id>
     <aid><![CDATA[42]]></aid>
     <answer><![CDATA[رستوران]]></answer>
     <language><![CDATA[fa]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[85]]></id>
     <aid><![CDATA[43]]></aid>
     <answer><![CDATA[Reception]]></answer>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[86]]></id>
     <aid><![CDATA[43]]></aid>
     <answer><![CDATA[پذیرش]]></answer>
     <language><![CDATA[fa]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[87]]></id>
     <aid><![CDATA[44]]></aid>
     <answer><![CDATA[Facilities]]></answer>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[88]]></id>
     <aid><![CDATA[44]]></aid>
     <answer><![CDATA[تاسیسات]]></answer>
     <language><![CDATA[fa]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[89]]></id>
     <aid><![CDATA[45]]></aid>
     <answer><![CDATA[Housekeeping]]></answer>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[90]]></id>
     <aid><![CDATA[45]]></aid>
     <answer><![CDATA[خانه‌داری]]></answer>
@@ -1003,8 +181,7 @@
    <fieldname>modulename</fieldname>
    <fieldname>same_script</fieldname>
   </fields>
-  <rows>
-   <row>
+  <rows><row>
     <qid><![CDATA[10]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[420001]]></sid>
@@ -1023,140 +200,7 @@
     <modulename/>
     <same_script><![CDATA[0]]></same_script>
    </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q1OVERALL]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[1]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[2]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q2CLEAN]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[2]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[3]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q3COMFORT]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[3]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q4STAFF]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[4]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[5]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q5BREAKFAST]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[5]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[6]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q6FACILITIES]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[6]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[7]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[L]]></type>
-    <title><![CDATA[Q7RECOMMEND]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[Y]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[7]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[listradio]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
+<row>
     <qid><![CDATA[8]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[420001]]></sid>
@@ -1167,26 +211,7 @@
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
     <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[8]]></question_order>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance/>
-    <question_theme_name><![CDATA[longfreetext]]></question_theme_name>
-    <modulename/>
-    <same_script><![CDATA[0]]></same_script>
-   </row>
-   <row>
-    <qid><![CDATA[9]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[420001]]></sid>
-    <gid><![CDATA[1]]></gid>
-    <type><![CDATA[T]]></type>
-    <title><![CDATA[Q9IMPROVE]]></title>
-    <preg/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <encrypted><![CDATA[N]]></encrypted>
-    <question_order><![CDATA[9]]></question_order>
+    <question_order><![CDATA[1]]></question_order>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance/>
@@ -1205,152 +230,23 @@
    <fieldname>script</fieldname>
    <fieldname>language</fieldname>
   </fields>
-  <rows>
-   <row>
-    <id><![CDATA[1]]></id>
-    <qid><![CDATA[1]]></qid>
-    <question><![CDATA[How would you rate your overall stay?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[2]]></id>
-    <qid><![CDATA[1]]></qid>
-    <question><![CDATA[اقامت خود را در مجموع چگونه ارزیابی می‌کنید؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[3]]></id>
-    <qid><![CDATA[2]]></qid>
-    <question><![CDATA[How clean was your room?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[4]]></id>
-    <qid><![CDATA[2]]></qid>
-    <question><![CDATA[اتاق شما چقدر تمیز بود؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[5]]></id>
-    <qid><![CDATA[3]]></qid>
-    <question><![CDATA[How comfortable was your room?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[6]]></id>
-    <qid><![CDATA[3]]></qid>
-    <question><![CDATA[اتاق شما چقدر راحت بود؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[7]]></id>
-    <qid><![CDATA[4]]></qid>
-    <question><![CDATA[How friendly was our staff?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[8]]></id>
-    <qid><![CDATA[4]]></qid>
-    <question><![CDATA[کارکنان ما چقدر خوش‌برخورد بودند؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[9]]></id>
-    <qid><![CDATA[5]]></qid>
-    <question><![CDATA[How would you rate breakfast?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[10]]></id>
-    <qid><![CDATA[5]]></qid>
-    <question><![CDATA[صبحانه را چگونه ارزیابی می‌کنید؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[11]]></id>
-    <qid><![CDATA[6]]></qid>
-    <question><![CDATA[How satisfied were you with our facilities?]]></question>
-    <help><![CDATA[1 = Very poor, 5 = Excellent]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[12]]></id>
-    <qid><![CDATA[6]]></qid>
-    <question><![CDATA[از امکانات ما چقدر راضی بودید؟]]></question>
-    <help><![CDATA[۱ = بسیار ضعیف، ۵ = عالی]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
-    <id><![CDATA[13]]></id>
-    <qid><![CDATA[7]]></qid>
-    <question><![CDATA[Would you recommend Kowsar Malekshahr to others?]]></question>
-    <help><![CDATA[0 = Not at all likely, 10 = Extremely likely]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[14]]></id>
-    <qid><![CDATA[7]]></qid>
-    <question><![CDATA[آیا مجتمع کوثر ملکشهر را به دیگران توصیه می‌کنید؟]]></question>
-    <help><![CDATA[۰ = اصلاً احتمال ندارد، ۱۰ = به احتمال بسیار زیاد]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
+  <rows><row>
     <id><![CDATA[15]]></id>
     <qid><![CDATA[8]]></qid>
-    <question><![CDATA[What did you particularly like?]]></question>
+    <question><![CDATA[What would you like to tell us?]]></question>
     <help><![CDATA[Optional]]></help>
     <script/>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[16]]></id>
     <qid><![CDATA[8]]></qid>
-    <question><![CDATA[چه چیزی را به‌ویژه پسندیدید؟]]></question>
+    <question><![CDATA[چه پیامی برای ما دارید؟]]></question>
     <help><![CDATA[اختیاری]]></help>
     <script/>
     <language><![CDATA[fa]]></language>
    </row>
-   <row>
-    <id><![CDATA[17]]></id>
-    <qid><![CDATA[9]]></qid>
-    <question><![CDATA[What could we improve?]]></question>
-    <help><![CDATA[Optional]]></help>
-    <script/>
-    <language><![CDATA[en]]></language>
-   </row>
-   <row>
-    <id><![CDATA[18]]></id>
-    <qid><![CDATA[9]]></qid>
-    <question><![CDATA[چه چیزی را می‌توانیم بهتر کنیم؟]]></question>
-    <help><![CDATA[اختیاری]]></help>
-    <script/>
-    <language><![CDATA[fa]]></language>
-   </row>
-   <row>
+<row>
     <id><![CDATA[19]]></id>
     <qid><![CDATA[10]]></qid>
     <question><![CDATA[Which department is this feedback about?]]></question>
@@ -1358,7 +254,7 @@
     <script/>
     <language><![CDATA[en]]></language>
    </row>
-   <row>
+<row>
     <id><![CDATA[20]]></id>
     <qid><![CDATA[10]]></qid>
     <question><![CDATA[این بازخورد مربوط به کدام بخش است؟]]></question>
@@ -1375,62 +271,13 @@
    <fieldname>value</fieldname>
    <fieldname>language</fieldname>
   </fields>
-  <rows>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[2]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[3]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[5]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[6]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-5]]></value>
-    <language/>
-   </row>
-   <row>
-    <qid><![CDATA[7]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-scale hotel-scale-11]]></value>
-    <language/>
-   </row>
-   <row>
+  <rows><row>
     <qid><![CDATA[8]]></qid>
     <attribute><![CDATA[cssclass]]></attribute>
     <value><![CDATA[hotel-comment]]></value>
     <language/>
    </row>
-   <row>
-    <qid><![CDATA[9]]></qid>
-    <attribute><![CDATA[cssclass]]></attribute>
-    <value><![CDATA[hotel-comment]]></value>
-    <language/>
-   </row>
-   <row>
+<row>
     <qid><![CDATA[10]]></qid>
     <attribute><![CDATA[cssclass]]></attribute>
     <value><![CDATA[hotel-dept]]></value>
@@ -1697,9 +544,9 @@ The following answers were given by the participant:<br />
     <surveyls_language><![CDATA[en]]></surveyls_language>
     <surveyls_title><![CDATA[Kowsar Malekshahr Complex – Guest survey]]></surveyls_title>
     <surveyls_description><![CDATA[Development placeholder brand]]></surveyls_description>
-    <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">We would be delighted if you could take two minutes to share your experience with us.</p>
+    <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">We would be delighted if you could share a short note about your experience.</p>
 <p class="hotel-welcome-intro">Your answers are anonymous. We never ask for your name or contact details.</p>
-<p class="hotel-welcome-time">About 2 minutes</p>]]></surveyls_welcometext>
+<p class="hotel-welcome-time">About 1 minute</p>]]></surveyls_welcometext>
     <surveyls_endtext><![CDATA[<h2 class="hotel-done-heading">Thank you</h2>
 <p class="hotel-done-message">Thank you for taking the time to share your experience. Your feedback helps us make every stay more special.</p>]]></surveyls_endtext>
     <surveyls_policy_notice/>
@@ -1815,9 +662,9 @@ The following answers were given by the participant:<br />
     <surveyls_language><![CDATA[fa]]></surveyls_language>
     <surveyls_title><![CDATA[نظرسنجی مهمانان – مجتمع کوثر ملکشهر]]></surveyls_title>
     <surveyls_description><![CDATA[Development placeholder brand]]></surveyls_description>
-    <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">خوشحال می‌شویم اگر دو دقیقه وقت بگذارید و تجربهٔ خود را با ما در میان بگذارید.</p>
+    <surveyls_welcometext><![CDATA[<p class="hotel-welcome-message">خوشحال می‌شویم اگر چند کلمه از تجربهٔ خود را با ما در میان بگذارید.</p>
 <p class="hotel-welcome-intro">پاسخ‌های شما ناشناس است؛ هرگز نام یا اطلاعات تماس شما را نمی‌پرسیم.</p>
-<p class="hotel-welcome-time">حدود ۲ دقیقه</p>]]></surveyls_welcometext>
+<p class="hotel-welcome-time">حدود ۱ دقیقه</p>]]></surveyls_welcometext>
     <surveyls_endtext><![CDATA[<h2 class="hotel-done-heading">سپاسگزاریم</h2>
 <p class="hotel-done-message">از اینکه وقت گذاشتید و تجربهٔ خود را با ما در میان گذاشتید سپاسگزاریم. نظر شما به ما کمک می‌کند هر اقامت را ویژه‌تر کنیم.</p>]]></surveyls_endtext>
     <surveyls_policy_notice/>

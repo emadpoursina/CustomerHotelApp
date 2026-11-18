@@ -18,13 +18,11 @@ Body (application/json or form): `chat_id`, `text` only. No `parse_mode` that wo
 
 ## `text` builder (unit-tested)
 
-Inputs (all required; **no comment parameter exists**):
+Inputs (all required; **no comment, overall, or nps parameter exists**):
 
 | Input | Source |
 |---|---|
 | `dept_fa` | Map from department code → Persian label (data-model §1) |
-| `overall` | integer 1–5 |
-| `nps` | integer 0–10 |
 | `hotel_fa` | `مجتمع کوثر ملکشهر` |
 | `when_fa` | `اکنون` at send time (relative “now”) |
 
@@ -32,13 +30,11 @@ Exact lines (newline-separated, no trailing guest text):
 
 ```text
 بازخورد جدید · {dept_fa}
-امتیاز کلی: {overall}/5
-NPS: {nps}
 {hotel_fa}
 {when_fa}
 ```
 
-ASCII digits in the Bale body (messenger-side). Do not interpolate Q8/Q9.
+Do not interpolate the comment.
 
 ## Outcomes
 

@@ -127,25 +127,11 @@
       var timeStr = formatRelativeTime(it.submittedAt);
       var deptClass = it.department ? ' dept-' + it.department : '';
 
-      var sections = [];
-      if (it.praise) {
-        sections.push(
-          '<div class="app-story-section">' +
-            '<span class="app-story-tag ok">' + esc(T('inbox.praise')) + '</span>' +
-            '<p class="app-story-text">' + esc(it.praise) + '</p>' +
-          '</div>'
-        );
-      }
-      if (it.complaint) {
-        sections.push(
-          '<div class="app-story-section">' +
-            '<span class="app-story-tag">' + esc(T('inbox.complaint')) + '</span>' +
-            '<p class="app-story-text">' + esc(it.complaint) + '</p>' +
-          '</div>'
-        );
-      }
-
-      var combinedLen = (it.praise ? it.praise.length : 0) + (it.complaint ? it.complaint.length : 0);
+      var comment = [it.praise, it.complaint].filter(Boolean).join('\n\n');
+      var sections = comment
+        ? ['<div class="app-story-section"><p class="app-story-text">' + esc(comment) + '</p></div>']
+        : [];
+      var combinedLen = comment.length;
       var needsToggle = combinedLen > 240;
 
       return '<article class="app-card app-story-card' + deptClass + (needsToggle ? ' is-collapsible' : '') + '" data-card-idx="' + idx + '">' +

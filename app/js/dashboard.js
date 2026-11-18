@@ -99,26 +99,33 @@
     if (data.stale) {
       parts.push(note(T('db.stale', clock(data.generatedAt))));
     }
-    parts.push('<div class="app-kpis">' +
-      '<div class="app-card app-kpi"><span>' + esc(T('db.total')) + '</span><b>' + num(n) + '</b></div>' +
-      '<div class="app-card app-kpi"><span>' + esc(T('db.avg')) + '</span><b>' + (overall === null ? '–' : num(overall, 1)) + '</b><span>/ ' + num(5) + '</span></div>' +
-      '<div class="app-card app-kpi"><span>' + esc(T('db.nps')) + '</span><b><bdi dir="ltr">' + signed(nps.score === null ? 0 : nps.score) + '</bdi></b></div>' +
-      '</div>');
-    parts.push('<div class="app-card"><div class="app-card-head"><h2>' + esc(T('db.nps')) + '</h2><span class="app-small app-muted">' + esc(T('db.npsHelp')) + '</span></div>' +
-      '<div class="app-nps-bar"><i style="width:' + (nps.n ? (nps.detractors / nps.n) * 100 : 0) + '%"></i>' +
-      '<i style="width:' + (nps.n ? (nps.passives / nps.n) * 100 : 0) + '%"></i>' +
-      '<i style="width:' + (nps.n ? (nps.promoters / nps.n) * 100 : 0) + '%"></i></div>' +
-      '<div class="app-legend"><span><i class="k-det"></i>' + esc(T('db.det')) + ' ' + pct(nps.detractors, nps.n) + '</span>' +
-      '<span><i class="k-pas"></i>' + esc(T('db.pas')) + ' ' + pct(nps.passives, nps.n) + '</span>' +
-      '<span><i class="k-pro"></i>' + esc(T('db.pro')) + ' ' + pct(nps.promoters, nps.n) + '</span></div></div>');
-    parts.push('<div class="app-card"><div class="app-card-head"><h2>' + esc(T('db.cats')) + '</h2><span class="app-small app-muted">' + esc(T('db.n', num(n))) + '</span></div>' +
-      cats.map(function (c, i) {
-        var w = c.avg === null ? 0 : (c.avg / 5) * 100;
-        return '<div class="app-cat' + (i === bestIdx ? ' top' : '') + '"><span>' + esc(T(CATS[i])) + '</span>' +
-          '<b>' + (c.avg === null ? '–' : num(c.avg, 1)) + '</b>' +
-          '<small>' + esc(T('db.n', num(c.n))) + '</small>' +
-          '<div class="app-track"><i style="width:' + w + '%"></i></div></div>';
-      }).join('') + '</div>');
+    var hasScores = cats.some(function (c) { return c.avg !== null; }) || (nps && nps.n > 0);
+    if (hasScores) {
+      parts.push('<div class="app-kpis">' +
+        '<div class="app-card app-kpi"><span>' + esc(T('db.total')) + '</span><b>' + num(n) + '</b></div>' +
+        '<div class="app-card app-kpi"><span>' + esc(T('db.avg')) + '</span><b>' + (overall === null ? '–' : num(overall, 1)) + '</b><span>/ ' + num(5) + '</span></div>' +
+        '<div class="app-card app-kpi"><span>' + esc(T('db.nps')) + '</span><b><bdi dir="ltr">' + signed(nps.score === null ? 0 : nps.score) + '</bdi></b></div>' +
+        '</div>');
+      parts.push('<div class="app-card"><div class="app-card-head"><h2>' + esc(T('db.nps')) + '</h2><span class="app-small app-muted">' + esc(T('db.npsHelp')) + '</span></div>' +
+        '<div class="app-nps-bar"><i style="width:' + (nps.n ? (nps.detractors / nps.n) * 100 : 0) + '%"></i>' +
+        '<i style="width:' + (nps.n ? (nps.passives / nps.n) * 100 : 0) + '%"></i>' +
+        '<i style="width:' + (nps.n ? (nps.promoters / nps.n) * 100 : 0) + '%"></i></div>' +
+        '<div class="app-legend"><span><i class="k-det"></i>' + esc(T('db.det')) + ' ' + pct(nps.detractors, nps.n) + '</span>' +
+        '<span><i class="k-pas"></i>' + esc(T('db.pas')) + ' ' + pct(nps.passives, nps.n) + '</span>' +
+        '<span><i class="k-pro"></i>' + esc(T('db.pro')) + ' ' + pct(nps.promoters, nps.n) + '</span></div></div>');
+      parts.push('<div class="app-card"><div class="app-card-head"><h2>' + esc(T('db.cats')) + '</h2><span class="app-small app-muted">' + esc(T('db.n', num(n))) + '</span></div>' +
+        cats.map(function (c, i) {
+          var w = c.avg === null ? 0 : (c.avg / 5) * 100;
+          return '<div class="app-cat' + (i === bestIdx ? ' top' : '') + '"><span>' + esc(T(CATS[i])) + '</span>' +
+            '<b>' + (c.avg === null ? '–' : num(c.avg, 1)) + '</b>' +
+            '<small>' + esc(T('db.n', num(c.n))) + '</small>' +
+            '<div class="app-track"><i style="width:' + w + '%"></i></div></div>';
+        }).join('') + '</div>');
+    } else {
+      parts.push('<div class="app-kpis">' +
+        '<div class="app-card app-kpi"><span>' + esc(T('db.total')) + '</span><b>' + num(n) + '</b></div>' +
+        '</div>');
+    }
     var en = r.languages.en;
     var fa = r.languages.fa;
     parts.push('<div class="app-card"><div class="app-card-head"><h2>' + esc(T('db.lang')) + '</h2><span class="app-small app-muted">' + esc(T('db.n', num(n))) + '</span></div>' +
